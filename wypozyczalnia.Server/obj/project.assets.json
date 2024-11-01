@@ -8396,6 +8396,7 @@
     "net8.0": [
       "Microsoft.AspNetCore.Cors >= 2.2.0",
       "Microsoft.AspNetCore.SpaProxy >= 8.*-*",
+      "Microsoft.EntityFrameworkCore.Design >= 8.0.10",
       "Microsoft.EntityFrameworkCore.SqlServer >= 8.0.10",
       "Microsoft.EntityFrameworkCore.Tools >= 8.0.10",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 8.0.6",
@@ -8403,23 +8404,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Grzesiu\\.nuget\\packages\\": {},
+    "C:\\Users\\Mike Shamrai\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Grzesiu\\source\\repos\\wypozyczalnia\\wypozyczalnia.Server\\wypozyczalnia.Server.csproj",
+      "projectUniqueName": "C:\\Users\\Mike Shamrai\\Desktop\\Polibuda\\Dotnet5sem\\RentalApp\\wypozyczalnia.Server\\wypozyczalnia.Server.csproj",
       "projectName": "wypozyczalnia.Server",
-      "projectPath": "C:\\Users\\Grzesiu\\source\\repos\\wypozyczalnia\\wypozyczalnia.Server\\wypozyczalnia.Server.csproj",
-      "packagesPath": "C:\\Users\\Grzesiu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Grzesiu\\source\\repos\\wypozyczalnia\\wypozyczalnia.Server\\obj\\",
+      "projectPath": "C:\\Users\\Mike Shamrai\\Desktop\\Polibuda\\Dotnet5sem\\RentalApp\\wypozyczalnia.Server\\wypozyczalnia.Server.csproj",
+      "packagesPath": "C:\\Users\\Mike Shamrai\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Mike Shamrai\\Desktop\\Polibuda\\Dotnet5sem\\RentalApp\\wypozyczalnia.Server\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Grzesiu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Mike Shamrai\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -8427,6 +8428,7 @@
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
@@ -8458,6 +8460,12 @@
           "Microsoft.AspNetCore.SpaProxy": {
             "target": "Package",
             "version": "[8.*-*, )"
+          },
+          "Microsoft.EntityFrameworkCore.Design": {
+            "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[8.0.10, )"
           },
           "Microsoft.EntityFrameworkCore.SqlServer": {
             "target": "Package",
@@ -8497,7 +8505,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
