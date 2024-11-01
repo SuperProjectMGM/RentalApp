@@ -1,0 +1,39 @@
+<form #form="ngForm" (submit)="onSubmit(form)">
+    <input type="hidden" name="CarID" [value]="service.formData.carId"/>
+    <div class="mb-3">
+      <label>Car Brand Name</label>
+      <input class="form-control form-control-lg"
+             placeholder="Brand of the model"
+             #BrandCarName="ngModel" name="brand"
+             [(ngModel)]="service.formData.brand">
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6 mb-3">
+          <label>Car Model</label>
+          <input class="form-control form-control-lg"
+                 placeholder="Model of the car"
+                 #CarModel="ngModel" name="model"
+                 [(ngModel)]="service.formData.model">
+        </div>
+    
+        <div class="col-md-6 mb-3">
+          <label>Serial Number</label>
+          <input class="form-control form-control-lg"
+                 placeholder="Serial number"
+                 #SerialNo="ngModel" name="serialNo"
+                 [(ngModel)]="service.formData.serialNo">
+        </div>
+      </div>
+    <div class="mb-3">
+      <label>VIN ID</label>
+      <input class="form-control form-control-lg"
+             placeholder="Vehicle Identification Number (VIN)" type="password"
+             #VinID="ngModel" name="vinID"
+             [(ngModel)]="service.formData.vinID">
+    </div>
+    <div class="d-grid">
+        <button type="submit" class="btn btn-lg btn-success">Submit</button>
+    </div>
+  </form>
+  
