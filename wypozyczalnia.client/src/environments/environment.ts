@@ -1,3 +1,4 @@
 export const environment = {
-  apiBaseUrl: 'https://rentalapi-esauh2huedhcc2a6.polandcentral-01.azurewebsites.net',
+  production: false,
+  apiBaseUrl: 'http://localhost:5076/api'
 };
