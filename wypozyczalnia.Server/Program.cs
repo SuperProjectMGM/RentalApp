@@ -17,7 +17,11 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", builder =>
     {
+<<<<<<< HEAD
         builder.WithOrigins("http://localhost:4200", "https://storageforrentalfront.z36.web.core.windows.net")
+=======
+        builder.WithOrigins("http://localhost:4200", "https://kind-forest-0308cdb03.5.azurestaticapps.net")
+>>>>>>> master
                .AllowAnyMethod()
                .AllowAnyHeader();
 
