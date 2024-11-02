@@ -1,39 +1,100 @@
 <form #form="ngForm" (submit)="onSubmit(form)">
-    <input type="hidden" name="CarID" [value]="service.formData.carId"/>
-    <div class="mb-3">
+  <input type="hidden" name="carId" [value]="service.formData.carId"/>
+
+  <!-- Car Brand Name -->
+  <div class="mb-3">
       <label>Car Brand Name</label>
       <input class="form-control form-control-lg"
-             placeholder="Brand of the model"
+             placeholder="Brand of the car"
              #BrandCarName="ngModel" name="brand"
              [(ngModel)]="service.formData.brand">
-    </div>
-    
-    <div class="row">
-        <div class="col-md-6 mb-3">
+  </div>
+
+  <!-- Car Model and Serial Number -->
+  <div class="row">
+      <div class="col-md-6 mb-3">
           <label>Car Model</label>
           <input class="form-control form-control-lg"
                  placeholder="Model of the car"
                  #CarModel="ngModel" name="model"
                  [(ngModel)]="service.formData.model">
-        </div>
-    
-        <div class="col-md-6 mb-3">
+      </div>
+
+      <div class="col-md-6 mb-3">
           <label>Serial Number</label>
           <input class="form-control form-control-lg"
                  placeholder="Serial number"
                  #SerialNo="ngModel" name="serialNo"
                  [(ngModel)]="service.formData.serialNo">
-        </div>
       </div>
-    <div class="mb-3">
+  </div>
+
+  <!-- VIN ID -->
+  <div class="mb-3">
       <label>VIN ID</label>
       <input class="form-control form-control-lg"
-             placeholder="Vehicle Identification Number (VIN)" type="password"
-             #VinID="ngModel" name="vinID"
-             [(ngModel)]="service.formData.vinID">
-    </div>
-    <div class="d-grid">
-        <button type="submit" class="btn btn-lg btn-success">Submit</button>
-    </div>
-  </form>
-  
+             placeholder="Vehicle Identification Number (VIN)"
+             #VinID="ngModel" name="vinId"
+             [(ngModel)]="service.formData.vinId">
+  </div>
+
+  <!-- Registry Number -->
+  <div class="mb-3">
+      <label>Registry Number</label>
+      <input class="form-control form-control-lg"
+             placeholder="Registry number"
+             #RegistryNo="ngModel" name="registryNo"
+             [(ngModel)]="service.formData.registryNo">
+  </div>
+
+  <!-- Year of Production -->
+  <div class="mb-3">
+      <label>Year of Production</label>
+      <input class="form-control form-control-lg"
+             placeholder="Year of production (e.g., 2020)"
+             #YearOfProduction="ngModel" name="yearOfProduction"
+             [(ngModel)]="service.formData.yearOfProduction">
+  </div>
+
+  <!-- Rental From and Rental To -->
+  <div class="row">
+      <div class="col-md-6 mb-3">
+          <label>Rental From</label>
+          <input class="form-control form-control-lg"
+                 placeholder="Rental start date (dd/mm/yyyy)"
+                 #RentalFrom="ngModel" name="rentalFrom"
+                 [(ngModel)]="service.formData.rentalFrom">
+      </div>
+
+      <div class="col-md-6 mb-3">
+          <label>Rental To</label>
+          <input class="form-control form-control-lg"
+                 placeholder="Rental end date (dd/mm/yyyy)"
+                 #RentalTo="ngModel" name="rentalTo"
+                 [(ngModel)]="service.formData.rentalTo">
+      </div>
+  </div>
+
+  <!-- Description -->
+  <div class="mb-3">
+      <label>Description</label>
+      <textarea class="form-control form-control-lg"
+                placeholder="Description of the vehicle"
+                #Description="ngModel" name="description"
+                [(ngModel)]="service.formData.description"></textarea>
+  </div>
+
+  <!-- Type -->
+  <div class="mb-3">
+      <label>Type</label>
+      <input class="form-control form-control-lg"
+             placeholder="Type of the vehicle"
+             #Type="ngModel" name="type"
+             [(ngModel)]="service.formData.type">
+  </div>
+
+  <!-- Submit Button -->
+  <div class="d-grid">
+      <button type="submit" class="btn btn-lg btn-success">Submit</button>
+  </div>
+</form>
