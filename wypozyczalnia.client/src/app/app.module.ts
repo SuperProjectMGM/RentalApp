@@ -9,8 +9,7 @@ import { VehiclesDetailsComponent } from './vehicles-details/vehicles-details.co
 import { VehicleDetailFormComponent } from './vehicle-detail-form/vehicle-detail-form.component';
 import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
-import { UserComponent } from './user/user.component';
-import { RegistrationComponent } from './user/registration/registration.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [],
@@ -19,7 +18,11 @@ import { RegistrationComponent } from './user/registration/registration.componen
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
+    LoginComponent,
+    VehicleDetailFormComponent,
+    VehiclesDetailsComponent,
     BrowserAnimationsModule,
+    AppComponent,
     ToastrModule.forRoot(),
   ],
   providers: [],

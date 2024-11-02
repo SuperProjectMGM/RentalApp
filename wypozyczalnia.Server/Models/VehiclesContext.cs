@@ -4,7 +4,7 @@ namespace wypozyczalnia.Server.Models
 {
     public class VehiclesContext : DbContext
     {
-        public VehiclesContext(DbContextOptions options) : base(options)
+        public VehiclesContext(DbContextOptions<VehiclesContext> options) : base(options)
         {
         }
 
