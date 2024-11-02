@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment.development';
-import { VehicleDetail } from './vehicle-detail.model';
+import { environment } from '../../../environments/environment.development';
+import { VehicleDetail } from '../vehicle-detail.model';
 import { NgForm } from '@angular/forms';
 
 @Injectable({

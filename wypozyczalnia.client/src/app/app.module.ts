@@ -6,16 +6,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { VehiclesDetailsComponent } from './vehicles-details/vehicles-details.component';
-import { VehicleDetailFormComponent } from './vehicles-details/vehicle-detail-form/vehicle-detail-form.component';
+import { VehicleDetailFormComponent } from './vehicle-detail-form/vehicle-detail-form.component';
 import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
+import { UserComponent } from './user/user.component';
+import { RegistrationComponent } from './user/registration/registration.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    VehiclesDetailsComponent,
-    VehicleDetailFormComponent,
-  ],
+  declarations: [],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -25,6 +23,5 @@ import { ToastrModule } from 'ngx-toastr';
     ToastrModule.forRoot(),
   ],
   providers: [],
-  bootstrap: [AppComponent],
 })
 export class AppModule {}
