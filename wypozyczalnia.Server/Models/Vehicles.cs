@@ -19,7 +19,6 @@ namespace wypozyczalnia.Server.Models
         public string SerialNo { get; set; } = "";
 
         [Column(TypeName = "nvarchar(100)")]
-        [Key]
         public string VinId { get; set; } = "";
 
         [Column(TypeName = "nvarchar(50)")]
