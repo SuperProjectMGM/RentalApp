@@ -54,30 +54,9 @@ jobs:
           ConnectionStrings__DefaultConnection: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
         run: dotnet ef database update
 
-  build-angular:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16'
-
-      - name: Install Angular CLI
-        run: npm install -g @angular/cli
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build Angular app
-        run: ng build --prod --output-path=dist      
-        
-
   deploy:
     runs-on: ubuntu-latest
-    needs: [build-dotnet, migrate-database, build-angular]
+    needs: [build-dotnet, migrate-database]
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
@@ -98,18 +77,3 @@ jobs:
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5B474C9AB33A4438966CC1BBC14FCE67 }}
 
           
-      - name: Deploy Angular to Azure Blob Storage
-        env:
-          AZURE_STORAGE_ACCOUNT: ${{ secrets.AZURE_STORAGE_ACCOUNT }}
-          AZURE_STORAGE_KEY: ${{ secrets.AZURE_STORAGE_KEY }}
-        run: |
-          # Install Azure CLI
-          curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-          # Upload files to Blob Storage
-          az storage blob upload-batch \
-            --account-name $AZURE_STORAGE_ACCOUNT \
-            --account-key $AZURE_STORAGE_KEY \
-            --destination '$web' \
-            --source dist
-
-    
