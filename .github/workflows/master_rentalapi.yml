@@ -55,7 +55,7 @@ jobs:
       - name: Run EF Core Migrations
         env:
           ConnectionStrings__DefaultConnection: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
-        run: dotnet ef database update --project RentalApi
+        run: dotnet ef database update --project wypozyczalnia.Server.csproj
 
   deploy:
     runs-on: ubuntu-latest
