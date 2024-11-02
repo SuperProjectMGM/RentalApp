@@ -1,2 +1,3 @@
 C:\Users\Grzesiu\source\repos\wypozyczalnia\wypozyczalnia.client\obj\Debug\wypozyczalnia.client.esproj.CoreCompileInputs.cache
 C:\Users\Mike Shamrai\Desktop\Polibuda\Dotnet5sem\RentalApp\wypozyczalnia.client\obj\Debug\wypozyczalnia.client.esproj.CoreCompileInputs.cache
+C:\Users\Grzesiu\OneDrive\Pulpit\testor\RentalApp\wypozyczalnia.client\obj\Debug\wypozyczalnia.client.esproj.CoreCompileInputs.cache

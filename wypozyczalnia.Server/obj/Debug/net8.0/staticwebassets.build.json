@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "Hash": "OeWV+Mmg5SOyO0ONp2G37Z44nAXNPFHItX0fE4KD6hg=",
+  "Hash": "5EJSJIbGqDGa0r3F8yLGQ3JMTJArPmnRdXKsVVealdY=",
   "Source": "wypozyczalnia.Server",
   "BasePath": "_content/wypozyczalnia.Server",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [
     {
-      "Identity": "C:\\Users\\Mike Shamrai\\Desktop\\Polibuda\\Dotnet5sem\\RentalApp\\wypozyczalnia.client\\wypozyczalnia.client.esproj",
+      "Identity": "C:\\Users\\Grzesiu\\OneDrive\\Pulpit\\testor\\RentalApp\\wypozyczalnia.client\\wypozyczalnia.client.esproj",
       "Version": 2,
       "Source": "wypozyczalnia.client",
       "GetPublishAssetsTargets": "GetCurrentProjectPublishStaticWebAssetItems",
