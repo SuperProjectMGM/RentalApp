@@ -24,6 +24,8 @@ builder.Services.AddCors(options =>
     });
 });
 
+Console.WriteLine("Podlaczane do bazy");
+
 var app = builder.Build();
 
 app.UseDefaultFiles();
