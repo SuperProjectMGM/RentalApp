@@ -13,7 +13,11 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("wypozyczalnia.Server")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
+<<<<<<< HEAD
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6d98f0639fde8fb603af3001db7348198cb7b857")]
+=======
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+838a6231910f7c90ef462e2ea240cdc6d04419f1")]
+>>>>>>> 7f704689f3feccc091f450f8c5ce1ef9c7d7763d
 [assembly: System.Reflection.AssemblyProductAttribute("wypozyczalnia.Server")]
 [assembly: System.Reflection.AssemblyTitleAttribute("wypozyczalnia.Server")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
