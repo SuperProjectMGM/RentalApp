@@ -1,31 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-<<<<<<< HEAD
 import { environment } from '../../../environments/environment';
-=======
->>>>>>> c92627f151216cb797147692099547e94ef6b892
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-<<<<<<< HEAD
   private apiUrl = environment.apiBaseUrl;
-=======
-  private apiUrl = 'http://localhost:5076/api/Auth';
->>>>>>> c92627f151216cb797147692099547e94ef6b892
 
   constructor(private http: HttpClient) {}
 
   login(email: string, password: string): Observable<any> {
     return this.http
       .post<any>(
-<<<<<<< HEAD
         `${this.apiUrl}/Auth/login`,
-=======
-        `${this.apiUrl}/login`,
->>>>>>> c92627f151216cb797147692099547e94ef6b892
         { email, password },
         { withCredentials: true }
       )
