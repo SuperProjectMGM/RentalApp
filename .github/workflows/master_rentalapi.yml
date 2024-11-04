@@ -52,7 +52,6 @@ jobs:
       - name: Install Entity Framework Core Tools
         run: dotnet tool install --global dotnet-ef
 
-<<<<<<< HEAD
       - name: Run EF Core Migrations Vehicles
         env:
           ConnectionStrings__DefaultConnection: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
@@ -62,13 +61,6 @@ jobs:
         env:
           ConnectionStrings__DefaultConnection: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
         run: dotnet ef database update --project wypozyczalnia.Server --connection ${{ secrets.AZURE_SQL_CONNECTION_STRING }} --context ApplicationDbContext
-
-=======
-      - name: Run EF Core Migrations
-        env:
-          ConnectionStrings__DefaultConnection: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
-        run: dotnet ef database update --project wypozyczalnia.Server --connection ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
->>>>>>> master
 
 
   deploy:
