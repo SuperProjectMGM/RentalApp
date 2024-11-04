@@ -3,7 +3,7 @@
 "ServerUrl": "https://localhost:4200",
 "RedirectUrl": "",
 "LaunchCommand": "npm start",
-"WorkingDirectory": "C:\\Users\\Grzesiu\\OneDrive\\Pulpit\\testor\\RentalApp\\wypozyczalnia.Server\\..\\wypozyczalnia.client",
+"WorkingDirectory": "C:\\Users\\Mike Shamrai\\Desktop\\Polibuda\\Dotnet5sem\\RentalApp\\wypozyczalnia.Server\\..\\wypozyczalnia.client",
 "MaxTimeoutInSeconds": "120",
 "KeepRunning": "false"
 }

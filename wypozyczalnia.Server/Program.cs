@@ -17,7 +17,7 @@ builder.Services.AddDbContext<VehiclesContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Devconnection")));
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Devconnection")));
 
 // Dodaj usługi Identity (bez JWT)
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
