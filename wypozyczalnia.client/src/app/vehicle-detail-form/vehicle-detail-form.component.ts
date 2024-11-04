@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
-import { VehicleDetailService } from '../../shared/vehicle-detail.service';
-import { NgForm } from '@angular/forms';
-import { VehicleDetail } from '../../shared/vehicle-detail.model';
+import { VehicleDetailService } from '../shared/services/vehicle-detail.service';
+import { FormsModule, NgForm } from '@angular/forms';
+import { VehicleDetail } from '../shared/vehicle-detail.model';
 import { ToastrService } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-vehicle-detail-form',
+  standalone: true,
   templateUrl: './vehicle-detail-form.component.html',
   styleUrl: './vehicle-detail-form.component.css',
+  imports: [CommonModule, FormsModule],
 })
 export class VehicleDetailFormComponent {
   constructor(
