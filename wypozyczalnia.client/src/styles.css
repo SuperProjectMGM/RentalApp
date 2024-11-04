@@ -16,3 +16,7 @@ form input::placeholder{
     color: #c0bdbd;
     font-weight: 300;
 }
+
+body{
+    font-family: "Inter", sans-serif;
+}

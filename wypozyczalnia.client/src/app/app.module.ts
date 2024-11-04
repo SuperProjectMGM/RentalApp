@@ -6,25 +6,25 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { VehiclesDetailsComponent } from './vehicles-details/vehicles-details.component';
-import { VehicleDetailFormComponent } from './vehicles-details/vehicle-detail-form/vehicle-detail-form.component';
+import { VehicleDetailFormComponent } from './vehicle-detail-form/vehicle-detail-form.component';
 import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    VehiclesDetailsComponent,
-    VehicleDetailFormComponent,
-  ],
+  declarations: [],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
+    LoginComponent,
+    VehicleDetailFormComponent,
+    VehiclesDetailsComponent,
     BrowserAnimationsModule,
+    AppComponent,
     ToastrModule.forRoot(),
   ],
   providers: [],
-  bootstrap: [AppComponent],
 })
 export class AppModule {}
