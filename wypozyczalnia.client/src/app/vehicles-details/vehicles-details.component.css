@@ -1,0 +1,144 @@
+.list-container {
+    max-height: 700px;
+    overflow-y: auto;
+    margin-top: 1.5rem; /* Odstęp od góry */
+    padding: 10px 0; /* Marginesy dookoła */
+  }
+  
+  .list-group-item {
+    background: linear-gradient(135deg, #e6f7ff, #b3d9ff); /* Subtelny gradient */
+    margin-bottom: 1.25rem;
+    padding: 1.5rem;
+    border: 0;
+    border-radius: 1rem; /* Większe zaokrąglenie */
+    max-width: 90%;
+    height: 190px;
+    margin-left: 5%;
+    margin-right: 5%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtelny cień */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Płynna animacja */
+    
+    &:hover {
+      transform: scale(1.02); /* Zwiększenie rozmiaru przy najechaniu */
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Zwiększony cień przy hover */
+    }
+  }
+  
+  .list-group-item hr {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .fw-bold {
+    font-size: 1.6rem;
+    color: #333;
+    font-weight: 600; /* Cięższa czcionka */
+    margin-bottom: 1rem; /* Odstęp od reszty treści */
+  }
+  
+  .text-danger {
+    cursor: pointer;
+    font-size: 1.6rem;
+    color: #e74c3c;
+    transition: color 0.2s ease;
+  
+    &:hover {
+      color: #c0392b; /* Zmiana koloru na ciemniejszy przy hover */
+    }
+  }
+  
+  .text-muted {
+    font-size: 1.2rem;
+    color: #777;
+    margin-bottom: 0.5rem; /* Dodanie odstępu między liniami */
+  }
+  
+  input.form-control {
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    font-size: 1.1rem;
+    border: 1px solid #ddd;
+    transition: border-color 0.2s ease;
+  
+    &:focus {
+      border-color: #3498db; /* Zmiana koloru ramki przy fokusie */
+      box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
+    }
+  }
+
+  /* Stylowanie pola wyszukiwania */
+input.form-control {
+    border-radius: 1.5rem; /* Większe zaokrąglenie */
+    padding: 1rem 2rem 1rem 2.5rem; /* Odstępy w środku, aby nie była ciasna */
+    font-size: 1.2rem; /* Większa czcionka */
+    border: 1px solid #ddd; /* Subtelna ramka */
+    background-color: #f9f9f9; /* Jasne tło */
+    color: #333; /* Kolor tekstu */
+    transition: all 0.3s ease; /* Animacja przy interakcji */
+    position: relative; /* Aby dodać ikonę na środku */
+  
+    /* Efekt focus */
+    &:focus {
+      border-color: #3498db; /* Kolor ramki przy focusie */
+      background-color: #fff; /* Tło białe przy fokusie */
+      box-shadow: 0 0 10px rgba(52, 152, 219, 0.3); /* Delikatny cień przy fokusie */
+      outline: none; /* Usuwamy domyślną ramkę */
+    }
+  
+    /* Ikona wewnątrz pola */
+    &::placeholder {
+      color: #aaa; /* Kolor placeholdera */
+    }
+  
+    /* Dodanie ikony */
+    &::-webkit-search-cancel-button {
+      display: none; /* Ukrycie domyślnej ikony x */
+    }
+  }
+  
+  /* Stylowanie kontenera ikony */
+  .input-group-prepend {
+    position: absolute;
+    left: 20px; /* Przesunięcie w lewo */
+    top: 50%;
+    transform: translateY(-50%); /* Wycentrowanie ikony */
+  }
+  
+  /* Dodatkowe stylowanie dla ikony */
+  .search-icon {
+    font-size: 1.6rem;
+    color: #3498db; /* Kolor ikony */
+    transition: color 0.2s ease;
+    cursor: pointer;
+  
+    &:hover {
+      color: #2980b9; /* Zmiana koloru ikony przy hoverze */
+    }
+  }
+
+  /* Stylizacja nagłówka Vehicle Details */
+.bg-primary {
+    background-color: #f8f9fa; /* Jasny odcień białego */
+    display: flex; /* Flexbox dla wyrównania */
+    justify-content: center; /* Wyśrodkowanie w poziomie */
+    align-items: center; /* Wyśrodkowanie w pionie */
+    text-align: center; /* Wyśrodkowanie tekstu */
+    padding: 1.5rem; /* Padding wewnętrzny */
+    border-radius: 0.5rem; /* Zaokrąglenie rogów */
+    color: #343a40; /* Ciemnoszary tekst */
+    margin-bottom: 2rem; /* Margines dolny */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtelny cień */
+  }
+  
+  /* Stylizacja tytułu nagłówka */
+  h1.display-6 {
+    font-weight: 700; /* Wzmocniona waga czcionki */
+    font-size: 2rem; /* Zwiększenie rozmiaru czcionki */
+    color: #eceff2; /* Ciemnoszary kolor czcionki */
+    margin: 0; /* Usunięcie marginesu domyślnego */
+    text-transform: uppercase; /* Wielkie litery */
+  }
+  
+  
+  
