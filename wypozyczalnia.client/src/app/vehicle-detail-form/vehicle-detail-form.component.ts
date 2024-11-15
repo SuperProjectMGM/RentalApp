@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { VehicleDetailService } from '../shared/services/vehicle-detail.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { VehicleDetail } from '../shared/vehicle-detail.model';
@@ -13,6 +13,8 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule, FormsModule],
 })
 export class VehicleDetailFormComponent {
+  @Output() vehicleUpdated = new EventEmitter<void>();
+
   constructor(
     public service: VehicleDetailService,
     private toastr: ToastrService
@@ -32,6 +34,7 @@ export class VehicleDetailFormComponent {
         this.service.list = res as VehicleDetail[];
         this.service.resetForm(form);
         this.toastr.success('Inserted successfully', 'Car Detail Register');
+        this.vehicleUpdated.emit();
       },
       error: (err) => {
         console.log(err);
@@ -45,6 +48,7 @@ export class VehicleDetailFormComponent {
         this.service.list = res as VehicleDetail[];
         this.service.resetForm(form);
         this.toastr.info('updated successfully', 'Car Detail Register');
+        this.vehicleUpdated.emit();
       },
       error: (err) => {
         console.log(err);
