@@ -32,6 +32,12 @@
             <div *ngIf="errorMessage" class="alert alert-danger">
               {{ errorMessage }}
             </div>
+
+             <!-- Spinner Loader -->
+             <div *ngIf="isLoading" class="d-flex justify-content-center mb-3">
+              <div class="spinner"></div>
+            </div>
+            
             <button type="submit" class="btn btn-primary w-100">Login</button>
           </form>
         </div>
