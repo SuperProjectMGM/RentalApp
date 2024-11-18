@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace wypozyczalnia.Server.Migrations
 {
     /// <inheritdoc />
-    public partial class FirstNew : Migration
+    public partial class InitAfterRecreating : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -21,11 +22,16 @@ namespace wypozyczalnia.Server.Migrations
                     SerialNo = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     VinId = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     RegistryNo = table.Column<string>(type: "nvarchar(50)", nullable: false),
-                    YearOfProduction = table.Column<string>(type: "nvarchar(4)", nullable: false),
-                    RentalFrom = table.Column<string>(type: "nvarchar(10)", nullable: false),
-                    RentalTo = table.Column<string>(type: "nvarchar(10)", nullable: false),
+                    YearOfProduction = table.Column<int>(type: "int", nullable: false),
+                    RentalFrom = table.Column<DateTime>(type: "date", nullable: false),
+                    RentalTo = table.Column<DateTime>(type: "date", nullable: false),
+                    Prize = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    DriveType = table.Column<string>(type: "nvarchar(10)", nullable: false),
+                    Transmission = table.Column<string>(type: "nvarchar(10)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(500)", nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(50)", nullable: false)
+                    Type = table.Column<string>(type: "nvarchar(50)", nullable: false),
+                    Rate = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Localization = table.Column<string>(type: "nvarchar(50)", nullable: false)
                 },
                 constraints: table =>
                 {
