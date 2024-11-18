@@ -24,19 +24,34 @@ namespace wypozyczalnia.Server.Models
         [Column(TypeName = "nvarchar(50)")]
         public string RegistryNo { get; set; } = "";
 
-        [Column(TypeName = "nvarchar(4)")]
-        public string YearOfProduction { get; set; } = "";
+        [Column(TypeName = "int")]
+        public int YearOfProduction { get; set; }
 
-        [Column(TypeName = "nvarchar(10)")] // dd/mm/yyyy
-        public string RentalFrom { get; set; } = "";
+        [Column(TypeName = "date")]
+        public DateTime RentalFrom { get; set; }
+
+        [Column(TypeName = "date")]
+        public DateTime RentalTo { get; set; }
+
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal Prize { get; set; }
 
         [Column(TypeName = "nvarchar(10)")]
-        public string RentalTo { get; set; } = "";
+        public string DriveType { get; set; } = "";
+
+        [Column(TypeName = "nvarchar(10)")]
+        public string Transmission { get; set; } = "";
 
         [Column(TypeName = "nvarchar(500)")]
         public string Description { get; set; } = "";
 
         [Column(TypeName = "nvarchar(50)")]
         public string Type { get; set; } = "";
+
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal Rate { get; set; }
+
+        [Column(TypeName = "nvarchar(50)")]
+        public string Localization { get; set; } = "";
     }
 }
