@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-8 offset-2">
+    <div class="col-12 col-lg-10 offset-lg-1">
 
       <div class="bg-primary text-center py-3 rounded-4 text-white mb-4 shadow-lg">
         <h1 class="display-6 fw-bold">Vehicle Details</h1>
@@ -27,12 +27,12 @@
           <!-- Vehicle List -->
           <div class="list-container">
             <ul class="list-group">
-              <li class="list-group-item d-flex justify-content-between align-items-center mb-4 p-4 shadow-lg border-0 rounded-4" 
+              <li class="list-group-item d-flex justify-content-between align-items-center mb-3 p-4 shadow-lg border-0 rounded-4 bg-light"
                   *ngFor="let pd of filteredList">
                 <!-- Left side: Vehicle Details -->
                 <div class="flex-grow-1" (click)="populateForm(pd)" style="cursor: pointer;">
                   <!-- Brand and Model -->
-                  <div class="fw-bold text-dark" style="font-size: 1.4rem;">🚗 {{ pd.brand }} - {{ pd.model }}</div>
+                  <div class="fw-bold text-dark" style="font-size: 1.3rem;">🚗 {{ pd.brand }} - {{ pd.model }}</div>
 
                   <!-- Divider Line -->
                   <hr class="my-3">
@@ -44,10 +44,10 @@
 
                   <!-- Rental From and Rental To -->
                   <div class="text-muted">
-                    <strong>Rented From:</strong> {{ pd.rentalFrom }}
+                    <strong>Rented From:</strong> {{ pd.rentalFrom | date: 'short' }}
                   </div>
                   <div class="text-muted">
-                    <strong>Rented To:</strong> {{ pd.rentalTo }}
+                    <strong>Rented To:</strong> {{ pd.rentalTo | date: 'short' }}
                   </div>
                 </div>
 
