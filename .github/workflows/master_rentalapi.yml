@@ -55,7 +55,7 @@ jobs:
       - name: Drop Vehilces
         env:
           ConnectionStrings__DefaultConnection: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
-        run: dotnet ef database drop --project wypozyczalnia.Server --connection ${{ secrets.AZURE_SQL_CONNECTION_STRING }} --context VehiclesContext 
+        run: dotnet ef database drop --project wypozyczalnia.Server --context VehiclesContext
 
       - name: Run EF Core Migrations Vehicles
         env:
