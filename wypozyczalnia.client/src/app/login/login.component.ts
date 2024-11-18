@@ -15,14 +15,17 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
   errorMessage: string = ''; // Zmienna na komunikaty błędów
+  isLoading: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
   login() {
+    this.isLoading = true;
     this.authService.login(this.email, this.password).subscribe({
       next: (response) => {
         localStorage.setItem('loggedIn', 'true'); // Ustaw flagę zalogowania
         this.router.navigate(['/protected']); // Przekierowanie do chronionej strony
+        this.isLoading = false;
       },
       error: (err) => {
         console.error('Login failed', err);

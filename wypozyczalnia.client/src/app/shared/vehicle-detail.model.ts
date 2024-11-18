@@ -5,9 +5,14 @@ export class VehicleDetail {
   serialNo: string = '';
   vinId: string = '';
   registryNo: string = '';
-  yearOfProduction: string = ''; // Można również użyć `number` jeśli potrzebujesz tylko roku
-  rentalFrom: string = ''; // Zakładam, że data jest przechowywana w formacie string
-  rentalTo: string = ''; // Zakładam, że data jest przechowywana w formacie string
+  yearOfProduction: number = new Date().getFullYear();
+  rentalFrom: Date = new Date();
+  rentalTo: Date = new Date();
+  prize: number = 0.0;
+  driveType: string = '';
+  transmission: string = '';
   description: string = '';
   type: string = '';
+  rate: number = 0.0;
+  localization: string = '';
 }
