@@ -30,6 +30,7 @@ export class LoginComponent {
       error: (err) => {
         console.error('Login failed', err);
         this.errorMessage = 'Login failed. Please try again.';
+        this.isLoading = false;
       },
     });
   }
