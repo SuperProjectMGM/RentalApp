@@ -1,50 +1,63 @@
 <div class="container">
-  <div class ="row">
-    <div class="col-8 offset-2">
+  <div class="row">
+    <div class="col-12 col-lg-10 offset-lg-1">
 
-      <div class="bg-primary text-center py-5 rounded-4 text-white mb-5 shadow-lg">
+      <div class="bg-primary text-center py-3 rounded-4 text-white mb-4 shadow-lg">
         <h1 class="display-6 fw-bold">Vehicle Details</h1>
       </div>
 
       <div class="row">
         <!-- Form Section -->
         <div class="col-lg-6 mb-4">
-          <app-vehicle-detail-form></app-vehicle-detail-form>
+          <app-vehicle-detail-form (vehicleUpdated)="onVehicleUpdated()"></app-vehicle-detail-form>
         </div>
 
         <!-- List Section -->
         <div class="col-lg-6">
-          <ul class="list-group">
-            <li class="list-group-item d-flex justify-content-between align-items-center mb-4 p-4 shadow-lg border-0 rounded-4" style="background: linear-gradient(135deg, #f0f4ff, #d9e2ff);"
-                *ngFor="let pd of service.list">
-              <!-- Left side: Vehicle Details -->
-              <div class="flex-grow-1" (click)="populateForm(pd)" style="cursor: pointer;">
-                <!-- Brand and Model -->
-                <div class="fw-bold text-dark" style="font-size: 1.4rem;">🚗 {{ pd.brand }} - {{ pd.model }}</div>
-                
-                <!-- Divider Line -->
-                <hr class="my-3" style="border-top: 1px solid rgba(0,0,0,0.1);">
+          <!-- Search Input -->
+          <div class="mb-4">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search by VIN"
+              [(ngModel)]="searchTerm"
+              (input)="filterList()"
+            />
+          </div>
+          <!-- Vehicle List -->
+          <div class="list-container">
+            <ul class="list-group">
+              <li class="list-group-item d-flex justify-content-between align-items-center mb-3 p-4 shadow-lg border-0 rounded-4 bg-light"
+                  *ngFor="let pd of filteredList">
+                <!-- Left side: Vehicle Details -->
+                <div class="flex-grow-1" (click)="populateForm(pd)" style="cursor: pointer;">
+                  <!-- Brand and Model -->
+                  <div class="fw-bold text-dark" style="font-size: 1.3rem;">🚗 {{ pd.brand }} - {{ pd.model }}</div>
 
-                <!-- VIN ID -->
-                <div class="text-muted">
-                  <strong>VIN:</strong> {{ pd.vinId }}
+                  <!-- Divider Line -->
+                  <hr class="my-3">
+
+                  <!-- VIN ID -->
+                  <div class="text-muted">
+                    <strong>VIN:</strong> {{ pd.vinId }}
+                  </div>
+
+                  <!-- Rental From and Rental To -->
+                  <div class="text-muted">
+                    <strong>Rented From:</strong> {{ pd.rentalFrom | date: 'short' }}
+                  </div>
+                  <div class="text-muted">
+                    <strong>Rented To:</strong> {{ pd.rentalTo | date: 'short' }}
+                  </div>
                 </div>
 
-                <!-- Rental From and Rental To -->
-                <div class="text-muted">
-                  <strong>Rented From:</strong> {{ pd.rentalFrom }}
-                </div>
-                <div class="text-muted">
-                  <strong>Rented To:</strong> {{ pd.rentalTo }}
-                </div>
-              </div>
-
-              <!-- Right side: Delete Icon -->
-              <span class="text-danger" style="cursor: pointer; font-size: 1.5rem;">
-                <i class="fa-solid fa-trash-can" (click)="onDelete(pd.carId)"></i>
-              </span>
-            </li>
-          </ul>
+                <!-- Right side: Delete Icon -->
+                <span class="text-danger" style="cursor: pointer; font-size: 1.5rem;">
+                  <i class="fa-solid fa-trash-can" (click)="onDelete(pd.carId)"></i>
+                </span>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

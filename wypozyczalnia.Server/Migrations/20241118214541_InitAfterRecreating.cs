@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace wypozyczalnia.Server.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMatiBoss : Migration
+    public partial class InitAfterRecreating : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
