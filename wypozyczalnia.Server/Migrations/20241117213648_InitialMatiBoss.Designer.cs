@@ -12,13 +12,10 @@ using wypozyczalnia.Server.Models;
 namespace wypozyczalnia.Server.Migrations
 {
     [DbContext(typeof(VehiclesContext))]
-<<<<<<<< HEAD:wypozyczalnia.Server/Migrations/20241117213648_InitialMatiBoss.Designer.cs
+
     [Migration("20241117213648_InitialMatiBoss")]
     partial class InitialMatiBoss
-========
-    [Migration("20241118214541_InitAfterRecreating")]
-    partial class InitAfterRecreating
->>>>>>>> b63cf5cf2d6af743220f72e1bc2f0240573dba3e:wypozyczalnia.Server/Migrations/20241118214541_InitAfterRecreating.Designer.cs
+
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
