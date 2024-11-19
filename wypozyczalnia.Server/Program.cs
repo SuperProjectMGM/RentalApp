@@ -54,7 +54,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", builder =>
     {
-        builder.WithOrigins("http://localhost:4200", "https://kind-forest-0308cdb03.5.azurestaticapps.net")
+        builder.WithOrigins("https://localhost:4200", "https://kind-forest-0308cdb03.5.azurestaticapps.net")
                .AllowAnyMethod()
                .AllowAnyHeader()
                 .AllowCredentials();
@@ -77,7 +77,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("AllowAll");
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthentication(); // Dodaj uwierzytelnianie
 app.UseAuthorization();

@@ -5,7 +5,7 @@
 namespace wypozyczalnia.Server.Migrations
 {
     /// <inheritdoc />
-    public partial class FirstNew : Migration
+    public partial class InitialMatiBoss : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

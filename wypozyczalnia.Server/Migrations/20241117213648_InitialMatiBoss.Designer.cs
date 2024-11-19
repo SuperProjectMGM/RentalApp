@@ -11,8 +11,8 @@ using wypozyczalnia.Server.Models;
 namespace wypozyczalnia.Server.Migrations
 {
     [DbContext(typeof(VehiclesContext))]
-    [Migration("20241102143758_FirstNew")]
-    partial class FirstNew
+    [Migration("20241117213648_InitialMatiBoss")]
+    partial class InitialMatiBoss
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
