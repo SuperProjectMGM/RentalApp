@@ -5,6 +5,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
+using wypozyczalnia.Server.AppExtensions;
 using wypozyczalnia.Server.Interfaces;
 using wypozyczalnia.Server.Repositories;
 using wypozyczalnia.Server.Services;
@@ -81,32 +82,3 @@ app.MapControllers();
 app.UseRabbitListener();
 app.Run();
 
-public static class ApplicationBuilderExtensions
-{
-    private static RabbitListener? _listener;
-
-    public static IApplicationBuilder UseRabbitListener(this IApplicationBuilder app)
-    {
-        _listener = app.ApplicationServices.GetService<RabbitListener>();
-
-        var lifetime = app.ApplicationServices.GetService<IHostApplicationLifetime>();
-
-        // Register event for when the application has started
-        lifetime?.ApplicationStarted.Register(OnStarted);
-
-        // Register event for when the application is stopping
-        lifetime?.ApplicationStopping.Register(OnStopping);
-
-        return app;
-    }
-
-    private static void OnStarted()
-    {
-        _listener?.Register();
-    }
-
-    private static void OnStopping()
-    {
-        _listener?.Deregister();
-    }
-}
