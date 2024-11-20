@@ -21,9 +21,9 @@ namespace wypozyczalnia.Server.Models
 
         public int YearOfProduction { get; set; }
 
-        public DateTime RentalFrom { get; set; }
+        //public DateTime RentalFrom { get; set; }
 
-        public DateTime RentalTo { get; set; }
+        //public DateTime RentalTo { get; set; }
         
         public decimal Prize { get; set; }
 
@@ -39,12 +39,12 @@ namespace wypozyczalnia.Server.Models
 
         public string Localization { get; set; } = string.Empty;
 
-        public VehicleStatus VehicleStatus = VehicleStatus.Free;
+        //public VehicleStatus VehicleStatus = VehicleStatus.Free;
     }
     
-    public enum VehicleStatus
-    {
-        Free = 1,
-        Rented = 2  
-    }
+    // public enum VehicleStatus
+    // {
+    //     Free = 1,
+    //     Rented = 2  
+    // }
 }

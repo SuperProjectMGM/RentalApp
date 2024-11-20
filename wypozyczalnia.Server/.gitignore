@@ -483,5 +483,5 @@ $RECYCLE.BIN/
 # Vim temporary swap files
 *.swp
 
-../.idea/
-../.DS_STORE
+/.idea/
+/.DS_STORE
