@@ -20,10 +20,11 @@ namespace wypozyczalnia.Server.Models
         public string RegistryNo { get; set; } = string.Empty;
 
         public int YearOfProduction { get; set; }
+        
+        // TODO: totalnie do zmiany 
+        public DateTime RentalFrom { get; set; }
 
-        //public DateTime RentalFrom { get; set; }
-
-        //public DateTime RentalTo { get; set; }
+        public DateTime RentalTo { get; set; }
         
         public decimal Prize { get; set; }
 
@@ -38,13 +39,5 @@ namespace wypozyczalnia.Server.Models
         public decimal Rate { get; set; }
 
         public string Localization { get; set; } = string.Empty;
-
-        //public VehicleStatus VehicleStatus = VehicleStatus.Free;
     }
-    
-    // public enum VehicleStatus
-    // {
-    //     Free = 1,
-    //     Rented = 2  
-    // }
 }
