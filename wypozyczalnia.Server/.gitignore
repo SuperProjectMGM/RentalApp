@@ -485,3 +485,9 @@ $RECYCLE.BIN/
 
 /.idea/
 /.DS_STORE
+
+.DS_STORE
+.idea/
+
+../.idea/
+../.DS_STORE
