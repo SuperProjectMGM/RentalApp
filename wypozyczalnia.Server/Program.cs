@@ -5,9 +5,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
-using wypozyczalnia.Server.Interfaces;
-using wypozyczalnia.Server.Reposiotories;
-using wypozyczalnia.Server.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,8 +20,10 @@ builder.Services.AddDbContext<VehiclesContext>(options =>
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Devconnection")));
 
-builder.Services.AddScoped<IMessageInterface, MessageService>();
-builder.Services.AddScoped<IRentalInterface, RentalRepository>();
+builder.Services.AddDbContext<RentalsContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Devconnection")));
+
+//builder.Services.AddScoped<IRentalInterface, RentalRepository>();
 
 // Dodaj usługi Identity (bez JWT)
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()

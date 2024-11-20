@@ -1,4 +1,4 @@
-using wypozyczalnia.Server.Reposiotories;
+//using wypozyczalnia.Server.Reposiotories;
 namespace wypozyczalnia.Server.Models;
 
 public class Rental
@@ -27,7 +27,7 @@ public class Rental
     
     public DateTime End { get; set; }
     
-    public RentalRepository.RentalStatus Status { get; set; }
+    //public RentalRepository.RentalStatus Status { get; set; }
 
     public string Description { get; set; } = string.Empty;
 }
