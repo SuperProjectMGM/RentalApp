@@ -5,32 +5,31 @@ using Microsoft.OpenApi.Models;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
+using wypozyczalnia.Server.Interfaces;
+using wypozyczalnia.Server.Repositories;
+using wypozyczalnia.Server.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Dodaj usługi do kontenera.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<IRentalInterface, RentalRepository>();
+builder.Services.AddSingleton<RabbitListener>();
+
 builder.Services.AddDbContext<VehiclesContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Devconnection")));
-
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Devconnection")));
-
 builder.Services.AddDbContext<RentalsContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Devconnection")));
 
-//builder.Services.AddScoped<IRentalInterface, RentalRepository>();
-
-// Dodaj usługi Identity (bez JWT)
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
-// tu mamy nadawanie tokena
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -49,13 +48,11 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// Konfiguracja Swagger
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "RentalApp API", Version = "v1" });
 });
 
-// Konfiguracja CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", builder =>
@@ -67,29 +64,49 @@ builder.Services.AddCors(options =>
     });
 });
 
-Console.WriteLine("Podlaczane do bazy");
-
 var app = builder.Build();
-
 app.UseDefaultFiles();
 app.UseStaticFiles();
-
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 app.UseCors("AllowAll");
-
 //app.UseHttpsRedirection();
-
-app.UseAuthentication(); // Dodaj uwierzytelnianie
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
-
 //app.MapFallbackToFile("/index.html");
-
+app.UseRabbitListener();
 app.Run();
+
+public static class ApplicationBuilderExtensions
+{
+    private static RabbitListener? _listener;
+
+    public static IApplicationBuilder UseRabbitListener(this IApplicationBuilder app)
+    {
+        _listener = app.ApplicationServices.GetService<RabbitListener>();
+
+        var lifetime = app.ApplicationServices.GetService<IHostApplicationLifetime>();
+
+        // Register event for when the application has started
+        lifetime?.ApplicationStarted.Register(OnStarted);
+
+        // Register event for when the application is stopping
+        lifetime?.ApplicationStopping.Register(OnStopping);
+
+        return app;
+    }
+
+    private static void OnStarted()
+    {
+        _listener?.Register();
+    }
+
+    private static void OnStopping()
+    {
+        _listener?.Deregister();
+    }
+}
