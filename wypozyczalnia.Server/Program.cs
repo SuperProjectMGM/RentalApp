@@ -18,7 +18,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IRentalInterface, RentalRepository>();
-builder.Services.AddSingleton<RabbitListener>();
+builder.Services.AddSingleton<RabbitMessageService>();
 
 builder.Services.AddDbContext<VehiclesContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Devconnection")));

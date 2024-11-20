@@ -3,11 +3,11 @@ namespace wypozyczalnia.Server.AppExtensions;
 
 public static class ApplicationBuilderExtensions
 {
-    private static RabbitListener? _listener;
+    private static RabbitMessageService? _listener;
 
     public static IApplicationBuilder UseRabbitListener(this IApplicationBuilder app)
     {
-        _listener = app.ApplicationServices.GetService<RabbitListener>();
+        _listener = app.ApplicationServices.GetService<RabbitMessageService>();
 
         var lifetime = app.ApplicationServices.GetService<IHostApplicationLifetime>();
 

@@ -4,7 +4,7 @@ using RabbitMQ.Client.Events;
 using wypozyczalnia.Server.Interfaces;
 namespace wypozyczalnia.Server.Services;
 
-public class RabbitListener
+public class RabbitMessageService
 {
     private readonly string _queueName = "messageBox";
 
@@ -14,7 +14,7 @@ public class RabbitListener
 
     private readonly IServiceProvider _serviceProvider;
 
-    public RabbitListener(IServiceProvider serviceProvider)
+    public RabbitMessageService(IServiceProvider serviceProvider)
     {
         _serviceProvider = serviceProvider;
     }

@@ -7,7 +7,7 @@ namespace wypozyczalnia.Server.Models
     public class Vehicles
     {
         [Key]
-        public int CarId { get; set; }
+        public string CarId { get; set; }
 
         [Column(TypeName = "nvarchar(100)")]
         public string Brand { get; set; } = "";
@@ -53,5 +53,13 @@ namespace wypozyczalnia.Server.Models
 
         [Column(TypeName = "nvarchar(50)")]
         public string Localization { get; set; } = "";
+
+        public VehicleStatus VehicleStatus = VehicleStatus.Free;
+    }
+    
+    public enum VehicleStatus
+    {
+        Free = 1,
+        Rented = 2  
     }
 }
