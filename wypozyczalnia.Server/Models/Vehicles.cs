@@ -7,52 +7,37 @@ namespace wypozyczalnia.Server.Models
     public class Vehicles
     {
         [Key]
-        public string CarId { get; set; }
+        public string VehicleId { get; set; } = string.Empty;
 
-        [Column(TypeName = "nvarchar(100)")]
-        public string Brand { get; set; } = "";
+        public string Brand { get; set; } = string.Empty;
 
-        [Column(TypeName = "nvarchar(100)")]
-        public string Model { get; set; } = "";
+        public string Model { get; set; } = string.Empty;
 
-        [Column(TypeName = "nvarchar(100)")]
-        public string SerialNo { get; set; } = "";
+        public string SerialNo { get; set; } = string.Empty;
 
-        [Column(TypeName = "nvarchar(100)")]
-        public string VinId { get; set; } = "";
+        public string VinId { get; set; } = string.Empty;
 
-        [Column(TypeName = "nvarchar(50)")]
-        public string RegistryNo { get; set; } = "";
+        public string RegistryNo { get; set; } = string.Empty;
 
-        [Column(TypeName = "int")]
         public int YearOfProduction { get; set; }
 
-        [Column(TypeName = "date")]
         public DateTime RentalFrom { get; set; }
 
-        [Column(TypeName = "date")]
         public DateTime RentalTo { get; set; }
-
-        [Column(TypeName = "decimal(18,2)")]
+        
         public decimal Prize { get; set; }
 
-        [Column(TypeName = "nvarchar(10)")]
-        public string DriveType { get; set; } = "";
+        public string DriveType { get; set; } = string.Empty;
 
-        [Column(TypeName = "nvarchar(10)")]
-        public string Transmission { get; set; } = "";
+        public string Transmission { get; set; } = string.Empty;
 
-        [Column(TypeName = "nvarchar(500)")]
-        public string Description { get; set; } = "";
+        public string Description { get; set; } = string.Empty;
 
-        [Column(TypeName = "nvarchar(50)")]
-        public string Type { get; set; } = "";
+        public string Type { get; set; } = string.Empty;
 
-        [Column(TypeName = "decimal(18,2)")]
         public decimal Rate { get; set; }
 
-        [Column(TypeName = "nvarchar(50)")]
-        public string Localization { get; set; } = "";
+        public string Localization { get; set; } = string.Empty;
 
         public VehicleStatus VehicleStatus = VehicleStatus.Free;
     }

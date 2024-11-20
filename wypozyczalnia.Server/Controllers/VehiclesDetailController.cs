@@ -45,9 +45,9 @@ namespace wypozyczalnia.Server.Controllers
         // PUT: api/VehiclesDetail/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutVehicles(int id, Vehicles vehicles)
+        public async Task<IActionResult> PutVehicles(string id, Vehicles vehicles)
         {
-            if (id != vehicles.CarId)
+            if (id != vehicles.VehicleId)
             {
                 return BadRequest();
             }
@@ -76,7 +76,8 @@ namespace wypozyczalnia.Server.Controllers
         // POST: api/VehiclesDetail
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Vehicles>> PostVehicles(Vehicles vehicles)
+        public async Task<ActionResult<Vehicles>> PostVehicles(Vehicles vehicles) 
+            // Powinien dostać dto, i w mapperze tworzymy obiekt, nadajemy normalne id
         {
             _context.Vehicles.Add(vehicles);
             await _context.SaveChangesAsync();
@@ -86,7 +87,7 @@ namespace wypozyczalnia.Server.Controllers
 
         // DELETE: api/VehiclesDetail/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteVehicles(int id)
+        public async Task<IActionResult> DeleteVehicles(string id)
         {
             var vehicles = await _context.Vehicles.FindAsync(id);
             if (vehicles == null)
@@ -100,9 +101,9 @@ namespace wypozyczalnia.Server.Controllers
             return Ok(await _context.Vehicles.ToListAsync()); ;
         }
 
-        private bool VehiclesExists(int id)
+        private bool VehiclesExists(string id)
         {
-            return _context.Vehicles.Any(e => e.CarId == id);
+            return _context.Vehicles.Any(e => e.VehicleId == id);
         }
     }
 }
