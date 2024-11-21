@@ -37,6 +37,10 @@ public class RabbitMessageService
         consumer.ReceivedAsync += async (sender, ea) => await MessageReceived(sender, ea);
         await _channel.BasicConsumeAsync(_queueName, autoAck: true, consumer: consumer);
     }
+    public async Task Deregister()
+    {
+        await this._connection.CloseAsync();
+    }
 
     private async Task MessageReceived(object sender, BasicDeliverEventArgs eventArgs)
     {
@@ -53,9 +57,25 @@ public class RabbitMessageService
             Console.WriteLine($"Error processing message: {ex.Message}");
         }
     }
-
-    public async Task Deregister()
+    
+    public async Task<bool> SendRentalCompletion(string message)
     {
-        await this._connection.CloseAsync();
+        var encodedMes = Encoding.UTF8.GetBytes(message);
+        var memoryBody = new ReadOnlyMemory<byte>(encodedMes);
+        try
+        {
+            await _channel.BasicPublishAsync(
+                exchange: "",
+                routingKey: _queueName,
+                body: memoryBody
+            );
+            
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
     }
+
 }
