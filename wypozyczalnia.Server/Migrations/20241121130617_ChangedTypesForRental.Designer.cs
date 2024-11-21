@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using wypozyczalnia.Server.Models;
 
 #nullable disable
 
-namespace wypozyczalnia.Server.Migrations
+namespace wypozyczalnia.Server.Migrations.Rentals
 {
     [DbContext(typeof(RentalsContext))]
-    partial class RentalsContextModelSnapshot : ModelSnapshot
+    [Migration("20241121130617_ChangedTypesForRental")]
+    partial class ChangedTypesForRental
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
