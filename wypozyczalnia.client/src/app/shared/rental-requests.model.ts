@@ -9,10 +9,10 @@ export interface Rental {
   rentalId: string;
   name: string;
   surname: string;
-  birthDate: Date;
-  dateOfReceiptOfDrivingLicense: Date;
-  personalNumber: number;
-  licenceNumber: number;
+  birthDate: string;
+  dateOfReceiptOfDrivingLicense: string;
+  personalNumber: string;
+  licenceNumber: string;
   address: string;
   phoneNumber: string;
   vinId: string;
