@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NanoidDotNet;
 using wypozyczalnia.Server.Models;
 
 namespace wypozyczalnia.Server.Controllers
@@ -44,10 +45,10 @@ namespace wypozyczalnia.Server.Controllers
 
         // PUT: api/VehiclesDetail/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutVehicles(string id, Vehicles vehicles)
+        [HttpPut("{vin}")]
+        public async Task<IActionResult> PutVehicles(string vin, Vehicles vehicles)
         {
-            if (id != vehicles.VehicleId)
+            if (vin != vehicles.VinId)
             {
                 return BadRequest();
             }
@@ -60,7 +61,7 @@ namespace wypozyczalnia.Server.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!VehiclesExists(id))
+                if (!VehiclesExists(vin))
                 {
                     return NotFound();
                 }
@@ -79,6 +80,7 @@ namespace wypozyczalnia.Server.Controllers
         public async Task<ActionResult<Vehicles>> PostVehicles(Vehicles vehicles) 
             // Powinien dostać dto, i w mapperze tworzymy obiekt, nadajemy normalne id
         {
+            vehicles.VehicleId = Nanoid.Generate(size: 10);
             _context.Vehicles.Add(vehicles);
             await _context.SaveChangesAsync();
 
@@ -86,24 +88,24 @@ namespace wypozyczalnia.Server.Controllers
         }
 
         // DELETE: api/VehiclesDetail/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteVehicles(string id)
+        [HttpDelete("{vin}")]
+        public async Task<IActionResult> DeleteVehicles(string vin)
         {
-            var vehicles = await _context.Vehicles.FindAsync(id);
-            if (vehicles == null)
+            var vehicle = await _context.Vehicles.FirstOrDefaultAsync(x => x.VinId == vin);
+            if (vehicle == null)
             {
                 return NotFound();
             }
 
-            _context.Vehicles.Remove(vehicles);
+            _context.Vehicles.Remove(vehicle);
             await _context.SaveChangesAsync();
 
             return Ok(await _context.Vehicles.ToListAsync()); ;
         }
 
-        private bool VehiclesExists(string id)
+        private bool VehiclesExists(string vin)
         {
-            return _context.Vehicles.Any(e => e.VehicleId == id);
+            return _context.Vehicles.Any(e => e.VinId == vin);
         }
     }
 }

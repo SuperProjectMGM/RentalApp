@@ -1,5 +1,5 @@
 export class VehicleDetail {
-  carId: number = 0;
+  carId: string = '';
   brand: string = '';
   model: string = '';
   serialNo: string = '';
