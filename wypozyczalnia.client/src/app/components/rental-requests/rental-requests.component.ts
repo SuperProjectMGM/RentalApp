@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RentalService } from '../../services/rental.service';
+import {Rental} from "../../shared/rental-requests.model";
 
 @Component({
   selector: 'app-rental-requests',
@@ -11,7 +12,7 @@ import { RentalService } from '../../services/rental.service';
   styleUrls: ['./rental-requests.component.scss'],
 })
 export class RentalRequestsComponent {
-  rentalRequests: any[] = []; // Store rental requests
+  rentalRequests: Rental[] = []; // Store rental requests
 
   constructor(private rentalService: RentalService) {}
 
@@ -29,7 +30,7 @@ export class RentalRequestsComponent {
   }
 
   // Approve a rental request
-  approveRequest(id: number) {
+  approveRequest(id: string) {
     this.rentalService.approveRentalRequest(id).subscribe({
       next: () => {
         console.log(`Rental request with ID ${id} approved.`);

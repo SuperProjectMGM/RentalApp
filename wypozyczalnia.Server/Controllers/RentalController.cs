@@ -22,8 +22,8 @@ public class RentalController : ControllerBase
     }
     
     // I do not know whether it should be FromBody or FromRoute
-    [HttpPut("accept-rental")]
-    public async Task<IActionResult> AcceptRentalAndSendBack([FromBody] string rentalId)
+    [HttpPut("accept-rental/{rentalId}")]
+    public async Task<IActionResult> AcceptRentalAndSendBack([FromRoute] string rentalId)
     {
         var succeed = await _rentalRepo.AcceptRental(rentalId);
         if (!succeed)
