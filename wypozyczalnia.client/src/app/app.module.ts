@@ -5,11 +5,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { VehiclesDetailsComponent } from './vehicles-details/vehicles-details.component';
-import { VehicleDetailFormComponent } from './vehicle-detail-form/vehicle-detail-form.component';
+import { VehiclesDetailsComponent } from './components/vehicles-details/vehicles-details.component';
+import { VehicleDetailFormComponent } from './components/vehicle-detail-form/vehicle-detail-form.component';
 import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [],

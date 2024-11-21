@@ -1,17 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { VehicleDetailService } from '../shared/services/vehicle-detail.service';
-import { VehicleDetail } from '../shared/vehicle-detail.model';
+import { VehicleDetailService } from '../../services/vehicle-detail.service';
+import { VehicleDetail } from '../../shared/vehicle-detail.model';
 import { ToastrService } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { VehicleDetailFormComponent } from '../vehicle-detail-form/vehicle-detail-form.component';
+import { RentalRequestsComponent } from '../rental-requests/rental-requests.component';
 
 @Component({
   selector: 'app-vehicles-details',
   standalone: true,
   templateUrl: './vehicles-details.component.html',
   styleUrl: './vehicles-details.component.css',
-  imports: [CommonModule, FormsModule, VehicleDetailFormComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    VehicleDetailFormComponent,
+    RentalRequestsComponent,
+  ],
 })
 export class VehiclesDetailsComponent implements OnInit {
   searchTerm: string = '';

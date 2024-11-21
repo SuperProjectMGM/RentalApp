@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component'; // Upewnij się, że ścieżka jest poprawna
-import { VehiclesDetailsComponent } from './vehicles-details/vehicles-details.component';
-import { AuthGuard } from './shared/auth.guard';
+import { VehiclesDetailsComponent } from './components/vehicles-details/vehicles-details.component';
+import { AuthGuard } from './services/auth.guard';
+import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },

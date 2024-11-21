@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { VehicleDetailService } from '../shared/services/vehicle-detail.service';
+import { VehicleDetailService } from '../../services/vehicle-detail.service';
 import { FormsModule, NgForm } from '@angular/forms';
-import { VehicleDetail } from '../shared/vehicle-detail.model';
+import { VehicleDetail } from '../../shared/vehicle-detail.model';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 

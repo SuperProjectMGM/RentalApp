@@ -1,0 +1,48 @@
+.container-wide {
+  width: 90%; /* 90% szerokości okna przeglądarki */
+  max-width: 1200px; /* Opcjonalnie, maksymalna szerokość */
+  margin: 0 auto; /* Wyśrodkowanie */
+  padding: 0 10px; /* Dodatkowe odstępy po bokach */
+}
+
+.bg-primary {
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  background-color: #007bff;
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.row {
+  display: flex; /* Ustawienie wiersza na flexbox */
+  flex-wrap: nowrap; /* Zakaz łamania linii */
+  gap: 10px; /* Odstępy między kolumnami */
+  justify-content: space-between; /* Rozdzielenie kolumn równomiernie */
+  align-items: flex-start; /* Wyrównanie sekcji do góry */
+}
+
+.col-lg-4, .col-md-4 {
+  flex: 1 1 30%; /* Dostosowuje się do szerokości kontenera */
+  max-width: 33%; /* Zapewnienie odstępu między kolumnami */
+  min-width: 300px; /* Minimalna szerokość kolumny */
+}
+
+.list-container {
+  max-height: 700px;
+  overflow-y: unset;
+  padding: 15px 10px;
+}
+
+.list-group-item {
+  background: linear-gradient(135deg, #e6f7ff, #b3d9ff);
+  margin-bottom: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.list-group-item:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}

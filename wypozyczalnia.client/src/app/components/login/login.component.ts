@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../shared/services/auth.service'; // Zmiana na poprawny import
+import { AuthService } from '../../services/auth.service'; // Zmiana na poprawny import
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
