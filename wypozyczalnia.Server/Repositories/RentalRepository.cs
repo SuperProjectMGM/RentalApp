@@ -53,6 +53,7 @@ public class RentalRepository : IRentalInterface
         if (rental is null)
             return false;
         rental.Status = RentalStatus.Completed;
+        await _rentalsContext.SaveChangesAsync();
         
         // send back to browser api
         var succeed = await SendCompletionMessage(rental);

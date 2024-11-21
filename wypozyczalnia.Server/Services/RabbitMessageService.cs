@@ -8,9 +8,13 @@ public class RabbitMessageService
 {
     private readonly string _queueName = "messageBox";
 
+    private readonly string _queueName2 = "messageBox2";
+
     private  IConnection? _connection;
 
     private IChannel? _channel;
+
+    private IChannel? _channel2;
 
     private readonly IServiceProvider _serviceProvider;
 
@@ -25,9 +29,17 @@ public class RabbitMessageService
 
         _connection = await factory.CreateConnectionAsync();
         _channel = await _connection.CreateChannelAsync();
+        _channel2 = await _connection.CreateChannelAsync();
 
         await _channel.QueueDeclareAsync(
             queue: _queueName,
+            durable: false,
+            exclusive: false,
+            autoDelete: false,
+            arguments: null);
+        
+        await _channel2.QueueDeclareAsync(
+            queue: _queueName2,
             durable: false,
             exclusive: false,
             autoDelete: false,
@@ -64,9 +76,9 @@ public class RabbitMessageService
         var memoryBody = new ReadOnlyMemory<byte>(encodedMes);
         try
         {
-            await _channel.BasicPublishAsync(
+            await _channel2.BasicPublishAsync(
                 exchange: "",
-                routingKey: _queueName,
+                routingKey: _queueName2,
                 body: memoryBody
             );
             
