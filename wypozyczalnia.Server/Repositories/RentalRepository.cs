@@ -20,8 +20,18 @@ public class RentalRepository : IRentalInterface
         _messageService = messageService;
     }
     
+    public async Task CheckIfUserInfoInDatabase(Rental rental)
+    {
+        UserInfo info = rental.UserInfo;
+        string personalNumber = info.PersonalNumber;
+        //await _rentalsContext.
+        
+
+    }
+
     public async Task StoreRental(string message)
     {
+        // TODO: here change to DTO
         // rent data logic
         var rentalData = JsonConvert.DeserializeObject<Rental>(message);
         if (rentalData is null)
@@ -65,6 +75,7 @@ public class RentalRepository : IRentalInterface
 
     public async Task<bool> SendCompletionMessage(Rental rental)
     {
+        // TODO: here change to DTO
         string jsonString = JsonSerializer.Serialize(rental);
         var succeed = await _messageService.SendRentalCompletion(jsonString);
         if (succeed)
