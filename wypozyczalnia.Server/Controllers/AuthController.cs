@@ -2,10 +2,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using NuGet.Common;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using wypozyczalnia.Server.Interfaces;
+using wypozyczalnia.Server.Repositories;
 
 namespace wypozyczalnia.Server.Controllers
 {
@@ -14,63 +17,37 @@ namespace wypozyczalnia.Server.Controllers
     public class AuthController : ControllerBase
     {
         private readonly UserManager<IdentityUser> _userManager;
-
-        public AuthController(UserManager<IdentityUser> userManager)
+        private readonly IAuthInterface _authRepository;
+        public AuthController(UserManager<IdentityUser> userManager, IAuthInterface userRepository)
         {
             _userManager = userManager;
+            _authRepository = userRepository;
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
 
-            var user = new IdentityUser { UserName = model.Email, Email = model.Email };
-            var result = await _userManager.CreateAsync(user, model.Password);
-
-            if (result.Succeeded)
-                return Ok();
+            
+            var result = await _authRepository.CreateNewUser(model);
 
             foreach (var error in result.Errors)
             {
-                ModelState.AddModelError("register_error", error.Description);
+                var errorMessages = string.Join(", ", result.Errors.Select(e => $"{e.Code}: {e.Description}"));
+                return BadRequest($"User creation failed: {errorMessages}");
             }
-
-            return BadRequest(ModelState);
+            return Ok();
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
             if (!ModelState.IsValid)
+            {
                 return BadRequest(ModelState);
-
-            var user = await _userManager.FindByEmailAsync(model.Email);
-            if (user == null)
-                return Unauthorized();
-
-            var passwordValid = await _userManager.CheckPasswordAsync(user, model.Password);
-            if (!passwordValid)
-                return Unauthorized();
-
-            // Generowanie tokenu JWT
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes("your_super_secret_key_32_characters_long!");
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.Id ?? string.Empty),
-                new Claim(ClaimTypes.Email, user.Email ?? string.Empty)
-            };
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            return Ok(new { Token = tokenHandler.WriteToken(token) });
+            }
+            var token = await _authRepository.CheckLogin(model);
+            return token == null ? Unauthorized() : Ok(new { Token = token});
         }
-
     }
 }
