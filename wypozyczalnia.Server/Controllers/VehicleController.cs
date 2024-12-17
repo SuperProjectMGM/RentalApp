@@ -48,7 +48,7 @@ namespace wypozyczalnia.Server.Controllers
         [HttpPut("{vin}")]
         public async Task<IActionResult> PutVehicles(string vin, Vehicle vehicles)
         {
-            if (vin != vehicles.VinId)
+            if (vin != vehicles.Vin)
             {
                 return BadRequest();
             }
@@ -80,7 +80,6 @@ namespace wypozyczalnia.Server.Controllers
         public async Task<ActionResult<Vehicle>> PostVehicles(Vehicle vehicles) 
             // Powinien dostać dto, i w mapperze tworzymy obiekt, nadajemy normalne id
         {
-            vehicles.VehicleId = Nanoid.Generate(size: 10);
             _context.Vehicles.Add(vehicles);
             await _context.SaveChangesAsync();
 
@@ -91,7 +90,7 @@ namespace wypozyczalnia.Server.Controllers
         [HttpDelete("{vin}")]
         public async Task<IActionResult> DeleteVehicles(string vin)
         {
-            var vehicle = await _context.Vehicles.FirstOrDefaultAsync(x => x.VinId == vin);
+            var vehicle = await _context.Vehicles.FirstOrDefaultAsync(x => x.Vin == vin);
             if (vehicle == null)
             {
                 return NotFound();
@@ -105,7 +104,7 @@ namespace wypozyczalnia.Server.Controllers
 
         private bool VehiclesExists(string vin)
         {
-            return _context.Vehicles.Any(e => e.VinId == vin);
+            return _context.Vehicles.Any(e => e.Vin == vin);
         }
     }
 }

@@ -27,13 +27,13 @@ builder.Services.AddSingleton<RabbitMessageService>();
 
 builder.Services.AddDbContext<VehiclesContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Devconnection")));
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+builder.Services.AddDbContext<AuthDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Devconnection")));
 builder.Services.AddDbContext<RentalsContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Devconnection")));
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddEntityFrameworkStores<AuthDbContext>()
     .AddDefaultTokenProviders();
 
 builder.Services.AddAuthentication(options =>
@@ -48,9 +48,9 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = builder.Configuration["JWT_ISSUER"], // zmień na swój issuer
-        ValidAudience = builder.Configuration["JWT_AUDIENCE"], // zmień na swój audience
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT_KEY"])) // Klucz głowny tutaj
+        ValidIssuer = builder.Configuration["JWT_ISSUER"], 
+        ValidAudience = builder.Configuration["JWT_AUDIENCE"], 
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT_KEY"]))
     };
 });
 

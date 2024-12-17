@@ -2,20 +2,21 @@ using wypozyczalnia.Server.DTOs;
 using wypozyczalnia.Server.Models;
 public static class RentalMapper
 {
-    public static RentalDTO ToRentalDto(this Rental rental)
+    public static RentalMessage ToRentalMessage(this Rental rental)
     {
-        return new RentalDTO
+        return new RentalMessage
         {
-            RentalId = rental.RentalId,
             Name = rental.UserInfo.Name,
             Surname = rental.UserInfo.Surname,
-            BirthDate = rental.UserInfo.BirthDate.ToString(),
+            BirthDate = rental.UserInfo.BirthDate,
             LicenseNumber = rental.UserInfo.LicenseNumber,
-            DrivingLicenseIssueDate = rental.UserInfo.DrivingLicenseIssueDate.ToString(),
+            DrivingLicenseIssueDate = rental.UserInfo.DrivingLicenseIssueDate,
             PersonalNumber = rental.UserInfo.PersonalNumber,
-            Address = $"{rental.UserInfo.StreetName} {rental.UserInfo.HouseNumber}, {rental.UserInfo.PostalCode}",
+            City = rental.UserInfo.City,
+            StreetAndNumber = rental.UserInfo.StreetAndNumber,
+            PostalCode = rental.UserInfo.PostalCode,
             PhoneNumber = rental.UserInfo.PhoneNumber, 
-            VinId = rental.Vin,
+            Vin = rental.Vin,
             Start = rental.Start,
             End = rental.End,
             Status = rental.Status,
@@ -23,21 +24,20 @@ public static class RentalMapper
         };
     }
 
-    public static Rental ToRental(this RentalDTO dto)
+    public static Rental ToRental(this RentalMessage dto)
     {
-        string[] addrTmp = dto.Address.Split();
         // TODO: It's temporary object, it's important to check if such user is in our database
         // or not.
         ClientInfo userInfo = new ClientInfo
         {
-            StreetName = addrTmp.Length >= 0 ? addrTmp[0] : "",
-            HouseNumber = addrTmp.Length >= 1 ? addrTmp[1] : "",
-            PostalCode = addrTmp.Length >= 2 ? addrTmp[2] : "",
+            City = dto.City,
+            StreetAndNumber = dto.StreetAndNumber,
+            PostalCode = dto.PostalCode,
             Name = dto.Name,
             Surname = dto.Surname,
-            BirthDate = DateOnly.FromDateTime(DateTime.Parse(dto.BirthDate)),
+            BirthDate = dto.BirthDate,
             LicenseNumber = dto.LicenseNumber,
-            DrivingLicenseIssueDate = DateOnly.FromDateTime(DateTime.Parse(dto.DrivingLicenseIssueDate)),
+            DrivingLicenseIssueDate = dto.DrivingLicenseIssueDate,
             PersonalNumber = dto.PersonalNumber,
             PhoneNumber = dto.PhoneNumber
         };
@@ -45,7 +45,7 @@ public static class RentalMapper
         return new Rental
         {
             UserInfo = userInfo,
-            Vin = dto.VinId,
+            Vin = dto.Vin,
             Start = dto.Start,
             End = dto.End,
             Status = dto.Status,
