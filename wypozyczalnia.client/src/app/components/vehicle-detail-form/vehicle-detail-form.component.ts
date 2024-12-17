@@ -23,7 +23,7 @@ export class VehicleDetailFormComponent {
   onSubmit(form: NgForm) {
     //this.service.formSubmitted = true
     if (form.valid) {
-      if (this.service.formData.carId == 0) this.insertRecord(form);
+      if (this.service.formData.carId == "") this.insertRecord(form);
       else this.updateRecord(form);
     }
   }

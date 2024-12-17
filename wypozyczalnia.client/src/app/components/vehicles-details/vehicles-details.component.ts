@@ -50,9 +50,9 @@ export class VehiclesDetailsComponent implements OnInit {
     this.service.formData = Object.assign({}, selectedRecord);
   }
 
-  onDelete(id: number) {
+  onDelete(vin: string) {
     if (confirm('Are you sure to delete this Car?'))
-      this.service.deleteVehicleDetail(id).subscribe({
+      this.service.deleteVehicleDetail(vin).subscribe({
         next: (res) => {
           this.service.list = res as VehicleDetail[];
           this.toastr.error('Deleted successfully', 'Car Detail Register');

@@ -28,7 +28,7 @@ export class VehicleDetailService {
   }
 
   putVehicleDetail() {
-    return this.http.put(this.url + '/' + this.formData.carId, this.formData);
+    return this.http.put(this.url + '/' + this.formData.vinId, this.formData);
   }
 
   resetForm(form: NgForm) {
@@ -36,7 +36,7 @@ export class VehicleDetailService {
     this.formData = new VehicleDetail();
   }
 
-  deleteVehicleDetail(id: number) {
-    return this.http.delete(this.url + '/' + id);
+  deleteVehicleDetail(vin: string) {
+    return this.http.delete(this.url + '/' + vin);
   }
 }
