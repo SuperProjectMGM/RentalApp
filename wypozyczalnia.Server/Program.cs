@@ -9,6 +9,7 @@ using wypozyczalnia.Server.AppExtensions;
 using wypozyczalnia.Server.Interfaces;
 using wypozyczalnia.Server.Repositories;
 using wypozyczalnia.Server.Services;
+using wypozyczalnia.Server.Controllers;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,7 +19,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IRentalInterface, RentalRepository>();
+builder.Services.AddScoped<IAuthInterface, AuthRepository>();
+builder.Services.AddScoped<IStorageInterface, AzureStorageRepository>();
+
 builder.Services.AddSingleton<RabbitMessageService>();
+
 
 builder.Services.AddDbContext<VehiclesContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Devconnection")));
@@ -43,9 +48,9 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = "SuperSamochodziki", // zmień na swój issuer
-        ValidAudience = "Administrator", // zmień na swój audience
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your_super_secret_key_32_characters_long!")) // Klucz głowny tutaj
+        ValidIssuer = builder.Configuration["JWT_ISSUER"], // zmień na swój issuer
+        ValidAudience = builder.Configuration["JWT_AUDIENCE"], // zmień na swój audience
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT_KEY"])) // Klucz głowny tutaj
     };
 });
 
@@ -73,6 +78,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+
 app.UseCors("AllowAll");
 //app.UseHttpsRedirection();
 app.UseAuthentication();

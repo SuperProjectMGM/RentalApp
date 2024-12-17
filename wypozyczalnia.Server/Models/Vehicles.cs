@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace wypozyczalnia.Server.Models
 {
-    // TODO: Change the name of a class to single
+    // TODO: rename to vehicle
     public class Vehicles
     {
         [Key]
