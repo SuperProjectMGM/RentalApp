@@ -9,6 +9,7 @@ using wypozyczalnia.Server.AppExtensions;
 using wypozyczalnia.Server.Interfaces;
 using wypozyczalnia.Server.Repositories;
 using wypozyczalnia.Server.Services;
+using wypozyczalnia.Server.Controllers;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IRentalInterface, RentalRepository>();
 builder.Services.AddScoped<IAuthInterface, AuthRepository>();
+builder.Services.AddScoped<IStorageInterface, AzureStorageRepository>();
 
 builder.Services.AddSingleton<RabbitMessageService>();
 
