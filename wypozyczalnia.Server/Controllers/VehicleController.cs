@@ -12,11 +12,11 @@ namespace wypozyczalnia.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class VehiclesDetailController : ControllerBase
+    public class VehicleController : ControllerBase
     {
         private readonly VehiclesContext _context;
 
-        public VehiclesDetailController(VehiclesContext context)
+        public VehicleController(VehiclesContext context)
         {
             _context = context;
         }
@@ -24,14 +24,14 @@ namespace wypozyczalnia.Server.Controllers
         // GET: api/VehiclesDetail
         // Bug here
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Vehicles>>> GetVehicles()
+        public async Task<ActionResult<IEnumerable<Vehicle>>> GetVehicles()
         {
             return await _context.Vehicles.ToListAsync();
         }
 
         // GET: api/VehiclesDetail/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Vehicles>> GetVehicles(int id)
+        public async Task<ActionResult<Vehicle>> GetVehicles(int id)
         {
             var vehicles = await _context.Vehicles.FindAsync(id);
 
@@ -46,7 +46,7 @@ namespace wypozyczalnia.Server.Controllers
         // PUT: api/VehiclesDetail/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{vin}")]
-        public async Task<IActionResult> PutVehicles(string vin, Vehicles vehicles)
+        public async Task<IActionResult> PutVehicles(string vin, Vehicle vehicles)
         {
             if (vin != vehicles.VinId)
             {
@@ -77,7 +77,7 @@ namespace wypozyczalnia.Server.Controllers
         // POST: api/VehiclesDetail
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Vehicles>> PostVehicles(Vehicles vehicles) 
+        public async Task<ActionResult<Vehicle>> PostVehicles(Vehicle vehicles) 
             // Powinien dostać dto, i w mapperze tworzymy obiekt, nadajemy normalne id
         {
             vehicles.VehicleId = Nanoid.Generate(size: 10);

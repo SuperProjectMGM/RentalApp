@@ -1,6 +1,6 @@
 namespace wypozyczalnia.Server.Models;
 
-public class UserInfo
+public class ClientInfo
 {
     // ?? How does it work, when I create a new object?
     public int UserId { get; set; }
@@ -10,7 +10,8 @@ public class UserInfo
     public string LicenseNumber { get; set;} = string.Empty;
     public DateOnly DrivingLicenseIssueDate { get; set; }
     public string PersonalNumber { get; set; } = string.Empty;
-    public Address Address { get; set; } = new Address();
+    public string City { get; set; } = string.Empty;
+    public string StreetAndNumber { get; set; } = string.Empty;
+    public string PostalCode { get; set; } = string.Empty;
     public string PhoneNumber { get; set; } = string.Empty;
-    public IEnumerable<Rental> Rentals { get; set; } = new List<Rental>();
 }

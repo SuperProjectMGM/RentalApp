@@ -22,11 +22,9 @@ public class RentalRepository : IRentalInterface
     
     public async Task CheckIfUserInfoInDatabase(Rental rental)
     {
-        UserInfo info = rental.UserInfo;
+        ClientInfo info = rental.UserInfo;
         string personalNumber = info.PersonalNumber;
         //await _rentalsContext.
-        
-
     }
 
     public async Task StoreRental(string message)

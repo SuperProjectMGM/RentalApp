@@ -33,7 +33,7 @@ public class AuthRepository: IAuthInterface
     public string? GetToken(IdentityUser user)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(_configuration["JWT_KEY"]);
+        var key = Encoding.ASCII.GetBytes(_configuration["JWT_KEY"]!);
         var claims = new List<Claim>
         {
             new Claim(ClaimTypes.NameIdentifier, user.Id ?? string.Empty),

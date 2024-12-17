@@ -13,7 +13,7 @@ public static class RentalMapper
             LicenseNumber = rental.UserInfo.LicenseNumber,
             DrivingLicenseIssueDate = rental.UserInfo.DrivingLicenseIssueDate.ToString(),
             PersonalNumber = rental.UserInfo.PersonalNumber,
-            Address = $"{rental.UserInfo.Address.StreetName} {rental.UserInfo.Address.HouseNumber}, {rental.UserInfo.Address.PostalCode}",
+            Address = $"{rental.UserInfo.StreetName} {rental.UserInfo.HouseNumber}, {rental.UserInfo.PostalCode}",
             PhoneNumber = rental.UserInfo.PhoneNumber, 
             VinId = rental.Vin,
             Start = rental.Start,
@@ -26,23 +26,19 @@ public static class RentalMapper
     public static Rental ToRental(this RentalDTO dto)
     {
         string[] addrTmp = dto.Address.Split();
-        Address addr = new Address
+        // TODO: It's temporary object, it's important to check if such user is in our database
+        // or not.
+        ClientInfo userInfo = new ClientInfo
         {
             StreetName = addrTmp.Length >= 0 ? addrTmp[0] : "",
             HouseNumber = addrTmp.Length >= 1 ? addrTmp[1] : "",
-            PostalCode = addrTmp.Length >= 2 ? addrTmp[2] : ""
-        };
-        // It's temporary object, it's important to check if such user is in our database
-        // or not.
-        UserInfo userInfo = new UserInfo
-        {
+            PostalCode = addrTmp.Length >= 2 ? addrTmp[2] : "",
             Name = dto.Name,
             Surname = dto.Surname,
             BirthDate = DateOnly.FromDateTime(DateTime.Parse(dto.BirthDate)),
             LicenseNumber = dto.LicenseNumber,
             DrivingLicenseIssueDate = DateOnly.FromDateTime(DateTime.Parse(dto.DrivingLicenseIssueDate)),
             PersonalNumber = dto.PersonalNumber,
-            Address = addr,
             PhoneNumber = dto.PhoneNumber
         };
 
