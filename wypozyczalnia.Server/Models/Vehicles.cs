@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace wypozyczalnia.Server.Models
 {
+    // TODO: rename to vehicle
     public class Vehicles
     {
         [Key]
