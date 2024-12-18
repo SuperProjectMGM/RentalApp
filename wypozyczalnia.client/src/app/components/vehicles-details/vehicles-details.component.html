@@ -36,13 +36,16 @@
                   </div>
                   <hr class="my-3">
                   <div class="text-muted">
+                    <strong>Type:</strong> {{ pd.type }}
+                  </div>
+                  <div class="text-muted">
+                    <strong>Drive Type:</strong> {{ pd.driveType }}
+                  </div>
+                  <div class="text-muted">
+                    <strong>Transmission:</strong> {{ pd.transmission }}
+                  </div>
+                  <div class="text-muted">
                     <strong>VIN:</strong> {{ pd.vinId }}
-                  </div>
-                  <div class="text-muted">
-                    <strong>Rented From:</strong> {{ pd.rentalFrom | date: 'dd/MM/y HH:mm' }}
-                  </div>
-                  <div class="text-muted">
-                    <strong>Rented To:</strong> {{ pd.rentalTo | date: 'dd/MM/y HH:mm' }}
                   </div>
                 </div>
                 <span class="text-danger" style="cursor: pointer; font-size: 1.5rem;">
