@@ -84,8 +84,12 @@ public class VehicleRepository : IVehicleInterface
         return dtoList.ToList();
     }
 
-    public Task<List<VehicleDTO>> ReturnVehicles(DateTime start, DateTime end)
+    public async Task<List<VehicleDTO>> ReturnVehicles(DateTime start, DateTime end)
     {
-        throw new NotImplementedException();
+        var vehicles = await _vehiclesContext.Vehicles.ToListAsync();
+        var availableVehicles = vehicles
+        .Where(vehicle => !_rentalsContext.Rentals.Any(rental => vehicle.Vin == rental.Vin 
+        && rental.Start <= end && rental.End >= start)).Select(veh => veh.ToDTO()).ToList();
+        return availableVehicles;
     }
 }
