@@ -10,5 +10,4 @@ public class RentalsContext : DbContext
     }
 
     public DbSet<Rental> Rentals { get; set; }
-    public DbSet<Vehicle> Vehicles { get; set; }
 }
