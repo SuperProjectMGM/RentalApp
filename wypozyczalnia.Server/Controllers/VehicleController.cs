@@ -21,8 +21,6 @@ namespace wypozyczalnia.Server.Controllers
             _context = context;
         }
 
-        // GET: api/VehiclesDetail
-        // Bug here
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Vehicle>>> GetVehicles()
         {
