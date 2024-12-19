@@ -10,6 +10,7 @@ using wypozyczalnia.Server.Interfaces;
 using wypozyczalnia.Server.Repositories;
 using wypozyczalnia.Server.Services;
 using wypozyczalnia.Server.Controllers;
+using wypozyczalnia.Server.Controllers;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,7 +35,6 @@ builder.Services.AddDbContext<AuthDbContext>(options =>
 
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-    .AddEntityFrameworkStores<AuthDbContext>()
     .AddEntityFrameworkStores<AuthDbContext>()
     .AddDefaultTokenProviders();
 
@@ -69,7 +69,7 @@ builder.Services.AddCors(options =>
          "https://localhost:4200", "https://127.0.0.1:4200")
                .AllowAnyMethod()
                .AllowAnyHeader()
-                .AllowCredentials();
+               .AllowCredentials();
     });
 });
 
@@ -81,8 +81,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-
 
 
 app.UseCors("AllowAll");

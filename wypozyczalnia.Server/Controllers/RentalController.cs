@@ -21,7 +21,6 @@ public class RentalController : ControllerBase
         return Ok(rentals);
     }
     
-    // I do not know whether it should be FromBody or FromRoute
     [HttpPut("accept-rental/{rentalId}")]
     public async Task<IActionResult> AcceptRentalAndSendBack([FromRoute] int rentalId)
     {
@@ -29,5 +28,21 @@ public class RentalController : ControllerBase
         if (!succeed)
             return BadRequest("Something went wrong");
         return Ok("Rental completed successfully. Message has been sent.");
+    }
+
+    [HttpGet("pending-rentals-to-return")]
+    public async Task<IActionResult> GetPendingRentalsToReturn()
+    {
+        var rentals = await _rentalRepo.GetRentalsToReturnAcceptance();
+        return Ok(rentals);
+    }
+
+    [HttpPut("accept-pending-rental-to-return/{rentalId}")]
+    public async Task<IActionResult> AcceptPendingRentalToReturn([FromRoute] int rentalId)
+    {
+        var succeed = await _rentalRepo.AcceptReturnOfRental(rentalId);
+        if (!succeed)
+            return BadRequest("Something went wrong");
+        return Ok("Rental return accepted.");
     }
 }

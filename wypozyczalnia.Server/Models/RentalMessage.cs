@@ -27,5 +27,6 @@ public enum MessageType
 {
     RentalMessageConfirmation = 0,
     RentalMessageCompletion = 1,
-    ReceivedCancellationMessage = 2
+    RentalToReturn = 2,
+    RentalAcceptedToReturn = 3
 }

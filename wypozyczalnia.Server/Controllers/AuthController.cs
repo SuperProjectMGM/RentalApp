@@ -27,10 +27,7 @@ namespace wypozyczalnia.Server.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
-
-            
             var result = await _authRepository.CreateNewUser(model);
-
             foreach (var error in result.Errors)
             {
                 var errorMessages = string.Join(", ", result.Errors.Select(e => $"{e.Code}: {e.Description}"));
