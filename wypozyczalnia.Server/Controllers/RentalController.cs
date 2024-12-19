@@ -43,6 +43,6 @@ public class RentalController : ControllerBase
         var succeed = await _rentalRepo.AcceptReturnOfRental(rentalId);
         if (!succeed)
             return BadRequest("Something went wrong");
-        return Ok("Rental completed successfully.");
+        return Ok("Rental return accepted.");
     }
 }
