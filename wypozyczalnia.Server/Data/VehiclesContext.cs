@@ -8,6 +8,6 @@ namespace wypozyczalnia.Server.Models
         {
         }
 
-        public DbSet<Vehicles> Vehicles { get; set; }
+        public DbSet<Vehicle> Vehicles { get; set; }
     }
 }

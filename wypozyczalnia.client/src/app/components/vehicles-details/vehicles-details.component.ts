@@ -41,21 +41,23 @@ export class VehiclesDetailsComponent implements OnInit {
       this.filteredList = this.service.list;
     } else {
       this.filteredList = this.service.list.filter((pd) =>
-        pd.vinId.toLowerCase().startsWith(term)
+        pd.vin.toLowerCase().startsWith(term)
       );
     }
   }
 
   populateForm(selectedRecord: VehicleDetail) {
     this.service.formData = Object.assign({}, selectedRecord);
+    this.service.isEdit = true;
   }
 
-  onDelete(id: number) {
+  onDelete(vin: string) {
     if (confirm('Are you sure to delete this Car?'))
-      this.service.deleteVehicleDetail(id).subscribe({
-        next: (res) => {
-          this.service.list = res as VehicleDetail[];
+      this.service.deleteVehicleDetail(vin).subscribe({
+        next: () => {
           this.toastr.error('Deleted successfully', 'Car Detail Register');
+          this.service.refreshList();
+          this.filteredList = this.service.list;
           this.filterList();
         },
         error: (err) => {

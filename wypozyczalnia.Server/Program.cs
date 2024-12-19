@@ -9,6 +9,7 @@ using wypozyczalnia.Server.AppExtensions;
 using wypozyczalnia.Server.Interfaces;
 using wypozyczalnia.Server.Repositories;
 using wypozyczalnia.Server.Services;
+using wypozyczalnia.Server.Controllers;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,17 +19,22 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IRentalInterface, RentalRepository>();
+builder.Services.AddScoped<IAuthInterface, AuthRepository>();
+builder.Services.AddScoped<IStorageInterface, AzureStorageRepository>();
+builder.Services.AddScoped<IVehicleInterface, VehicleRepository>();
+
 builder.Services.AddSingleton<RabbitMessageService>();
+
 
 builder.Services.AddDbContext<VehiclesContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Devconnection")));
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+builder.Services.AddDbContext<AuthDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Devconnection")));
 builder.Services.AddDbContext<RentalsContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Devconnection")));
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddEntityFrameworkStores<AuthDbContext>()
     .AddDefaultTokenProviders();
 
 builder.Services.AddAuthentication(options =>
@@ -43,9 +49,9 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = "SuperSamochodziki", // zmień na swój issuer
-        ValidAudience = "Administrator", // zmień na swój audience
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your_super_secret_key_32_characters_long!")) // Klucz głowny tutaj
+        ValidIssuer = builder.Configuration["JWT_ISSUER"], 
+        ValidAudience = builder.Configuration["JWT_AUDIENCE"], 
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT_KEY"]))
     };
 });
 
@@ -58,7 +64,8 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", builder =>
     {
-        builder.WithOrigins("https://localhost:4200", "https://kind-forest-0308cdb03.5.azurestaticapps.net", "https://127.0.0.1:4200")
+        builder.WithOrigins("http://localhost:4200", "https://kind-forest-0308cdb03.5.azurestaticapps.net",
+         "https://localhost:4200", "https://127.0.0.1:4200")
                .AllowAnyMethod()
                .AllowAnyHeader()
                 .AllowCredentials();
@@ -73,6 +80,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+
 app.UseCors("AllowAll");
 //app.UseHttpsRedirection();
 app.UseAuthentication();
