@@ -10,7 +10,6 @@ using wypozyczalnia.Server.Interfaces;
 using wypozyczalnia.Server.Repositories;
 using wypozyczalnia.Server.Services;
 using wypozyczalnia.Server.Controllers;
-using wypozyczalnia.Server.Controllers;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -52,7 +51,7 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true,
         ValidIssuer = builder.Configuration["JWT_ISSUER"], 
         ValidAudience = builder.Configuration["JWT_AUDIENCE"], 
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT_KEY"]))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT_KEY"]!))
     };
 });
 
@@ -66,7 +65,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAll", builder =>
     {
         builder.WithOrigins("http://localhost:4200", "https://kind-forest-0308cdb03.5.azurestaticapps.net",
-         "https://localhost:4200", "https://127.0.0.1:4200")
+         "https://localhost:4200", "https://127.0.0.1:4200", "http://localhost:4200/login")
                .AllowAnyMethod()
                .AllowAnyHeader()
                .AllowCredentials();
