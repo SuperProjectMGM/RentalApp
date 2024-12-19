@@ -55,7 +55,9 @@ export class VehicleDetailFormComponent {
           this.blobService.uploadImage(uploadUrl, folder, this.selectedPhoto, this.selectedPhoto.name, this.service.refreshList)
           this.service.formData.photoUrl = `${uploadUrl.split('?')[0]}/${folder}/${this.selectedPhoto.name}`;
           console.log(this.service.formData.photoUrl)
-          //this.insertRecord(form.)
+          this.insertRecord(form)
+          this.selectedPhoto = null
+          this.photoPreviewUrl = null
           }
         },
       error: (err) => {

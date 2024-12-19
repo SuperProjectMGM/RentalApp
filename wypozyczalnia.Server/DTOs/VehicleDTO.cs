@@ -18,5 +18,4 @@ public class VehicleDTO
     public string Vin { get; set; } = string.Empty;
     public string RegistryNo { get; set; } = string.Empty; 
     public string PhotoUrl { get; set; } = string.Empty;
-    public string PhotoUrl { get; set; } = string.Empty;
 }
