@@ -9,11 +9,11 @@ using wypozyczalnia.Server.Models;
 
 #nullable disable
 
-namespace wypozyczalnia.Server.Migrations.Rentals
+namespace wypozyczalnia.Server.Migrations
 {
-    [DbContext(typeof(RentalsContext))]
-    [Migration("20241217230135_InitialMigration")]
-    partial class InitialMigration
+    [DbContext(typeof(AppDbContext))]
+    [Migration("20241219113046_AgainAgainMigrationFinal")]
+    partial class AgainAgainMigrationFinal
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,15 +33,15 @@ namespace wypozyczalnia.Server.Migrations.Rentals
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClientInfoId"));
 
-                    b.Property<DateOnly>("BirthDate")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("City")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateOnly>("DrivingLicenseIssueDate")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("DrivingLicenseIssueDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("LicenseNumber")
                         .IsRequired()
@@ -73,13 +73,16 @@ namespace wypozyczalnia.Server.Migrations.Rentals
 
                     b.HasKey("ClientInfoId");
 
-                    b.ToTable("ClientInfo");
+                    b.ToTable("ClientInfos");
                 });
 
             modelBuilder.Entity("wypozyczalnia.Server.Models.Rental", b =>
                 {
-                    b.Property<string>("RentalId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("RentalId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RentalId"));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -106,6 +109,68 @@ namespace wypozyczalnia.Server.Migrations.Rentals
                     b.HasIndex("UserInfoClientInfoId");
 
                     b.ToTable("Rentals");
+                });
+
+            modelBuilder.Entity("wypozyczalnia.Server.Models.Vehicle", b =>
+                {
+                    b.Property<int>("VehicleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VehicleId"));
+
+                    b.Property<string>("Brand")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DriveType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Localization")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Model")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("money");
+
+                    b.Property<int>("Rate")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RegistryNo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SerialNo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Transmission")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Vin")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("YearOfProduction")
+                        .HasColumnType("int");
+
+                    b.HasKey("VehicleId");
+
+                    b.ToTable("Vehicles");
                 });
 
             modelBuilder.Entity("wypozyczalnia.Server.Models.Rental", b =>
