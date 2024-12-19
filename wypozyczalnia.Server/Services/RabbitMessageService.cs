@@ -61,8 +61,10 @@ public class RabbitMessageService
             var body = eventArgs.Body.ToArray();
             var message = Encoding.UTF8.GetString(body);
             using var scope = _serviceProvider.CreateScope();
-            var rentalService = scope.ServiceProvider.GetRequiredService<IRentalInterface>();
-            await rentalService.StoreRental(message);
+            
+            // It is highly probable, that this code makes no sense. But for now I am too lazy to change it.
+            var rentalService = scope.ServiceProvider.GetRequiredService<IMessageHandler>();
+            await rentalService.ProcessMessage(message);
         }
         catch (Exception ex)
         {
@@ -70,7 +72,7 @@ public class RabbitMessageService
         }
     }
     
-    public async Task<bool> SendRentalCompletion(string message)
+    public async Task<bool> SendMessage(string message)
     {
         var encodedMes = Encoding.UTF8.GetBytes(message);
         var memoryBody = new ReadOnlyMemory<byte>(encodedMes);

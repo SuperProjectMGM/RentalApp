@@ -14,9 +14,9 @@ namespace wypozyczalnia.Server.Controllers
     [ApiController]
     public class VehicleController : ControllerBase
     {
-        private readonly VehiclesContext _context;
+        private readonly AppDbContext _context;
 
-        public VehicleController(VehiclesContext context)
+        public VehicleController(AppDbContext context)
         {
             _context = context;
         }

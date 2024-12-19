@@ -24,10 +24,23 @@ public static class RentalMapper
         };
     }
 
+    public static Rental ToRentalClientExists(this RentalMessage dto, ClientInfo userInfo)
+    {
+        return new Rental
+        {
+            UserInfo = userInfo,
+            Vin = dto.Vin,
+            Start = dto.Start,
+            End = dto.End,
+            Status = dto.Status,
+            Description = dto.Description        
+        };
+    }
+
     public static Rental ToRental(this RentalMessage dto)
     {
-        // TODO: It's temporary object, it's important to check if such user is in our database
-        // or not.
+        // TODO: It's temporary object, it's important to check if such user is in our database or not.
+        // Mati: Done, I believe.
         ClientInfo userInfo = new ClientInfo
         {
             City = dto.City,

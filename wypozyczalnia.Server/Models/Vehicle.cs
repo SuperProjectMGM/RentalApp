@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace wypozyczalnia.Server.Models
 {
     // TODO: rename to vehicle
+    // Mati: whatt??
     public class Vehicle
     {
         public int VehicleId { get; set; }

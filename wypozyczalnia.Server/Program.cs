@@ -25,12 +25,11 @@ builder.Services.AddScoped<IStorageInterface, AzureStorageRepository>();
 builder.Services.AddSingleton<RabbitMessageService>();
 
 
-builder.Services.AddDbContext<VehiclesContext>(options =>
+builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Devconnection")));
 builder.Services.AddDbContext<AuthDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Devconnection")));
-builder.Services.AddDbContext<RentalsContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Devconnection")));
+
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<AuthDbContext>()
