@@ -9,4 +9,6 @@ public interface IRentalInterface
     public Task RentToReturn(RentalMessage mess);
     public Task<List<Rental>> GetPendingRentals();
     public Task<bool> AcceptRental(int rentalId);
+    public Task<List<Rental>> GetRentalsToReturnAcceptance();
+    public Task<bool> AcceptReturnOfRental(int rentId);
 }

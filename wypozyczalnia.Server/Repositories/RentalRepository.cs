@@ -75,6 +75,20 @@ public class RentalRepository : IRentalInterface
         return ret;
     }
 
+    public async Task<bool> AcceptReturnOfRental(int rentId)
+    {
+        var rent = await _context.Rentals.FirstOrDefaultAsync(x => x.RentalId == rentId);
+        if (rent == null)
+            return false;
+
+        rent.Status = RentalStatus.Returned;
+        await _context.SaveChangesAsync();
+
+        return await SendRentalReturnAcceptedMessage(rent);
+    }
+    
+    
+
     public async Task<List<Rental>> GetPendingRentals()
     {
         List<Rental> ret = new List<Rental>();
@@ -98,10 +112,7 @@ public class RentalRepository : IRentalInterface
         await _context.SaveChangesAsync();
         
         // send back to browser api
-        var succeed = await SendCompletionMessage(rental);
-        if (succeed)
-            return true;
-        return false;
+        return await SendCompletionMessage(rental);
     }
 
     public async Task<bool> SendCompletionMessage(Rental rental)
@@ -109,9 +120,14 @@ public class RentalRepository : IRentalInterface
         var rentalMess = rental.ToRentalMessage();
         rentalMess.MessageType = DTOs.MessageType.RentalMessageCompletion;
         string jsonString = JsonSerializer.Serialize(rentalMess);
-        var succeed = await _messageService.SendMessage(jsonString);
-        if (succeed)
-            return true;
-        return false;
+        return await _messageService.SendMessage(jsonString);
+    }
+    
+    public async Task<bool> SendRentalReturnAcceptedMessage(Rental rental)
+    {
+        var rentalMess = rental.ToRentalMessage();
+        rentalMess.MessageType = DTOs.MessageType.RentalAcceptedToReturn;
+        string jsonString = JsonSerializer.Serialize(rentalMess);
+        return await _messageService.SendMessage(jsonString);
     }
 }
