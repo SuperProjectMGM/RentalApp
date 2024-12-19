@@ -15,12 +15,21 @@ public class StorageController: ControllerBase
         _storageRepo = storageInterface;
     }
 
-    [HttpGet]
-    [Authorize]
-    public async Task<ActionResult<Uri>> GetSasUri()
+    [HttpGet("vehicles")]
+    //[Authorize]
+    public async Task<ActionResult<string>> GetSasUriVehicles()
     {
-        var uri = await _storageRepo.GetUriToStorage();
-        return Ok(uri);
+        // It's hardcoded
+        var uri = await _storageRepo.GetUriToStorage("vehicles");
+        return Ok(new { sasUrl = uri.ToString() });
     }
 
+    
+    [HttpGet("rentals")]
+    //[Authorize]
+    public async Task<ActionResult<string>> GetSasUriRentlas()
+    {
+        var uri = await _storageRepo.GetUriToStorage("rentals");
+        return Ok(new { sasUrl = uri.ToString() });
+    }
 }

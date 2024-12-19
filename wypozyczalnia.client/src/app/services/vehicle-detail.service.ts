@@ -8,8 +8,9 @@ import { NgForm } from '@angular/forms';
   providedIn: 'root',
 })
 export class VehicleDetailService {
-  url: string = environment.apiBaseUrl + '/VehiclesDetail';
+  url: string = environment.apiBaseUrl + '/Vehicle';
   list: VehicleDetail[] = [];
+  isEdit: boolean = false;
   formData: VehicleDetail = new VehicleDetail();
   constructor(private http: HttpClient) {}
 
@@ -24,11 +25,13 @@ export class VehicleDetailService {
     });
   }
   postVehicleDetail() {
-    return this.http.post(this.url, this.formData);
+    var a = this.http.post(this.url, this.formData); 
+    this.refreshList(); 
+    return a;
   }
 
   putVehicleDetail() {
-    return this.http.put(this.url + '/' + this.formData.vinId, this.formData);
+    return this.http.put(this.url + '/' + this.formData.vin, this.formData);
   }
 
   resetForm(form: NgForm) {
@@ -37,6 +40,8 @@ export class VehicleDetailService {
   }
 
   deleteVehicleDetail(vin: string) {
-    return this.http.delete(this.url + '/' + vin);
+    var a = this.http.delete(this.url + '/' + vin); 
+    this.refreshList();
+    return a;
   }
 }

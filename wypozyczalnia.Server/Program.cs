@@ -34,6 +34,7 @@ builder.Services.AddDbContext<AuthDbContext>(options =>
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<AuthDbContext>()
+    .AddEntityFrameworkStores<AuthDbContext>()
     .AddDefaultTokenProviders();
 
 builder.Services.AddAuthentication(options =>
@@ -51,6 +52,9 @@ builder.Services.AddAuthentication(options =>
         ValidIssuer = builder.Configuration["JWT_ISSUER"], 
         ValidAudience = builder.Configuration["JWT_AUDIENCE"], 
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT_KEY"]))
+        ValidIssuer = builder.Configuration["JWT_ISSUER"], 
+        ValidAudience = builder.Configuration["JWT_AUDIENCE"], 
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT_KEY"]))
     };
 });
 
@@ -63,7 +67,8 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", builder =>
     {
-        builder.WithOrigins("https://localhost:4200", "https://kind-forest-0308cdb03.5.azurestaticapps.net", "https://127.0.0.1:4200")
+        builder.WithOrigins("http://localhost:4200", "https://kind-forest-0308cdb03.5.azurestaticapps.net",
+         "https://localhost:4200", "https://127.0.0.1:4200")
                .AllowAnyMethod()
                .AllowAnyHeader()
                 .AllowCredentials();
@@ -78,6 +83,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+
 
 
 app.UseCors("AllowAll");
