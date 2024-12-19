@@ -63,8 +63,8 @@ public class RabbitMessageService
             using var scope = _serviceProvider.CreateScope();
             
             // It is highly probable, that this code makes no sense. But for now I am too lazy to change it.
-            var rentalService = scope.ServiceProvider.GetRequiredService<IMessageHandler>();
-            await rentalService.ProcessMessage(message);
+            var messageHandler = scope.ServiceProvider.GetRequiredService<IMessageHandler>();
+            await messageHandler.ProcessMessage(message);
         }
         catch (Exception ex)
         {

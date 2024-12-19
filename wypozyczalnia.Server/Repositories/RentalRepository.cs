@@ -83,7 +83,7 @@ public class RentalRepository : IRentalInterface
     public async Task<bool> SendCompletionMessage(Rental rental)
     {
         var rentalMess = rental.ToRentalMessage();
-        rentalMess.MessageType = DTOs.MessageType.SentCompletionMessage;
+        rentalMess.MessageType = DTOs.MessageType.RentalMessageCompletion;
         string jsonString = JsonSerializer.Serialize(rentalMess);
         var succeed = await _messageService.SendMessage(jsonString);
         if (succeed)

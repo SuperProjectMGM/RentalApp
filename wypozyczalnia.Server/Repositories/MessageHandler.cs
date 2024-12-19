@@ -23,7 +23,7 @@ public class MessageHandler : IMessageHandler
             throw new Exception("Error during processing message.");
         switch (mess.MessageType)
         {
-            case MessageType.ReceivedRentalMessage:
+            case MessageType.RentalMessageConfirmation:
                 await _rentalRepo.StoreRental(mess);
                 break;
         }
