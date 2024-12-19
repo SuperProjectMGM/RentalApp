@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { VehicleDetailFormComponent } from '../vehicle-detail-form/vehicle-detail-form.component';
 import { RentalRequestsComponent } from '../rental-requests/rental-requests.component';
+import { ReturnRequestsComponent } from '../return-requests/return-requests.component';
 
 @Component({
   selector: 'app-vehicles-details',
@@ -17,6 +18,7 @@ import { RentalRequestsComponent } from '../rental-requests/rental-requests.comp
     FormsModule,
     VehicleDetailFormComponent,
     RentalRequestsComponent,
+    ReturnRequestsComponent
   ],
 })
 export class VehiclesDetailsComponent implements OnInit {

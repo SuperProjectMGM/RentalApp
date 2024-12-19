@@ -1,0 +1,39 @@
+<div class="rental-requests-container">
+    <button class="btn refresh-btn" (click)="refreshRequests()">
+      Refresh Returns
+    </button>
+  
+    <!-- Grid Layout for Cards -->
+    <div class="grid-container">
+      <div
+        class="rental-card"
+        *ngFor="let request of returnRequests"
+      >
+       <!-- Rental Information -->
+       <div class="rental-card-header">
+        <div class="rental-title">
+          🚗 {{ request.rentalId}} - {{ request.address }}
+        </div>
+      </div>
+      <hr>
+      <div class="rental-card-body">
+        <div class="rental-info">
+          <i class="fa-solid fa-user"></i> <strong>Requested By:</strong> {{ request.address }}
+        </div>
+        <div class="rental-info">
+          <i class="fa-solid fa-calendar-alt"></i> <strong>Requested From:</strong> {{ request.start | date: 'dd/MM/yyyy HH:mm' }}
+        </div>
+        <div class="rental-info">
+          <i class="fa-solid fa-calendar-check"></i> <strong>Requested To:</strong> {{ request.end | date: 'dd/MM/yyyy HH:mm' }}
+        </div>
+      </div>
+      <hr>
+        <!-- Action Buttons -->
+        <div class="rental-card-footer">
+          <button class="btn btn-approve" (click)="approveRequest(request.rentalId)">Approve</button>
+          <button class="btn btn-reject" >Reject</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
