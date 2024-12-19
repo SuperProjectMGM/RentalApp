@@ -6,20 +6,18 @@ using wypozyczalnia.Server.Models;
 
 public class VehicleRepository : IVehicleInterface
 {
-    private readonly RentalsContext _rentalsContext;
-    private readonly VehiclesContext _vehiclesContext;
-    public VehicleRepository(RentalsContext rentalContext, VehiclesContext vehicleContext)
+    private readonly AppDbContext _appDbContext;
+    public VehicleRepository(AppDbContext appDbContext)
     {
-        _rentalsContext = rentalContext;
-        _vehiclesContext = vehicleContext;
+        _appDbContext = appDbContext;
     }
     public async Task<bool> AddVehicle(VehicleDTO vehicleDTO)
     { 
         try
         {
             Vehicle vehicle = vehicleDTO.ToEntity();
-            _vehiclesContext.Add(vehicle);
-            await _vehiclesContext.SaveChangesAsync();
+            _appDbContext.Add(vehicle);
+            await _appDbContext.SaveChangesAsync();
             return true;
         }
         catch
@@ -51,7 +49,7 @@ public class VehicleRepository : IVehicleInterface
             veh.Localization = vehicle.Localization;
             veh.SerialNo = vehicle.SerialNo;
             veh.RegistryNo = vehicle.RegistryNo;
-            await _vehiclesContext.SaveChangesAsync();
+            await _appDbContext.SaveChangesAsync();
             return true;
         }
         catch
@@ -63,7 +61,7 @@ public class VehicleRepository : IVehicleInterface
 
     public async Task<bool> CheckIfVehicleExists(string vin)
     {
-        return await _vehiclesContext.Vehicles.AnyAsync(vehicle => vehicle.Vin == vin);
+        return await _appDbContext.Vehicles.AnyAsync(vehicle => vehicle.Vin == vin);
     }
 
     public async Task<bool> DeleteVehicle(string vin)
@@ -75,8 +73,8 @@ public class VehicleRepository : IVehicleInterface
 
         try 
         {
-            _vehiclesContext.Vehicles.Remove(veh!);
-            await _vehiclesContext.SaveChangesAsync();
+            _appDbContext.Vehicles.Remove(veh!);
+            await _appDbContext.SaveChangesAsync();
             return true;
         }
         catch
@@ -87,21 +85,21 @@ public class VehicleRepository : IVehicleInterface
 
     public async Task<Vehicle?> FindVehicle(string vin)
     {
-        return await _vehiclesContext.Vehicles.SingleOrDefaultAsync(veh => veh.Vin == vin);
+        return await _appDbContext.Vehicles.SingleOrDefaultAsync(veh => veh.Vin == vin);
     }
 
     public async Task<List<VehicleDTO>> ReturnVehicles()
     {
-        var list = await _vehiclesContext.Vehicles.ToListAsync();
+        var list = await _appDbContext.Vehicles.ToListAsync();
         var dtoList = list.Select(veh => veh.ToDTO());
         return dtoList.ToList();
     }
 
     public async Task<List<VehicleDTO>> ReturnVehicles(DateTime start, DateTime end)
     {
-        var vehicles = await _vehiclesContext.Vehicles.ToListAsync();
+        var vehicles = await _appDbContext.Vehicles.ToListAsync();
         var availableVehicles = vehicles
-        .Where(vehicle => !_rentalsContext.Rentals.Any(rental => vehicle.Vin == rental.Vin 
+        .Where(vehicle => !_appDbContext.Rentals.Any(rental => vehicle.Vin == rental.Vin 
         && rental.Start <= end && rental.End >= start)).Select(veh => veh.ToDTO()).ToList();
         return availableVehicles;
     }

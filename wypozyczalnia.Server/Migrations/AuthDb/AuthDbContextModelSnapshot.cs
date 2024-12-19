@@ -8,7 +8,7 @@ using wypozyczalnia.Server.Models;
 
 #nullable disable
 
-namespace wypozyczalnia.Server.Migrations
+namespace wypozyczalnia.Server.Migrations.AuthDb
 {
     [DbContext(typeof(AuthDbContext))]
     partial class AuthDbContextModelSnapshot : ModelSnapshot

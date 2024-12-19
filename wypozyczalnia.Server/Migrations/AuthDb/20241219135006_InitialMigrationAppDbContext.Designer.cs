@@ -9,11 +9,11 @@ using wypozyczalnia.Server.Models;
 
 #nullable disable
 
-namespace wypozyczalnia.Server.Migrations
+namespace wypozyczalnia.Server.Migrations.AuthDb
 {
     [DbContext(typeof(AuthDbContext))]
-    [Migration("20241217225940_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20241219135006_InitialMigrationAppDbContext")]
+    partial class InitialMigrationAppDbContext
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

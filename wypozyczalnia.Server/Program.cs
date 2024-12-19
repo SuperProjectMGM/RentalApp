@@ -52,9 +52,6 @@ builder.Services.AddAuthentication(options =>
         ValidIssuer = builder.Configuration["JWT_ISSUER"], 
         ValidAudience = builder.Configuration["JWT_AUDIENCE"], 
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT_KEY"]))
-        ValidIssuer = builder.Configuration["JWT_ISSUER"], 
-        ValidAudience = builder.Configuration["JWT_AUDIENCE"], 
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT_KEY"]))
     };
 });
 

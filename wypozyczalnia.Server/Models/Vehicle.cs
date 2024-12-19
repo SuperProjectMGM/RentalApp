@@ -27,5 +27,6 @@ namespace wypozyczalnia.Server.Models
         // TODO: Think what should be here
         public int Rate { get; set; }
         public string Localization { get; set; } = string.Empty;
+        public string PhotoUrl { get; set; } = string.Empty;
     }
 }
