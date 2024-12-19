@@ -135,14 +135,30 @@
     </select>
   </div>
 
-   <!-- Upload Photo -->
-   <div class="mb-3">
+  <!-- Upload Photo -->
+  <div class="mb-3">
     <label class="form-label">Upload Photo</label>
     <div class="upload-container">
       <label for="fileInput" class="upload-label">
         <span class="upload-text">Click here to upload or drag and drop</span>
       </label>
-      <input id="fileInput" type="file" class="form-control" name="photo" (change)="onPhotoSelected($event)" accept="image/*">
+      <input
+        id="fileInput"
+        type="file"
+        class="form-control"
+        name="photo"
+        (change)="onPhotoSelected($event)"
+        accept="image/"
+      />
+    </div>
+
+    <!-- Photo Preview -->
+    <div class="photo-preview mt-3" *ngIf="photoPreviewUrl">
+      <img [src]="photoPreviewUrl" alt="Preview" class="img-thumbnail" />
+    </div>
+    <div class="photo-placeholder mt-3" *ngIf="!photoPreviewUrl">
+      <span class="emoji">📷</span>
+      <p>No photo selected</p>
     </div>
   </div>
   <!-- Submit Button -->

@@ -22,7 +22,8 @@ public class AzureStorageRepository: IStorageInterface
         var blobContainerClient = new BlobContainerClient(_connectionString, containerName);
 
         // Should I specify here containers name?
-        var blobSasBuilder = new BlobSasBuilder(BlobContainerSasPermissions.Read | BlobContainerSasPermissions.Write, DateTimeOffset.Now.AddMinutes(10));
+        var blobSasBuilder = new BlobSasBuilder(BlobContainerSasPermissions.Read | BlobContainerSasPermissions.Write | BlobContainerSasPermissions.Create
+        | BlobContainerSasPermissions.Add, DateTimeOffset.Now.AddMinutes(10));
         blobSasBuilder.Resource = "c";
         blobSasBuilder.BlobContainerName = containerName;
 
