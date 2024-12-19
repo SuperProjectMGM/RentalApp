@@ -21,26 +21,11 @@ public static class VehicleMapper
             Localization = vehicle.Localization,
             SerialNo = vehicle.SerialNo,
             Vin = vehicle.Vin,
-            RegistryNo = vehicle.RegistryNo
+            RegistryNo = vehicle.RegistryNo,
+            PhotoUrl = vehicle.PhotoUrl
         };
     }
 
-    public static void ChangeFromDTO(ref Vehicle vehicle, VehicleDTO dto)
-    {
-        vehicle.Brand = dto.Brand;
-        vehicle.Model = dto.Model;
-        vehicle.YearOfProduction = vehicle.YearOfProduction;
-        vehicle.Type = vehicle.Type;
-        vehicle.Price = vehicle.Price;
-        vehicle.DriveType = vehicle.DriveType;
-        vehicle.Transmission = vehicle.Transmission;
-        vehicle.Description = vehicle.Description;
-        vehicle.Rate = vehicle.Rate;
-        vehicle.Localization = vehicle.Localization;
-        vehicle.SerialNo = vehicle.SerialNo;
-        vehicle.Vin = vehicle.Vin;
-        vehicle.RegistryNo = vehicle.RegistryNo;
-    }
 
     public static Vehicle ToEntity(this VehicleDTO vehicleDTO)
     {
@@ -58,7 +43,8 @@ public static class VehicleMapper
             Localization = vehicleDTO.Localization,
             SerialNo = vehicleDTO.SerialNo,
             Vin = vehicleDTO.Vin,
-            RegistryNo = vehicleDTO.RegistryNo
+            RegistryNo = vehicleDTO.RegistryNo,
+            PhotoUrl = vehicleDTO.PhotoUrl
         };
     }
 }

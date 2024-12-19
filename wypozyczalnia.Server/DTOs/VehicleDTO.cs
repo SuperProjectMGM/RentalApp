@@ -1,3 +1,6 @@
+using System.Data.SqlTypes;
+using Microsoft.Data.SqlClient.Server;
+
 namespace wypozyczalnia.Server.DTOs;
 public class VehicleDTO
 {
@@ -14,5 +17,6 @@ public class VehicleDTO
     public string SerialNo { get; set; } = string.Empty;
     public string Vin { get; set; } = string.Empty;
     public string RegistryNo { get; set; } = string.Empty; 
+    public string PhotoUrl { get; set; } = string.Empty;
     public string PhotoUrl { get; set; } = string.Empty;
 }
