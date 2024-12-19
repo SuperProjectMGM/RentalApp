@@ -64,7 +64,8 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", builder =>
     {
-        builder.WithOrigins("http://localhost:4200", "https://kind-forest-0308cdb03.5.azurestaticapps.net")
+        builder.WithOrigins("http://localhost:4200", "https://kind-forest-0308cdb03.5.azurestaticapps.net",
+         "https://localhost:4200", "https://127.0.0.1")
                .AllowAnyMethod()
                .AllowAnyHeader()
                 .AllowCredentials();

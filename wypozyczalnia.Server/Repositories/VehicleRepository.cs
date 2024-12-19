@@ -38,6 +38,19 @@ public class VehicleRepository : IVehicleInterface
 
         try
         {
+            // Why it works only this way, even method with ref doesn't apply chagnes
+            veh.Brand = vehicle.Brand;
+            veh.Model = vehicle.Model;
+            veh.YearOfProduction = vehicle.YearOfProduction;
+            veh.Type = vehicle.Type;
+            veh.Price = vehicle.Price;
+            veh.DriveType = vehicle.DriveType;
+            veh.Transmission = vehicle.Transmission;
+            veh.Description = vehicle.Description;
+            veh.Rate = vehicle.Rate;
+            veh.Localization = vehicle.Localization;
+            veh.SerialNo = vehicle.SerialNo;
+            veh.RegistryNo = vehicle.RegistryNo;
             await _vehiclesContext.SaveChangesAsync();
             return true;
         }

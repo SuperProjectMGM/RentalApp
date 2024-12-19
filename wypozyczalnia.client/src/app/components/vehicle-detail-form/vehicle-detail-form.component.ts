@@ -21,20 +21,26 @@ export class VehicleDetailFormComponent {
   ) {}
 
   onSubmit(form: NgForm) {
-    //this.service.formSubmitted = true
     if (form.valid) {
-      if (this.service.formData.carId == '') this.insertRecord(form);
-      else this.updateRecord(form);
+      if (!this.service.isEdit)
+      { 
+        this.insertRecord(form);
+      }
+      else 
+      {
+        this.updateRecord(form);
+        this.service.isEdit = false;
+      }
     }
   }
 
   insertRecord(form: NgForm) {
     this.service.postVehicleDetail().subscribe({
-      next: (res) => {
-        this.service.list = res as VehicleDetail[];
+      next: () => {
         this.service.resetForm(form);
         this.toastr.success('Inserted successfully', 'Car Detail Register');
         this.vehicleUpdated.emit();
+        this.service.refreshList(); 
       },
       error: (err) => {
         console.log(err);
@@ -44,11 +50,11 @@ export class VehicleDetailFormComponent {
 
   updateRecord(form: NgForm) {
     this.service.putVehicleDetail().subscribe({
-      next: (res) => {
-        this.service.list = res as VehicleDetail[];
+      next: () => {
         this.service.resetForm(form);
         this.toastr.info('updated successfully', 'Car Detail Register');
         this.vehicleUpdated.emit();
+        this.service.refreshList();
       },
       error: (err) => {
         console.log(err);

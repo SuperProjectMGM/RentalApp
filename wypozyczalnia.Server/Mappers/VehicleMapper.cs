@@ -25,7 +25,7 @@ public static class VehicleMapper
         };
     }
 
-    public static void ChangeFromDTO(this Vehicle vehicle, VehicleDTO dto)
+    public static void ChangeFromDTO(ref Vehicle vehicle, VehicleDTO dto)
     {
         vehicle.Brand = dto.Brand;
         vehicle.Model = dto.Model;

@@ -1,18 +1,16 @@
 export class VehicleDetail {
-  carId: string = '';
   brand: string = '';
   model: string = '';
   serialNo: string = '';
-  vinId: string = '';
+  vin: string = '';
   registryNo: string = '';
   yearOfProduction: number = new Date().getFullYear();
-  rentalFrom: Date = new Date();
-  rentalTo: Date = new Date();
-  prize: number = 0.0;
+  price: number = 0.0;
   driveType: string = '';
   transmission: string = '';
   description: string = '';
   type: string = '';
   rate: number = 0.0;
   localization: string = '';
+  flag: boolean = false;
 }

@@ -1,5 +1,4 @@
 <form #form="ngForm" (submit)="onSubmit(form)">
-  <input type="hidden" name="carId" [value]="service.formData.carId"/>
 
   <!-- Car Brand Name -->
   <div class="mb-3">
@@ -37,8 +36,8 @@
     <label>VIN ID</label>
     <input class="form-control form-control-lg"
            placeholder="Vehicle Identification Number (VIN)"
-           #VinID="ngModel" name="vinId"
-           [(ngModel)]="service.formData.vinId"
+           #VinID="ngModel" name="vin"
+           [(ngModel)]="service.formData.vin"
            required>
   </div>
 
@@ -67,8 +66,8 @@
     <label>Prise</label>
     <input type="number" step="0.01" class="form-control form-control-lg"
            placeholder="Prize (e.g., 150.00)"
-           #Prize="ngModel" name="prize"
-           [(ngModel)]="service.formData.prize"
+           #Prize="ngModel" name="price"
+           [(ngModel)]="service.formData.price"
            required>
   </div>
 

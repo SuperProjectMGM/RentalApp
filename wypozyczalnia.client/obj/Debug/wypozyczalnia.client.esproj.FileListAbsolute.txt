@@ -8,3 +8,4 @@ C:/Users/Grzesiu/OneDrive/Pulpit/Rentalapp/RentalApp/wypozyczalnia.client/obj/De
 >>>>>>> b63cf5cf2d6af743220f72e1bc2f0240573dba3e
 C:\Users\Mike Shamrai\Desktop\Polibuda\Dotnet5sem\RentalApp\wypozyczalnia.client\obj\Debug\wypozyczalnia.client.esproj.CoreCompileInputs.cache
 C:\Users\Grzesiu\OneDrive\Pulpit\dotnet\wypozyczalnia\RentalApp\wypozyczalnia.client\obj\Debug\wypozyczalnia.client.esproj.CoreCompileInputs.cache
+C:\Users\Mike Shamrai\Desktop\Polibuda\Dotnet5sem\Rental\RentalApp\wypozyczalnia.client\obj\Debug\wypozyczalnia.client.esproj.CoreCompileInputs.cache
