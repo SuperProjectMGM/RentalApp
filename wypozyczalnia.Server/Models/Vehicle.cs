@@ -19,6 +19,7 @@ namespace wypozyczalnia.Server.Models
         
         [Column(TypeName = "money")]
         public float Price { get; set; }
+        
         public string DriveType { get; set; } = string.Empty;
         public string Transmission { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;

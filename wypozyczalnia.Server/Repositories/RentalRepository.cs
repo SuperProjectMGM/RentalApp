@@ -51,6 +51,30 @@ public class RentalRepository : IRentalInterface
         await _context.SaveChangesAsync();
     }
 
+    public async Task RentToReturn(RentalMessage mess)
+    {
+        // Looking for rental with Vin
+        var rental = await _context.Rentals.FirstOrDefaultAsync(x => x.Vin == mess.Vin);
+        if (rental == null)
+            throw new Exception("Client not found in DB");
+        // change status
+        rental.Status = RentalStatus.WaitingForReturnAcceptance;
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task<List<Rental>> GetRentalsToReturnAcceptance()
+    {
+        List<Rental> ret = new List<Rental>();
+        var tmp = await _context.Rentals.ToListAsync();
+        foreach (var rent in tmp)
+        {
+            if (rent.Status == RentalStatus.WaitingForReturnAcceptance)
+                ret.Add(rent);
+        }
+
+        return ret;
+    }
+
     public async Task<List<Rental>> GetPendingRentals()
     {
         List<Rental> ret = new List<Rental>();

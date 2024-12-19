@@ -26,6 +26,9 @@ public class MessageHandler : IMessageHandler
             case MessageType.RentalMessageConfirmation:
                 await _rentalRepo.StoreRental(mess);
                 break;
+            case MessageType.RentalToReturn:
+                await _rentalRepo.RentToReturn(mess);
+                break;
         }
     }
 }
