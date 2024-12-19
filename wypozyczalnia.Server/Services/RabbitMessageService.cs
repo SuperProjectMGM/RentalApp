@@ -51,7 +51,7 @@ public class RabbitMessageService
     }
     public async Task Deregister()
     {
-        await this._connection.CloseAsync();
+        await _connection.CloseAsync();
     }
 
     private async Task MessageReceived(object sender, BasicDeliverEventArgs eventArgs)
