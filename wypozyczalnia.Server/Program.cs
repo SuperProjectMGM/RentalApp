@@ -21,19 +21,19 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IRentalInterface, RentalRepository>();
 builder.Services.AddScoped<IAuthInterface, AuthRepository>();
 builder.Services.AddScoped<IStorageInterface, AzureStorageRepository>();
-builder.Services.AddScoped<IVehicleInterface, VehicleRepository>();
+builder.Services.AddScoped<IMessageHandler, MessageHandler>();
 
 builder.Services.AddSingleton<RabbitMessageService>();
 
 
-builder.Services.AddDbContext<VehiclesContext>(options =>
+builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Devconnection")));
 builder.Services.AddDbContext<AuthDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Devconnection")));
-builder.Services.AddDbContext<RentalsContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Devconnection")));
+
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<AuthDbContext>()
     .AddEntityFrameworkStores<AuthDbContext>()
     .AddDefaultTokenProviders();
 
@@ -49,6 +49,9 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["JWT_ISSUER"], 
+        ValidAudience = builder.Configuration["JWT_AUDIENCE"], 
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT_KEY"]))
         ValidIssuer = builder.Configuration["JWT_ISSUER"], 
         ValidAudience = builder.Configuration["JWT_AUDIENCE"], 
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT_KEY"]))
@@ -80,6 +83,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+
 
 
 app.UseCors("AllowAll");

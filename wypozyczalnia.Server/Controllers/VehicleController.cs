@@ -6,8 +6,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NanoidDotNet;
-using wypozyczalnia.Server.DTOs;
-using wypozyczalnia.Server.Interfaces;
 using wypozyczalnia.Server.Models;
 
 namespace wypozyczalnia.Server.Controllers
@@ -16,59 +14,97 @@ namespace wypozyczalnia.Server.Controllers
     [ApiController]
     public class VehicleController : ControllerBase
     {
-        private readonly IVehicleInterface _vehicleRepository;
-        public VehicleController(IVehicleInterface vehicleInterface)
+        private readonly AppDbContext _context;
+
+        public VehicleController(AppDbContext context)
         {
-            _vehicleRepository = vehicleInterface;
+            _context = context;
         }
 
+        // GET: api/VehiclesDetail
+        // Bug here
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<VehicleDTO>>> GetVehicles()
+        public async Task<ActionResult<IEnumerable<Vehicle>>> GetVehicles()
         {
-            return Ok(await _vehicleRepository.ReturnVehicles());
+            return await _context.Vehicles.ToListAsync();
         }
 
-        [HttpGet("{vin}")]
-        public async Task<ActionResult<VehicleDTO>> GetVehicles(string vin)
+        // GET: api/VehiclesDetail/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Vehicle>> GetVehicles(int id)
         {
-            var vehDTO = await _vehicleRepository.FindVehicle(vin); 
-            return Ok(vehDTO);
-        }
+            var vehicles = await _context.Vehicles.FindAsync(id);
 
-        [HttpPut("{vin}")]
-        public async Task<IActionResult> PutVehicle(string vin, [FromBody] VehicleDTO dto)
-        {
-            if (await _vehicleRepository.ChangeVehicle(vin, dto))
-                return Ok();
-            else
+            if (vehicles == null)
             {
-                return NotFound("There is no vehicle with such vin");
+                return NotFound();
             }
+
+            return vehicles;
         }
 
+        // PUT: api/VehiclesDetail/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{vin}")]
+        public async Task<IActionResult> PutVehicles(string vin, Vehicle vehicles)
+        {
+            if (vin != vehicles.Vin)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(vehicles).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!VehiclesExists(vin))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return Ok(await _context.Vehicles.ToListAsync());
+        }
+
+        // POST: api/VehiclesDetail
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult> PostVehicles([FromBody] VehicleDTO vehicleDTO) 
+        public async Task<ActionResult<Vehicle>> PostVehicles(Vehicle vehicles) 
+            // Powinien dostać dto, i w mapperze tworzymy obiekt, nadajemy normalne id
         {
-            if (await _vehicleRepository.AddVehicle(vehicleDTO))
-                return Ok();
-            return BadRequest("Can't add new Vehicle"); 
+            _context.Vehicles.Add(vehicles);
+            await _context.SaveChangesAsync();
+
+            return Ok(await _context.Vehicles.ToListAsync());
         }
 
+        // DELETE: api/VehiclesDetail/5
         [HttpDelete("{vin}")]
-        public async Task<IActionResult> DeleteVehicle(string vin)
+        public async Task<IActionResult> DeleteVehicles(string vin)
         {
-            if (await _vehicleRepository.DeleteVehicle(vin))
-                return Ok();
-            return NotFound("There is no vehicle with such vin");
+            var vehicle = await _context.Vehicles.FirstOrDefaultAsync(x => x.Vin == vin);
+            if (vehicle == null)
+            {
+                return NotFound();
+            }
+
+            _context.Vehicles.Remove(vehicle);
+            await _context.SaveChangesAsync();
+
+            return Ok(await _context.Vehicles.ToListAsync()); ;
         }
 
-
-        [HttpGet("available")]
-        public async Task<ActionResult<IEnumerable<VehicleDTO>>> GetAvailableVehicles(
-            [FromQuery] DateTime start,
-            [FromQuery] DateTime end)
+        private bool VehiclesExists(string vin)
         {
-            return Ok(await _vehicleRepository.ReturnVehicles(start, end));
+            return _context.Vehicles.Any(e => e.Vin == vin);
         }
     }
 }
