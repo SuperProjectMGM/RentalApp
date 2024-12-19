@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace wypozyczalnia.Server.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigrationAppDbContext : Migration
+    public partial class InitAppContext : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -65,6 +65,7 @@ namespace wypozyczalnia.Server.Migrations
                 {
                     RentalId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Slug = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserInfoClientInfoId = table.Column<int>(type: "int", nullable: false),
                     Vin = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Start = table.Column<DateTime>(type: "datetime2", nullable: false),

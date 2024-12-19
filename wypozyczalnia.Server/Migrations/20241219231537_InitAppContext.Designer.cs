@@ -12,8 +12,8 @@ using wypozyczalnia.Server.Models;
 namespace wypozyczalnia.Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241219113046_AgainAgainMigrationFinal")]
-    partial class AgainAgainMigrationFinal
+    [Migration("20241219231537_InitAppContext")]
+    partial class InitAppContext
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -91,6 +91,13 @@ namespace wypozyczalnia.Server.Migrations
                     b.Property<DateTime>("End")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("PhotoUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("Start")
                         .HasColumnType("datetime2");
 
@@ -136,6 +143,10 @@ namespace wypozyczalnia.Server.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Model")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhotoUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

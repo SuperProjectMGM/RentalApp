@@ -12,19 +12,19 @@
        <!-- Rental Information -->
        <div class="rental-card-header">
         <div class="rental-title">
-          🚗 {{ request.rentalId}} - {{ request.address }}
+          🚗 {{ request.vin}} - {{ request.slug }}
         </div>
       </div>
       <hr>
       <div class="rental-card-body">
         <div class="rental-info">
-          <i class="fa-solid fa-user"></i> <strong>Requested By:</strong> {{ request.address }}
+          <i class="fa-solid fa-user"></i> <strong>Requested By:</strong> {{ request.personalNumber }}
         </div>
         <div class="rental-info">
-          <i class="fa-solid fa-calendar-alt"></i> <strong>Requested From:</strong> {{ request.start | date: 'dd/MM/yyyy HH:mm' }}
+          <i class="fa-solid fa-calendar-alt"></i> <strong>Requested From:</strong> {{ request.start | date: 'dd/MM/yyyy' }}
         </div>
         <div class="rental-info">
-          <i class="fa-solid fa-calendar-check"></i> <strong>Requested To:</strong> {{ request.end | date: 'dd/MM/yyyy HH:mm' }}
+          <i class="fa-solid fa-calendar-check"></i> <strong>Requested To:</strong> {{ request.end | date: 'dd/MM/yyyy' }}
         </div>
       </div>
       <hr>

@@ -6,6 +6,7 @@ public static class RentalMapper
     {
         return new RentalMessage
         {
+            Slug = rental.Slug,
             Name = rental.UserInfo.Name,
             Surname = rental.UserInfo.Surname,
             BirthDate = rental.UserInfo.BirthDate,
@@ -28,6 +29,7 @@ public static class RentalMapper
     {
         return new Rental
         {
+            Slug = dto.Slug,
             UserInfo = userInfo,
             Vin = dto.Vin,
             Start = dto.Start,
@@ -57,12 +59,31 @@ public static class RentalMapper
 
         return new Rental
         {
+            Slug = dto.Slug,
             UserInfo = userInfo,
             Vin = dto.Vin,
             Start = dto.Start,
             End = dto.End,
             Status = dto.Status,
             Description = dto.Description        
+        };
+    }
+
+    public static RentalDTO ToDto(this Rental rental)
+    {
+        return new RentalDTO
+        {
+            RentalId = rental.RentalId,
+            Slug = rental.Slug,
+            Name = rental.UserInfo.Name,
+            Surname = rental.UserInfo.Surname,
+            PersonalNumber = rental.UserInfo.PersonalNumber,
+            Vin = rental.Vin,
+            Start = rental.Start,
+            End = rental.End,
+            Status = rental.Status,
+            Description = rental.Description,
+            PhotoUrl = rental.PhotoUrl
         };
     }
 }

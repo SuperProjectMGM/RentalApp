@@ -5,6 +5,7 @@ namespace wypozyczalnia.Server.Models;
 public class Rental
 {
     public int RentalId { get; set; }
+    public string Slug { get; set; } = string.Empty;
     public ClientInfo UserInfo { get; set; } = new ClientInfo();
     public string Vin { get; set; } = String.Empty;
     public DateTime Start { get; set; }

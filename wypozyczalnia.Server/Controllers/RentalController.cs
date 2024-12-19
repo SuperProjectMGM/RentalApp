@@ -18,7 +18,7 @@ public class RentalController : ControllerBase
     public async Task<IActionResult> GetPendingRentals()
     {
         var rentals = await _rentalRepo.GetPendingRentals();
-        return Ok(rentals);
+        return Ok(rentals.Select((rent) => rent.ToDto()));
     }
     
     [HttpPut("accept-rental/{rentalId}")]
@@ -34,7 +34,7 @@ public class RentalController : ControllerBase
     public async Task<IActionResult> GetPendingRentalsToReturn()
     {
         var rentals = await _rentalRepo.GetRentalsToReturnAcceptance();
-        return Ok(rentals);
+        return Ok(rentals.Select((rent) => rent.ToDto()));
     }
 
     [HttpPut("accept-pending-rental-to-return/{rentalId}")]
@@ -45,4 +45,5 @@ public class RentalController : ControllerBase
             return BadRequest("Something went wrong");
         return Ok("Rental return accepted.");
     }
+
 }
