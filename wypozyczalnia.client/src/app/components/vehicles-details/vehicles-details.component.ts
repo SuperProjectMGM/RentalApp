@@ -52,7 +52,6 @@ export class VehiclesDetailsComponent implements OnInit {
   }
 
   onDelete(vin: string) {
-  onDelete(vin: string) {
     if (confirm('Are you sure to delete this Car?'))
       this.service.deleteVehicleDetail(vin).subscribe({
         next: () => {
