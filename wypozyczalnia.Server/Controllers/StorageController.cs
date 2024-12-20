@@ -29,7 +29,7 @@ public class StorageController: ControllerBase
     //[Authorize]
     public async Task<ActionResult<string>> GetSasUriRentlas()
     {
-        var uri = await _storageRepo.GetUriToStorage("rentals");
+        var uri = await _storageRepo.GetUriToStorage("rentalstmp");
         return Ok(new { sasUrl = uri.ToString() });
     }
 }
