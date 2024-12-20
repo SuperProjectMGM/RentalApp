@@ -100,7 +100,8 @@ public class VehicleRepository : IVehicleInterface
         var vehicles = await _appDbContext.Vehicles.ToListAsync();
         var availableVehicles = vehicles
         .Where(vehicle => !_appDbContext.Rentals.Any(rental => vehicle.Vin == rental.Vin 
-        && rental.Start <= end && rental.End >= start)).Select(veh => veh.ToDTO()).ToList();
+        && rental.Start <= end && rental.End >= start && rental.Status != RentalStatus.Returned))
+        .Select(veh => veh.ToDTO()).ToList();
         return availableVehicles;
     }
 }
