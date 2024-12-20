@@ -38,12 +38,15 @@ public class RentalController : ControllerBase
     }
 
     [HttpPut("accept-pending-rental-to-return/{rentalId}")]
-    public async Task<IActionResult> AcceptPendingRentalToReturn([FromRoute] int rentalId)
+    public async Task<IActionResult> AcceptPendingRentalToReturn([FromRoute] int rentalId,
+    [FromQuery] string photoUrl)
     {
-        var succeed = await _rentalRepo.AcceptReturnOfRental(rentalId);
+        var succeed = await _rentalRepo.AddPhotoToRental(rentalId, photoUrl);
         if (!succeed)
-            return BadRequest("Something went wrong");
+            return BadRequest("Can't add photo!");
+        succeed = await _rentalRepo.AcceptReturnOfRental(rentalId);
+        if (!succeed)
+            return BadRequest("Something went wrong in accepting a rental");
         return Ok("Rental return accepted.");
-    }
-
+    }    
 }

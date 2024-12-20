@@ -1,3 +1,5 @@
+using System.Diagnostics;
+using Microsoft.IdentityModel.Tokens;
 using wypozyczalnia.Server.DTOs;
 using wypozyczalnia.Server.Models;
 public static class RentalMapper
@@ -71,7 +73,7 @@ public static class RentalMapper
 
     public static RentalDTO ToDto(this Rental rental)
     {
-        return new RentalDTO
+        var a = new RentalDTO
         {
             RentalId = rental.RentalId,
             Slug = rental.Slug,
@@ -85,5 +87,6 @@ public static class RentalMapper
             Description = rental.Description,
             PhotoUrl = rental.PhotoUrl
         };
+        return a;
     }
 }

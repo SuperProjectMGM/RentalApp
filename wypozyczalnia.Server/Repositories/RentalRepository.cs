@@ -65,7 +65,8 @@ public class RentalRepository : IRentalInterface
     public async Task<List<Rental>> GetRentalsToReturnAcceptance()
     {
         List<Rental> ret = new List<Rental>();
-        var tmp = await _context.Rentals.ToListAsync();
+        // This include is important, why?
+        var tmp = await _context.Rentals.Include(r => r.UserInfo).ToListAsync();
         foreach (var rent in tmp)
         {
             if (rent.Status == RentalStatus.WaitingForReturnAcceptance)
@@ -92,7 +93,7 @@ public class RentalRepository : IRentalInterface
     public async Task<List<Rental>> GetPendingRentals()
     {
         List<Rental> ret = new List<Rental>();
-        var tmp = await _context.Rentals.ToListAsync();
+        var tmp = await _context.Rentals.Include(r => r.UserInfo).ToListAsync();
         foreach (var rent in tmp)
         {
             if (rent.Status == RentalStatus.Confirmed)
@@ -129,5 +130,16 @@ public class RentalRepository : IRentalInterface
         rentalMess.MessageType = DTOs.MessageType.RentalAcceptedToReturn;
         string jsonString = JsonSerializer.Serialize(rentalMess);
         return await _messageService.SendMessage(jsonString);
+    }
+
+    public async Task<bool> AddPhotoToRental(int rentId, string photoUrl)
+    {
+        var rent = await _context.Rentals.FirstOrDefaultAsync(rental => rental.RentalId == rentId);
+        if (rent == null)
+            return false;
+        
+        rent.PhotoUrl = photoUrl;
+        await _context.SaveChangesAsync();
+        return true;
     }
 }
