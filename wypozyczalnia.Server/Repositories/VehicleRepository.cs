@@ -12,7 +12,7 @@ public class VehicleRepository : IVehicleInterface
         _appDbContext = appDbContext;
     }
     public async Task<bool> AddVehicle(VehicleDTO vehicleDTO)
-    { 
+    {
         try
         {
             Vehicle vehicle = vehicleDTO.ToEntity();
@@ -22,7 +22,7 @@ public class VehicleRepository : IVehicleInterface
         }
         catch
         {
-            return false; 
+            return false;
         }
     }
 
@@ -71,7 +71,7 @@ public class VehicleRepository : IVehicleInterface
 
         Vehicle? veh = await FindVehicle(vin);
 
-        try 
+        try
         {
             _appDbContext.Vehicles.Remove(veh!);
             await _appDbContext.SaveChangesAsync();
