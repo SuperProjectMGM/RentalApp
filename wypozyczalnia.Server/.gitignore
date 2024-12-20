@@ -582,5 +582,5 @@ fabric.properties
 
 # CodeRush
 .cr/
-Properties/launchSettings.json
+# Properties/launchSettings.json
 
