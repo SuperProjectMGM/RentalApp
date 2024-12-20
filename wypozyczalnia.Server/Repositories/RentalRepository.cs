@@ -131,4 +131,15 @@ public class RentalRepository : IRentalInterface
         string jsonString = JsonSerializer.Serialize(rentalMess);
         return await _messageService.SendMessage(jsonString);
     }
+
+    public async Task<bool> AddPhotoToRental(int rentId, string photoUrl)
+    {
+        var rent = await _context.Rentals.FirstOrDefaultAsync(rental => rental.RentalId == rentId);
+        if (rent == null)
+            return false;
+        
+        rent.PhotoUrl = photoUrl;
+        await _context.SaveChangesAsync();
+        return true;
+    }
 }
