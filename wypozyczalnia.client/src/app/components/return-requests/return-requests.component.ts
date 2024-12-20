@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Rental } from '../../shared/rental-requests.model';
 import { ReturnService } from '../../services/return.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
@@ -58,33 +58,20 @@ export class ReturnRequestsComponent implements OnInit {
     }
   }
 
-  confirmApprove(): void {
-    if (this.selectedRequest) {
-      const formData = new FormData();
 
-      // formData.append('rentalId', this.selectedRequest.rentalId.toString());
-      // formData.append('description', this.approveData.description);
-      // if (this.approveData.image) {
-      //   formData.append('image', this.approveData.image);
-      // }
-      this.returnService
-        .approveReturnRequest(this.selectedRequest.rentalId)
-        .subscribe({
-          next: () => {
-            console.log(
-              `Approved request for rentalId ${this.selectedRequest?.rentalId}`
-            );
-            this.refreshRequests();
-            this.closeApproveModal();
-          },
-          error: (error) => {
-            console.error('Error approving request:', error);
-          },
-        });
+
+
+  confirmApprove(): void {
+    if (this.selectedRequest && this.approveData.image) {
+        // Wywołanie approveReturnRequest() z obsługą subskrypcji
+        this.returnService.approveReturnRequest(this.selectedRequest.rentalId, this.approveData.image);
+        console.log(`Approved request for rentalId ${this.selectedRequest.rentalId}`);
+        this.refreshRequests(); // Refresh the requests after successful approval
+        this.closeApproveModal(); // Close the modal after approval
+    } else {
+        console.error('Selected request or photo is missing.');
     }
-    this.refreshRequests();
-    this.closeApproveModal();
-  }
+}
 
   rejectRequest(id: number) {
     this.returnService.rejectReturnRequest(id).subscribe({

@@ -44,17 +44,15 @@ export class VehicleDetailFormComponent {
     }
   }
 
-  private uploadPhotoAndSubmit(form: NgForm, folder: string) {
+  private uploadPhotoAndSubmit(form: NgForm, folder: string): void {
     // Krok 1: Pobierz link do przesyłania zdjęcia
     this.http.get<{ sasUrl: string }>('http://localhost:5076/api/Storage/vehicles').subscribe({
       next: (response) => {
         const uploadUrl = response.sasUrl;
-        console.log('SAS URL:', response.sasUrl);
         // Krok 2: Wyślij zdjęcie do Azure Blob Storage
         if (this.selectedPhoto) {
           this.blobService.uploadImage(uploadUrl, folder, this.selectedPhoto, this.selectedPhoto.name, this.service.refreshList)
           this.service.formData.photoUrl = `${uploadUrl.split('?')[0]}/${folder}/${this.selectedPhoto.name}`;
-          console.log(this.service.formData.photoUrl)
           this.insertRecord(form)
           this.selectedPhoto = null
           this.photoPreviewUrl = null
