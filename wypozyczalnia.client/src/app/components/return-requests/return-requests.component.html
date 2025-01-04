@@ -1,0 +1,55 @@
+<div class="rental-requests-container">
+  <button class="btn refresh-btn" (click)="refreshRequests()">
+    Refresh Returns
+  </button>
+
+  <!-- Grid Layout for Cards -->
+  <div class="grid-container">
+    <div
+      class="rental-card"
+      *ngFor="let request of returnRequests"
+    >
+    <div class="rental-card-header">
+      <h3 class="slug">🚗 Slug: {{ request.slug }}</h3>
+      <p class="vin">VIN: {{ request.vin }}</p>
+    </div>
+    <hr>
+    <div class="rental-card-body">
+      <div class="rental-info">
+        <i class="fa-solid fa-user"></i> <strong>Requested By:</strong> {{ request.name }}
+      </div>
+      <div class="rental-info">
+        <i class="fa-solid fa-calendar-alt"></i> <strong>Requested From:</strong> {{ request.start | date: 'dd/MM/yyyy' }}
+      </div>
+      <div class="rental-info">
+        <i class="fa-solid fa-calendar-check"></i> <strong>Requested To:</strong> {{ request.end | date: 'dd/MM/yyyy' }}
+      </div>
+    </div>
+    <hr>
+      <!-- Action Buttons -->
+      <div class="rental-card-footer">
+        <button class="btn btn-approve" (click)="openApproveModal(request)">Approve</button>
+        <button class="btn btn-reject">Reject</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Approve Modal -->
+  <div class="modal-backdrop" *ngIf="isApproveModalVisible">
+    <div class="modal-content">
+      <h3>Approve Return Request</h3>
+      <div class="modal-form">
+        <label>Attach Image:</label>
+        <input type="file" (change)="onFileSelected($event)" />
+
+        <label>Description:</label>
+        <textarea [(ngModel)]="approveData.description" placeholder="Enter description"></textarea>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-confirm" (click)="confirmApprove()">Confirm</button>
+        <button class="btn btn-reject">Reject</button>
+        <button class="btn btn-cancel" (click)="closeApproveModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

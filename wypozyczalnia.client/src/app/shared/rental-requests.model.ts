@@ -1,23 +1,21 @@
-//TODO: zrobić model requesta i podmienic w komponencie z any
 export enum RentalStatus {
-  Pending = 1,    // Rental request is pending
-  Confirmed = 2,  // Rental has been confirmed
-  Completed = 3,  // Rental has been completed
+  Pending = 1,  
+  Confirmed = 2, 
+  Completed = 3, 
+  WaitingForReturnAcceptance = 4,
+  Returned = 5
 }
 
 export interface Rental {
   rentalId: string;
+  slug: string,
   name: string;
   surname: string;
-  birthDate: string;
-  dateOfReceiptOfDrivingLicense: string;
   personalNumber: string;
-  licenceNumber: string;
-  address: string;
-  phoneNumber: string;
-  vinId: string;
-  start: Date;
-  end: Date;
+  vin: string;
+  start: string;
+  end: string;
   status: RentalStatus;
   description: string;
+  photoUrl:string;
 }

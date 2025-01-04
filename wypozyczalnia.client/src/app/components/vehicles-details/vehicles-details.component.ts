@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { VehicleDetailFormComponent } from '../vehicle-detail-form/vehicle-detail-form.component';
 import { RentalRequestsComponent } from '../rental-requests/rental-requests.component';
+import { ReturnRequestsComponent } from '../return-requests/return-requests.component';
 
 @Component({
   selector: 'app-vehicles-details',
@@ -17,6 +18,7 @@ import { RentalRequestsComponent } from '../rental-requests/rental-requests.comp
     FormsModule,
     VehicleDetailFormComponent,
     RentalRequestsComponent,
+    ReturnRequestsComponent
   ],
 })
 export class VehiclesDetailsComponent implements OnInit {
@@ -41,21 +43,23 @@ export class VehiclesDetailsComponent implements OnInit {
       this.filteredList = this.service.list;
     } else {
       this.filteredList = this.service.list.filter((pd) =>
-        pd.vinId.toLowerCase().startsWith(term)
+        pd.vin.toLowerCase().startsWith(term)
       );
     }
   }
 
   populateForm(selectedRecord: VehicleDetail) {
     this.service.formData = Object.assign({}, selectedRecord);
+    this.service.isEdit = true;
   }
 
   onDelete(vin: string) {
     if (confirm('Are you sure to delete this Car?'))
       this.service.deleteVehicleDetail(vin).subscribe({
-        next: (res) => {
-          this.service.list = res as VehicleDetail[];
+        next: () => {
           this.toastr.error('Deleted successfully', 'Car Detail Register');
+          this.service.refreshList();
+          this.filteredList = this.service.list;
           this.filterList();
         },
         error: (err) => {

@@ -1,32 +1,33 @@
-.container-wide {
-  width: 90%; /* 90% szerokości okna przeglądarki */
-  max-width: 1200px; /* Opcjonalnie, maksymalna szerokość */
-  margin: 0 auto; /* Wyśrodkowanie */
-  padding: 0 10px; /* Dodatkowe odstępy po bokach */
-}
-
-.bg-primary {
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  background-color: #007bff;
-  color: #fff;
-  text-align: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.container {
+  width: 100%; /* Kontener na całą szerokość ekranu */
+  max-width: 100%; /* Usuń ograniczenie maksymalnej szerokości */
+  padding: 0 15px; /* Usuń wewnętrzne odstępy */
+  margin: 0; /* Usuń zewnętrzne marginesy */
 }
 
 .row {
-  display: flex; /* Ustawienie wiersza na flexbox */
-  flex-wrap: nowrap; /* Zakaz łamania linii */
-  gap: 10px; /* Odstępy między kolumnami */
-  justify-content: space-between; /* Rozdzielenie kolumn równomiernie */
-  align-items: flex-start; /* Wyrównanie sekcji do góry */
+  display: flex; /* Ustaw wiersze jako flexbox */
+  flex-wrap: nowrap; /* Pozwól na łamanie kolumn w dół */
+  justify-content: space-between; /* Rozdziel kolumny równomiernie */
+  gap: 20px; /* Dodaj odstępy między kolumnami */
 }
 
 .col-lg-4, .col-md-4 {
-  flex: 1 1 30%; /* Dostosowuje się do szerokości kontenera */
-  max-width: 33%; /* Zapewnienie odstępu między kolumnami */
-  min-width: 300px; /* Minimalna szerokość kolumny */
+  flex: 1 1 25%; /* Każda kolumna zajmuje 25% szerokości */
+  max-width: 25%; /* Maksymalna szerokość kolumny */
+  box-sizing: border-box; /* Uwzględnij padding i margin w szerokości */
 }
+
+.bg-primary {
+  width: 100%; /* Nagłówek na całą szerokość */
+  text-align: center;
+}
+
+body {
+  margin: 0; /* Usuń domyślne marginesy przeglądarki */
+  padding: 0; /* Usuń domyślne odstępy */
+}
+
 
 .list-container {
   max-height: 700px;

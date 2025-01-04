@@ -1,38 +1,29 @@
 <div class="rental-requests-container">
-    <button class="btn refresh-btn" (click)="refreshRequests()">
-      Refresh Requests
-    </button>
+  <button class="btn refresh-btn" (click)="refreshRequests()">Refresh Requests</button>
 
-    <!-- Grid Layout for Cards -->
-    <div class="grid-container">
-      <div
-        class="rental-card"
-        *ngFor="let request of rentalRequests"
-      >
-        <!-- Rental Information -->
-        <div class="rental-card-header">
-          <div class="rental-title">
-            🚗 {{ request.address }} - {{ request.address }}
-          </div>
+  <div class="grid-container">
+    <div class="rental-card" *ngFor="let request of rentalRequests">
+      <div class="rental-card-header">
+        <h3 class="slug">🚗 Slug: {{ request.slug }}</h3>
+        <p class="vin">VIN: {{ request.vin }}</p>
+      </div>
+      <hr>
+      <div class="rental-card-body">
+        <div class="rental-info">
+          <i class="fa-solid fa-user"></i> <strong>Requested By:</strong> {{ request.name }}
         </div>
-        <hr>
-        <div class="rental-card-body">
-          <div class="rental-info">
-            <i class="fa-solid fa-user"></i> <strong>Requested By:</strong> {{ request.address }}
-          </div>
-          <div class="rental-info">
-            <i class="fa-solid fa-calendar-alt"></i> <strong>Requested From:</strong> {{ request.start | date: 'dd/MM/yyyy HH:mm' }}
-          </div>
-          <div class="rental-info">
-            <i class="fa-solid fa-calendar-check"></i> <strong>Requested To:</strong> {{ request.end | date: 'dd/MM/yyyy HH:mm' }}
-          </div>
+        <div class="rental-info">
+          <i class="fa-solid fa-calendar-alt"></i> <strong>Requested From:</strong> {{ request.start | date: 'dd/MM/yyyy' }}
         </div>
-        <hr>
-        <!-- Action Buttons -->
-        <div class="rental-card-footer">
-          <button class="btn btn-approve" (click)="approveRequest(request.rentalId)">Approve</button>
-          <button class="btn btn-reject">Reject</button>
+        <div class="rental-info">
+          <i class="fa-solid fa-calendar-check"></i> <strong>Requested To:</strong> {{ request.end | date: 'dd/MM/yyyy' }}
         </div>
+      </div>
+
+      <div class="rental-card-footer">
+        <button class="btn btn-approve" (click)="approveRequest(request.rentalId)">Approve</button>
+        <button class="btn btn-reject" >Reject</button>
       </div>
     </div>
   </div>
+</div>

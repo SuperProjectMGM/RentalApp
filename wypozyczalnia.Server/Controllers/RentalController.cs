@@ -18,16 +18,35 @@ public class RentalController : ControllerBase
     public async Task<IActionResult> GetPendingRentals()
     {
         var rentals = await _rentalRepo.GetPendingRentals();
-        return Ok(rentals);
+        return Ok(rentals.Select((rent) => rent.ToDto()));
     }
     
-    // I do not know whether it should be FromBody or FromRoute
     [HttpPut("accept-rental/{rentalId}")]
-    public async Task<IActionResult> AcceptRentalAndSendBack([FromRoute] string rentalId)
+    public async Task<IActionResult> AcceptRentalAndSendBack([FromRoute] int rentalId)
     {
         var succeed = await _rentalRepo.AcceptRental(rentalId);
         if (!succeed)
             return BadRequest("Something went wrong");
         return Ok("Rental completed successfully. Message has been sent.");
     }
+
+    [HttpGet("pending-rentals-to-return")]
+    public async Task<IActionResult> GetPendingRentalsToReturn()
+    {
+        var rentals = await _rentalRepo.GetRentalsToReturnAcceptance();
+        return Ok(rentals.Select((rent) => rent.ToDto()));
+    }
+
+    [HttpPut("accept-pending-rental-to-return/{rentalId}")]
+    public async Task<IActionResult> AcceptPendingRentalToReturn([FromRoute] int rentalId,
+    [FromQuery] string photoUrl)
+    {
+        var succeed = await _rentalRepo.AddPhotoToRental(rentalId, photoUrl);
+        if (!succeed)
+            return BadRequest("Can't add photo!");
+        succeed = await _rentalRepo.AcceptReturnOfRental(rentalId);
+        if (!succeed)
+            return BadRequest("Something went wrong in accepting a rental");
+        return Ok("Rental return accepted.");
+    }    
 }
