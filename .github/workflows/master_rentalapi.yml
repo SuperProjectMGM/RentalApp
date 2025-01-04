@@ -6,14 +6,13 @@ name: Build and deploy ASP.Net Core app to Azure Web App - RentalAPI
 on:
   push:
     branches:
-      - master
+      - deployment
   pull_request:
     branches:
-      - master
+      - deployment
   workflow_dispatch:
 
 jobs:
-# firstly backend
   build-dotnet:
     runs-on: ubuntu-latest
 
@@ -52,21 +51,15 @@ jobs:
       - name: Install Entity Framework Core Tools
         run: dotnet tool install --global dotnet-ef
         
-      - name: Run EF Core Migrations Vehicles
+      - name: Run EF Core Migrations AuthDbContext
         env:
           ConnectionStrings__DefaultConnection: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
-        run: dotnet ef database update --project wypozyczalnia.Server --connection ${{ secrets.AZURE_SQL_CONNECTION_STRING }} --context VehiclesContext
+        run: dotnet ef database update --project wypozyczalnia.Server --connection ${{ secrets.AZURE_SQL_CONNECTION_STRING }} --context AuthDbContext
 
-      - name: Run EF Core Migrations Identity
+      - name: Run EF Core Migrations AppDbContext
         env:
           ConnectionStrings__DefaultConnection: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
-        run: dotnet ef database update --project wypozyczalnia.Server --connection ${{ secrets.AZURE_SQL_CONNECTION_STRING }} --context ApplicationDbContext
-      
-      - name: Run EF Core Migrations Rentals
-        env:
-          ConnectionStrings__DefaultConnection: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
-        run: dotnet ef database update --project wypozyczalnia.Server --connection ${{ secrets.AZURE_SQL_CONNECTION_STRING }} --context RentalsContext
-
+        run: dotnet ef database update --project wypozyczalnia.Server --connection ${{ secrets.AZURE_SQL_CONNECTION_STRING }} --context AppDbContext
 
   deploy:
     runs-on: ubuntu-latest

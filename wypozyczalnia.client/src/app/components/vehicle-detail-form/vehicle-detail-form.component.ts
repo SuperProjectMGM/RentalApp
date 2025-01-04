@@ -46,7 +46,7 @@ export class VehicleDetailFormComponent {
 
   private uploadPhotoAndSubmit(form: NgForm, folder: string): void {
     // Krok 1: Pobierz link do przesyłania zdjęcia
-    this.http.get<{ sasUrl: string }>('http://localhost:5076/api/Storage/vehicles').subscribe({
+    this.http.get<{ sasUrl: string }>(`${this.BaseUrl}/Storage/vehicles`).subscribe({
       next: (response) => {
         const uploadUrl = response.sasUrl;
         // Krok 2: Wyślij zdjęcie do Azure Blob Storage

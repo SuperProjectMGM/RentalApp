@@ -11,18 +11,18 @@ import { ToastrModule } from 'ngx-toastr';
   providedIn: 'root',
 })
 export class ReturnService {
-  private readonly apiBaseUrl = environment.apiBaseUrl + "/Rental"; // Replace with your API URL
+  private readonly apiBaseUrl = environment.apiBaseUrl; 
   
 
   constructor(private http: HttpClient, private blobService: AzureBlobStorageService,private toastr: ToastrModule ) {}
 
   getReturnRequests(): Observable<any[]> {
-    return this.http.get<Rental[]>(`${this.apiBaseUrl}/pending-rentals-to-return`);
+    return this.http.get<Rental[]>(`${this.apiBaseUrl}/Rental/pending-rentals-to-return`);
   }
 
   approveReturnRequest(id: string, photo: File | null){
     // Step 1: Get SAS URL
-    this.http.get<{ sasUrl: string }>('http://localhost:5076/api/Storage/rentals').subscribe({
+    this.http.get<{ sasUrl: string }>(`${this.apiBaseUrl}/Storage/rentals`).subscribe({
         next: (response) => {
             const uploadUrl = response.sasUrl;
             console.log('SAS URL:', uploadUrl);
@@ -57,7 +57,4 @@ export class ReturnService {
     //TODO: zrobienie odmowy
     return this.http.put<void>(`${this.apiBaseUrl}/Rental/reject-return/${id}`, {});
   }
-
-
-
 }
