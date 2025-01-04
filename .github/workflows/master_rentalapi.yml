@@ -1,6 +1,3 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
 name: Build and deploy ASP.Net Core app to Azure Web App - RentalAPI
 
 on:
@@ -28,7 +25,7 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/RentalApi"
+        run: dotnet publish wypozyczalnia.Server/wypozyczalnia.Server.csproj -c Release -o "${{env.DOTNET_ROOT}}/RentalApi"
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -41,10 +38,10 @@ jobs:
     needs: build-dotnet
     steps:    
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v2
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.x'
 
@@ -54,12 +51,12 @@ jobs:
       - name: Run EF Core Migrations AuthDbContext
         env:
           ConnectionStrings__DefaultConnection: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
-        run: dotnet ef database update --project wypozyczalnia.Server --connection ${{ secrets.AZURE_SQL_CONNECTION_STRING }} --context AuthDbContext
+        run: dotnet ef database update --project wypozyczalnia.Server --context AuthDbContext
 
       - name: Run EF Core Migrations AppDbContext
         env:
           ConnectionStrings__DefaultConnection: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
-        run: dotnet ef database update --project wypozyczalnia.Server --connection ${{ secrets.AZURE_SQL_CONNECTION_STRING }} --context AppDbContext
+        run: dotnet ef database update --project wypozyczalnia.Server --context AppDbContext
 
   deploy:
     runs-on: ubuntu-latest
@@ -80,7 +77,5 @@ jobs:
         with:
           app-name: 'RentalAPI'
           slot-name: 'Production'
-          package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5B474C9AB33A4438966CC1BBC14FCE67 }}
-
-          
+          package: "${{env.DOTNET_ROOT}}/RentalApi"
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5B474C9AB33A4438966CC1BBC14FCE67 }}"
