@@ -17,6 +17,7 @@ public class Rental
 
 public enum RentalStatus
 {
+    // TODO: Check if this status is necessary, I think that it is never used
     Pending = 1,    
     Confirmed = 2,  
     Completed = 3,  

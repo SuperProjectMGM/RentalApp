@@ -13,5 +13,8 @@ public interface IVehicleInterface
     public Task<bool> ChangeVehicle(string vin, VehicleDTO vehicle);
     public Task<List<VehicleDTO>> ReturnVehicles();
     public Task<List<VehicleDTO>> ReturnVehicles(DateTime start, DateTime end);
+
+    public Task<List<VehicleDTO>> ReturnCurrentlyRentedVehicles();
+    public Task<List<RentalDTO>> ReturnAllRentalsForVehicle(string vin);
 }
 

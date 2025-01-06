@@ -104,4 +104,21 @@ public class VehicleRepository : IVehicleInterface
         .Select(veh => veh.ToDTO()).ToList();
         return availableVehicles;
     }
+
+    public async Task<List<VehicleDTO>> ReturnCurrentlyRentedVehicles()
+    {
+        return await _appDbContext.Vehicles
+        .Where(vehicle => _appDbContext.Rentals.Any(rental => vehicle.Vin == rental.Vin
+        && rental.Status != RentalStatus.Returned
+        && rental.Status != RentalStatus.Pending
+        && rental.Status != RentalStatus.Confirmed))
+        .Select(veh => veh.ToDTO()).ToListAsync();
+    }
+
+    public async Task<List<RentalDTO>> ReturnAllRentalsForVehicle(string vin)
+    {
+        return await _appDbContext.Rentals.
+        Where(rental => rental.Vin == vin)
+        .Select(rental => rental.ToDto()).ToListAsync();
+    }
 }
