@@ -35,7 +35,7 @@ export class ReturnService {
 
                 // Step 4: Make PUT request to approve the rental return
                 return this.http.put<void>(
-                    `${this.apiBaseUrl}/accept-pending-rental-to-return/${id}?photoUrl=${url}`,
+                    `${this.apiBaseUrl}/Rental/accept-pending-rental-to-return/${id}?photoUrl=${url}`,
                     null
                 ).subscribe({
                     next: () => {

@@ -70,5 +70,17 @@ namespace wypozyczalnia.Server.Controllers
         {
             return Ok(await _vehicleRepository.ReturnVehicles(start, end));
         }
+
+        [HttpGet("rented")]
+        public async Task<ActionResult<IEnumerable<VehicleDTO>>> GetCarsWithActiveRents()
+        {
+            return Ok(await _vehicleRepository.ReturnCurrentlyRentedVehicles());
+        }
+
+        [HttpGet("rentalsForCar")]
+        public async Task<ActionResult<IEnumerable<RentalDTO>>> GetRentalsForCar([FromQuery] string vin)
+        {
+            return Ok(await _vehicleRepository.ReturnAllRentalsForVehicle(vin));
+        }
     }
 }
