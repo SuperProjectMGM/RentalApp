@@ -53,8 +53,7 @@ public class RentalRepository : IRentalInterface
 
     public async Task RentToReturn(RentalMessage mess)
     {
-        // Looking for rental with Vin
-        var rental = await _context.Rentals.FirstOrDefaultAsync(x => x.Vin == mess.Vin);
+        var rental = await _context.Rentals.FirstOrDefaultAsync(x => x.Slug == mess.Slug);
         if (rental == null)
             throw new Exception("Client not found in DB");
         // change status
