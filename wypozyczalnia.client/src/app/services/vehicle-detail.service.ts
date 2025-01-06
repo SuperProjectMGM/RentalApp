@@ -10,6 +10,7 @@ import { NgForm } from '@angular/forms';
 export class VehicleDetailService {
   url: string = environment.apiBaseUrl + '/Vehicle';
   list: VehicleDetail[] = [];
+  rentlist: VehicleDetail[] = [];
   isEdit: boolean = false;
   formData: VehicleDetail = new VehicleDetail();
   constructor(private http: HttpClient) {}
@@ -23,10 +24,15 @@ export class VehicleDetailService {
         console.log(err);
       },
     });
+    this.http.get(this.url + '/rented').subscribe({
+      next: (res) => {
+        this.rentlist = res as VehicleDetail[];
+      },
+    });
   }
   postVehicleDetail() {
-    var a = this.http.post(this.url, this.formData); 
-    this.refreshList(); 
+    var a = this.http.post(this.url, this.formData);
+    this.refreshList();
     return a;
   }
 
@@ -40,7 +46,7 @@ export class VehicleDetailService {
   }
 
   deleteVehicleDetail(vin: string) {
-    var a = this.http.delete(this.url + '/' + vin); 
+    var a = this.http.delete(this.url + '/' + vin);
     this.refreshList();
     return a;
   }

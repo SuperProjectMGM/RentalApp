@@ -15,6 +15,23 @@
 
         <!-- Vehicle List Section -->
         <div class="col-lg-4 col-md-4 mb-4">
+          <!-- Filter Buttons -->
+          <div class="btn-group mb-3 w-100" role="group">
+            <button
+              class="btn btn-outline-primary"
+              [class.active]="currentFilter === 'all'"
+              (click)="showAllCars()"
+            >
+              All Cars
+            </button>
+            <button
+              class="btn btn-outline-primary"
+              [class.active]="currentFilter === 'rented'"
+              (click)="showRentedCars()"
+            >
+              Rent Cars
+            </button>
+          </div>
           <div class="mb-4">
             <input
               type="text"
