@@ -20,14 +20,14 @@ public class RentalController : ControllerBase
         var rentals = await _rentalRepo.GetPendingRentals();
         return Ok(rentals.Select((rent) => rent.ToDto()));
     }
-    
+
     [HttpPut("accept-rental/{rentalId}")]
     public async Task<IActionResult> AcceptRentalAndSendBack([FromRoute] int rentalId)
     {
         var succeed = await _rentalRepo.AcceptRental(rentalId);
         if (!succeed)
             return BadRequest("Something went wrong");
-        return Ok("Rental completed successfully. Message has been sent.");
+        return Ok(new { message = "Rental completed successfully. Message has been sent." });
     }
 
     [HttpGet("pending-rentals-to-return")]
@@ -47,6 +47,6 @@ public class RentalController : ControllerBase
         succeed = await _rentalRepo.AcceptReturnOfRental(rentalId);
         if (!succeed)
             return BadRequest("Something went wrong in accepting a rental");
-        return Ok("Rental return accepted.");
-    }    
+        return Ok(new { message = "Rental return accepted." });
+    }
 }
