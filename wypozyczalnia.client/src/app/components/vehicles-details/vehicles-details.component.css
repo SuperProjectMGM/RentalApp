@@ -79,3 +79,8 @@ button.show-history-btn:hover {
   color: #ff4d4d; /* Kolor na hover */
   transform: scale(1.2); /* Powiększenie na hover */
 }
+
+
+.dynamic-dialog {
+  background-color: red !important; /* Jeśli widzisz czerwone tło, `panelClass` działa */
+}

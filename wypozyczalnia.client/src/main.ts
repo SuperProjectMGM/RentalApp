@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app/app-routing.module';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -15,6 +16,6 @@ bootstrapApplication(AppComponent, {
       BrowserAnimationsModule,
       ToastrModule.forRoot(),
       AppRoutingModule
-    ),
+    ), provideAnimationsAsync(),
   ],
 }).catch((err) => console.error(err));
