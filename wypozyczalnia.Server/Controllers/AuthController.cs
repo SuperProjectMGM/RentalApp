@@ -16,11 +16,9 @@ namespace wypozyczalnia.Server.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly UserManager<IdentityUser> _userManager;
         private readonly IAuthInterface _authRepository;
-        public AuthController(UserManager<IdentityUser> userManager, IAuthInterface userRepository)
+        public AuthController(IAuthInterface userRepository)
         {
-            _userManager = userManager;
             _authRepository = userRepository;
         }
 

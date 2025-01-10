@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using wypozyczalnia.Server.Interfaces;
+using wypozyczalnia.Server.Models;
 
 namespace wypozyczalnia.Server.Repositories;
 
@@ -14,11 +15,14 @@ public class AuthRepository: IAuthInterface
 {
     private readonly UserManager<IdentityUser> _userManager;
     private readonly IConfiguration _configuration;
-    public AuthRepository(UserManager<IdentityUser> userManager, IConfiguration configuration)
+    private readonly AppDbContext _context;
+    public AuthRepository(UserManager<IdentityUser> userManager, IConfiguration configuration, AppDbContext context)
     {
+        _context = context;
         _userManager = userManager;
         _configuration = configuration;
     }
+    // TODO: Change creating employees, now only identity users are createed
     public async Task<IdentityResult> CreateNewUser(RegisterModel model)
     {
         var user = new IdentityUser 
@@ -26,6 +30,7 @@ public class AuthRepository: IAuthInterface
             UserName = model.Email, Email = model.Email
         };
         var result = await _userManager.CreateAsync(user, model.Password);
+
         return result;
     }
 

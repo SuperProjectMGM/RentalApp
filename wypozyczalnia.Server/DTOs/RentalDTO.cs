@@ -15,4 +15,5 @@ public class RentalDTO
     public RentalStatus Status { get; set; }
     public string Description { get; set; } = string.Empty;
     public string? PhotoUrl { get; set; } = null; 
+    
 }

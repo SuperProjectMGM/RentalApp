@@ -12,6 +12,7 @@ public class Rental
     public DateTime End { get; set; }
     public RentalStatus Status { get; set; }
     public string Description { get; set; } = string.Empty;
+    public Employee? Employee { get; set; } = null;
     public string? PhotoUrl { get; set; } = null;
 }
 
