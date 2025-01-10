@@ -94,4 +94,9 @@ export class VehiclesDetailsComponent implements OnInit {
   onVehicleUpdated() {
     this.filterList();
   }
+
+  onShowHistory(vin: string): void {
+    console.log(`Show history for vehicle with VIN: ${vin}`);
+    // Tutaj możesz dodać logikę, np. otwieranie modala, nawigację lub pobranie danych historii.
+  }
 }

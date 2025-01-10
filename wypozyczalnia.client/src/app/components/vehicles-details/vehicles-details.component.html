@@ -44,10 +44,11 @@
           <div class="list-container">
             <ul class="list-group">
               <li
-                class="list-group-item d-flex justify-content-between align-items-center mb-3 p-4 shadow-lg border-0 rounded-4 bg-light"
-                *ngFor="let pd of filteredList"
-              >
-                <div class="flex-grow-1" (click)="populateForm(pd)" style="cursor: pointer;">
+              class="list-group-item d-flex flex-column mb-3 p-4 shadow-lg border-0 rounded-4 bg-light"
+              *ngFor="let pd of filteredList"
+            >
+              <div class="d-flex justify-content-between align-items-start">
+                <div (click)="populateForm(pd)" style="cursor: pointer; flex-grow: 1;">
                   <div class="fw-bold text-dark" style="font-size: 1.3rem;">
                     🚗 {{ pd.brand }} - {{ pd.model }}
                   </div>
@@ -65,10 +66,13 @@
                     <strong>VIN:</strong> {{ pd.vin }}
                   </div>
                 </div>
-                <span class="text-danger" style="cursor: pointer; font-size: 1.5rem;">
-                  <i class="fa-solid fa-trash-can" (click)="onDelete(pd.vin)"></i>
+                <span class="text-danger delete-icon" (click)="onDelete(pd.vin)" style="cursor: pointer; font-size: 1.5rem;">
+                  <i class="fa-solid fa-trash-can"></i>
                 </span>
-              </li>
+              </div>
+              <button class="show-history-btn mt-2" (click)="onShowHistory(pd.vin)">Show History</button>
+            </li>
+            
             </ul>
           </div>
         </div>
