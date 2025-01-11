@@ -23,7 +23,11 @@ public static class RentalMapper
             Start = rental.Start,
             End = rental.End,
             Status = rental.Status,
-            Description = rental.Description
+            Description = rental.Description,
+            Price = rental.Price,
+            ReturnLatitude = rental.ReturnLatitude,
+            ReturnLongtitude = rental.ReturnLongtitude,
+            ReturnClientDescription = rental.ReturnClientDescription
         };
     }
 
@@ -37,7 +41,11 @@ public static class RentalMapper
             Start = dto.Start,
             End = dto.End,
             Status = dto.Status,
-            Description = dto.Description        
+            Description = dto.Description,
+            Price = dto.Price,
+            ReturnLatitude = dto.ReturnLatitude,
+            ReturnLongtitude = dto.ReturnLongtitude,
+            ReturnClientDescription = dto.ReturnClientDescription        
         };
     }
 
@@ -67,13 +75,17 @@ public static class RentalMapper
             Start = dto.Start,
             End = dto.End,
             Status = dto.Status,
-            Description = dto.Description        
+            Description = dto.Description,        
+            Price = dto.Price,
+            ReturnLatitude = dto.ReturnLatitude,
+            ReturnLongtitude = dto.ReturnLongtitude,
+            ReturnClientDescription = dto.ReturnClientDescription      
         };
     }
 
     public static RentalDTO ToDto(this Rental rental)
     {
-        var a = new RentalDTO
+        return new RentalDTO
         {
             RentalId = rental.RentalId,
             Slug = rental.Slug,
@@ -85,8 +97,10 @@ public static class RentalMapper
             End = rental.End,
             Status = rental.Status,
             Description = rental.Description,
-            PhotoUrl = rental.PhotoUrl
+            PhotoUrl = rental.PhotoUrl,
+            ReturnLatitude = rental.ReturnLatitude,
+            ReturnLongtitude = rental.ReturnLongtitude, 
+            ReturnClientDescription = rental.ReturnClientDescription
         };
-        return a;
     }
 }

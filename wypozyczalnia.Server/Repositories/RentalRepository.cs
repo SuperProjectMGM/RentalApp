@@ -16,11 +16,13 @@ namespace wypozyczalnia.Server.Repositories;
 public class RentalRepository : IRentalInterface
 {
     private readonly RabbitMessageService _messageService;
+    private readonly IAuthInterface _authRepository;
     private readonly AppDbContext _context;
-    public RentalRepository(AppDbContext context, RabbitMessageService messageService)
+    public RentalRepository(AppDbContext context, RabbitMessageService messageService, IAuthInterface authRepo)
     {
         _messageService = messageService;
         _context = context;
+        _authRepository = authRepo;
     }
     
     // Mati: Michu znowu pisze enigmatyczne funkcje "na przyszłość"
@@ -138,6 +140,23 @@ public class RentalRepository : IRentalInterface
             return false;
         
         rent.PhotoUrl = photoUrl;
+        await _context.SaveChangesAsync();
+        return true;
+    }
+
+    public async Task<bool> AddEmployeeInfos(int rentId, string token, string description)
+    {
+        var employeeId = _authRepository.ReturnIdFromToken(token);
+        if (employeeId is null)
+        {
+            return false;
+        }
+
+        var rent = await _context.Rentals.FirstOrDefaultAsync(rental => rental.RentalId == rentId);
+        if (rent == null)
+            return false;
+        rent.ReturnEmployeeDescription = description;
+        rent.EmployeeId = employeeId;
         await _context.SaveChangesAsync();
         return true;
     }

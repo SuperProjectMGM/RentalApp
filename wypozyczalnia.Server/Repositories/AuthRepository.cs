@@ -48,7 +48,9 @@ public class AuthRepository: IAuthInterface
         {
             Subject = new ClaimsIdentity(claims),
             Expires = DateTime.UtcNow.AddMinutes(15),
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+            Issuer = _configuration["JWT_ISSUER"],
+            Audience = _configuration["JWT_AUDIENCE"]
         };
         var token = tokenHandler.CreateToken(tokenDescriptor);
         return tokenHandler.WriteToken(token);
@@ -65,5 +67,24 @@ public class AuthRepository: IAuthInterface
             return null;
 
         return GetToken(user);
-    } 
+    }
+
+    public string? ReturnIdFromToken(string token)
+    {
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var key = Encoding.UTF8.GetBytes(_configuration["JWT_KEY"]!);
+        var claimsPrincipal = tokenHandler.ValidateToken(token, new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            ValidIssuer = _configuration["JWT_ISSUER"],
+            ValidAudience = _configuration["JWT_AUDIENCE"]
+        }, out SecurityToken validatedToken);
+        var id = claimsPrincipal.FindFirst(ClaimTypes.NameIdentifier)?.Value!;
+        return id;
+    }
+
 }

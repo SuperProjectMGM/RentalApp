@@ -12,4 +12,5 @@ public interface IRentalInterface
     public Task<List<Rental>> GetRentalsToReturnAcceptance();
     public Task<bool> AcceptReturnOfRental(int rentId);
     public Task<bool> AddPhotoToRental(int rentId, string photoUrl);
+    public Task<bool> AddEmployeeInfos(int rentId, string token, string description);
 }
