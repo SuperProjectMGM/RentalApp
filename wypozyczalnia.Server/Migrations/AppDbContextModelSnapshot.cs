@@ -22,76 +22,6 @@ namespace wypozyczalnia.Server.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Employee", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("IdentityUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdentityUserId");
-
-                    b.ToTable("Employees");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("IdentityUser");
-                });
-
             modelBuilder.Entity("wypozyczalnia.Server.Models.ClientInfo", b =>
                 {
                     b.Property<int>("ClientInfoId")
@@ -155,14 +85,30 @@ namespace wypozyczalnia.Server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("EmployeeId")
-                        .HasColumnType("int");
+                    b.Property<string>("EmployeeId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("End")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("PhotoUrl")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ReturnClientDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ReturnEmployeeDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float?>("ReturnLatitude")
+                        .HasColumnType("real");
+
+                    b.Property<float?>("ReturnLongtitude")
+                        .HasColumnType("real");
 
                     b.Property<string>("Slug")
                         .IsRequired()
@@ -182,8 +128,6 @@ namespace wypozyczalnia.Server.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RentalId");
-
-                    b.HasIndex("EmployeeId");
 
                     b.HasIndex("UserInfoClientInfoId");
 
@@ -256,35 +200,15 @@ namespace wypozyczalnia.Server.Migrations
                     b.ToTable("Vehicles");
                 });
 
-            modelBuilder.Entity("Employee", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
-                        .WithMany()
-                        .HasForeignKey("IdentityUserId");
-
-                    b.Navigation("IdentityUser");
-                });
-
             modelBuilder.Entity("wypozyczalnia.Server.Models.Rental", b =>
                 {
-                    b.HasOne("Employee", "Employee")
-                        .WithMany("Rentals")
-                        .HasForeignKey("EmployeeId");
-
                     b.HasOne("wypozyczalnia.Server.Models.ClientInfo", "UserInfo")
                         .WithMany()
                         .HasForeignKey("UserInfoClientInfoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Employee");
-
                     b.Navigation("UserInfo");
-                });
-
-            modelBuilder.Entity("Employee", b =>
-                {
-                    b.Navigation("Rentals");
                 });
 #pragma warning restore 612, 618
         }
