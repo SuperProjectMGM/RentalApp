@@ -4,9 +4,9 @@ using wypozyczalnia.Server.DTOs;
 using wypozyczalnia.Server.Models;
 public static class RentalMapper
 {
-    public static RentalMessage ToRentalMessage(this Rental rental)
+    public static MessageMgmConfirmed ToRentalMessage(this Rental rental)
     {
-        return new RentalMessage
+        return new MessageMgmConfirmed
         {
             Slug = rental.Slug,
             Name = rental.UserInfo.Name,
@@ -27,7 +27,7 @@ public static class RentalMapper
         };
     }
 
-    public static Rental ToRentalClientExists(this RentalMessage dto, ClientInfo userInfo)
+    public static Rental ToRentalClientExists(this MessageMgmConfirmed dto, ClientInfo userInfo)
     {
         return new Rental
         {
@@ -41,7 +41,7 @@ public static class RentalMapper
         };
     }
 
-    public static Rental ToRental(this RentalMessage dto)
+    public static Rental ToRental(this MessageMgmConfirmed dto)
     {
         // TODO: It's temporary object, it's important to check if such user is in our database or not.
         // Mati: Done, I believe.

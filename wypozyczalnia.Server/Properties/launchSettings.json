@@ -17,7 +17,14 @@
         "applicationUrl": "http://localhost:5076",
         "environmentVariables": {
           "ASPNETCORE_ENVIRONMENT": "Development",
-          "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy"
+          "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy",
+          "RABBIT_HOST" : "localhost",
+          "RABBIT_PASSWORD" : "guest",
+          "RABBIT_USERNAME" : "guest",
+          "JWT_KEY" : "JWTAuthenticationHIGHsecuredPasswordVVVp1OH7Xzyr",
+          "JWT_ISSUER" : "http://localhost:5000/",
+          "JWT_AUDIENCE" : "http://localhost:4200/",
+          "ConnectionStrings__Devconnection": "Server=localhost;Database=rentalTest2;Uid=sa;Pwd=cL9UkLz8B77hyP;TrustServerCertificate=True;"
         }
       },
       "IIS Express": {
