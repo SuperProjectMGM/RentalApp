@@ -1,0 +1,17 @@
+<h2 mat-dialog-title class="dialog-title">Rental History for VIN: {{ vin }}</h2>
+<mat-dialog-content class="dialog-content">
+  <div *ngIf="rentalHistory.length === 0" class="no-history">No rental history available.</div>
+  <div *ngIf="rentalHistory.length > 0">
+    <ul class="rental-list">
+      <li *ngFor="let rental of rentalHistory" class="rental-item">
+        <div><strong>Date start:</strong> {{ rental.start }}</div>
+        <div><strong>Date end:</strong> {{ rental.end }}</div>
+        <div><strong>Slug:</strong> {{ rental.slug }}</div>
+        <div><strong>Status:</strong> {{ rental.status }}</div>
+      </li>
+    </ul>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button class="close-btn" (click)="close()">Close</button>
+</mat-dialog-actions>

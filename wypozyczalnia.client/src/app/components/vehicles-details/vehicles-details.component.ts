@@ -7,6 +7,8 @@ import { CommonModule } from '@angular/common';
 import { VehicleDetailFormComponent } from '../vehicle-detail-form/vehicle-detail-form.component';
 import { RentalRequestsComponent } from '../rental-requests/rental-requests.component';
 import { ReturnRequestsComponent } from '../return-requests/return-requests.component';
+import { MatDialog } from '@angular/material/dialog';
+import { VehicleHistoryModalComponent } from '../vehicle-history-modal/vehicle-history-modal.component';
 
 @Component({
   selector: 'app-vehicles-details',
@@ -28,7 +30,8 @@ export class VehiclesDetailsComponent implements OnInit {
 
   constructor(
     public service: VehicleDetailService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -93,5 +96,12 @@ export class VehiclesDetailsComponent implements OnInit {
 
   onVehicleUpdated() {
     this.filterList();
+  }
+
+  onShowHistory(vin: string): void {
+    this.dialog.open(VehicleHistoryModalComponent, {
+      width: '600px',
+      data: vin,
+    });
   }
 }

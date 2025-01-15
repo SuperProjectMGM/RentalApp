@@ -10,6 +10,8 @@ import { VehicleDetailFormComponent } from './components/vehicle-detail-form/veh
 import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { LoginComponent } from './components/login/login.component';
+import { VehicleHistoryModalComponent } from './components/vehicle-history-modal/vehicle-history-modal.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [],
@@ -24,6 +26,7 @@ import { LoginComponent } from './components/login/login.component';
     BrowserAnimationsModule,
     AppComponent,
     ToastrModule.forRoot(),
+    MatDialogModule,
   ],
   providers: [],
 })
