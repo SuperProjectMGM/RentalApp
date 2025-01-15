@@ -2,12 +2,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.SqlTypes;
-using System.Data.SqlTypes;
 
 namespace wypozyczalnia.Server.Models
 {
-    // TODO: rename to vehicle
-    // Mati: whatt??
     public class Vehicle
     {
         public int VehicleId { get; set; }
@@ -23,9 +20,7 @@ namespace wypozyczalnia.Server.Models
         public string DriveType { get; set; } = string.Empty;
         public string Transmission { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public string Type { get; set; } = string.Empty;
-        
-        // TODO: Think what should be here
+        public string Type { get; set; } = string.Empty;        
         public int Rate { get; set; }
         public string Localization { get; set; } = string.Empty;
         public string PhotoUrl { get; set; } = string.Empty;

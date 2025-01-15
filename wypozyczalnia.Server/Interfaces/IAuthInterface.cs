@@ -8,4 +8,5 @@ public interface IAuthInterface
     public Task<IdentityResult> CreateNewUser(RegisterModel model);
     public string? GetToken(IdentityUser user);
     public Task<string?> CheckLogin(LoginModel model);
+    public string? ReturnIdFromToken(string token);
 }

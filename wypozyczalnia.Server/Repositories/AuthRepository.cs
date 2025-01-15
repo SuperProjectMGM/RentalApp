@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using wypozyczalnia.Server.Interfaces;
+using wypozyczalnia.Server.Models;
 
 namespace wypozyczalnia.Server.Repositories;
 
@@ -14,11 +15,14 @@ public class AuthRepository: IAuthInterface
 {
     private readonly UserManager<IdentityUser> _userManager;
     private readonly IConfiguration _configuration;
-    public AuthRepository(UserManager<IdentityUser> userManager, IConfiguration configuration)
+    private readonly AppDbContext _context;
+    public AuthRepository(UserManager<IdentityUser> userManager, IConfiguration configuration, AppDbContext context)
     {
+        _context = context;
         _userManager = userManager;
         _configuration = configuration;
     }
+    // TODO: Change creating employees, now only identity users are createed
     public async Task<IdentityResult> CreateNewUser(RegisterModel model)
     {
         var user = new IdentityUser 
@@ -26,6 +30,7 @@ public class AuthRepository: IAuthInterface
             UserName = model.Email, Email = model.Email
         };
         var result = await _userManager.CreateAsync(user, model.Password);
+
         return result;
     }
 
@@ -43,7 +48,9 @@ public class AuthRepository: IAuthInterface
         {
             Subject = new ClaimsIdentity(claims),
             Expires = DateTime.UtcNow.AddMinutes(15),
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+            Issuer = _configuration["JWT_ISSUER"],
+            Audience = _configuration["JWT_AUDIENCE"]
         };
         var token = tokenHandler.CreateToken(tokenDescriptor);
         return tokenHandler.WriteToken(token);
@@ -60,5 +67,24 @@ public class AuthRepository: IAuthInterface
             return null;
 
         return GetToken(user);
-    } 
+    }
+
+    public string? ReturnIdFromToken(string token)
+    {
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var key = Encoding.UTF8.GetBytes(_configuration["JWT_KEY"]!);
+        var claimsPrincipal = tokenHandler.ValidateToken(token, new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            ValidIssuer = _configuration["JWT_ISSUER"],
+            ValidAudience = _configuration["JWT_AUDIENCE"]
+        }, out SecurityToken validatedToken);
+        var id = claimsPrincipal.FindFirst(ClaimTypes.NameIdentifier)?.Value!;
+        return id;
+    }
+
 }

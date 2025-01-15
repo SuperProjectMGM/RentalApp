@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Mvc;
 using wypozyczalnia.Server.Interfaces;
 using wypozyczalnia.Server.Models;
@@ -39,9 +40,10 @@ public class RentalController : ControllerBase
 
     [HttpPut("accept-pending-rental-to-return/{rentalId}")]
     public async Task<IActionResult> AcceptPendingRentalToReturn([FromRoute] int rentalId,
-    [FromQuery] string photoUrl)
+    [FromQuery] string photoUrl, [FromQuery] string employeeDescription, [FromQuery] string token)
     {
-        var succeed = await _rentalRepo.AddPhotoToRental(rentalId, photoUrl);
+        var succeed = await _rentalRepo.AddEmployeeInfos(rentalId, token, employeeDescription);
+        succeed = succeed && await _rentalRepo.AddPhotoToRental(rentalId, photoUrl);
         if (!succeed)
             return BadRequest("Can't add photo!");
         succeed = await _rentalRepo.AcceptReturnOfRental(rentalId);
