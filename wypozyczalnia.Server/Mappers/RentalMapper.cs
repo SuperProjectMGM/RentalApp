@@ -4,33 +4,11 @@ using wypozyczalnia.Server.DTOs;
 using wypozyczalnia.Server.Models;
 public static class RentalMapper
 {
-    public static MessageMgmConfirmed ToRentalMessage(this Rental rental)
-    {
-        return new MessageMgmConfirmed
-        {
-            Slug = rental.Slug,
-            Name = rental.UserInfo.Name,
-            Surname = rental.UserInfo.Surname,
-            BirthDate = rental.UserInfo.BirthDate,
-            LicenseNumber = rental.UserInfo.LicenseNumber,
-            DrivingLicenseIssueDate = rental.UserInfo.DrivingLicenseIssueDate,
-            PersonalNumber = rental.UserInfo.PersonalNumber,
-            City = rental.UserInfo.City,
-            StreetAndNumber = rental.UserInfo.StreetAndNumber,
-            PostalCode = rental.UserInfo.PostalCode,
-            PhoneNumber = rental.UserInfo.PhoneNumber, 
-            Vin = rental.Vin,
-            Start = rental.Start,
-            End = rental.End,
-            Status = rental.Status,
-            Description = rental.Description
-        };
-    }
-
-    public static Rental ToRentalClientExists(this MessageMgmConfirmed dto, ClientInfo userInfo)
+    public static Rental ToRentalClientExists(this Confirmed dto, ClientInfo userInfo)
     {
         return new Rental
         {
+            BrowserProviderIdentifier = dto.BrowserProviderIdentifier,
             Slug = dto.Slug,
             UserInfo = userInfo,
             Vin = dto.Vin,
@@ -41,10 +19,8 @@ public static class RentalMapper
         };
     }
 
-    public static Rental ToRental(this MessageMgmConfirmed dto)
+    public static Rental ToRental(this Confirmed dto)
     {
-        // TODO: It's temporary object, it's important to check if such user is in our database or not.
-        // Mati: Done, I believe.
         ClientInfo userInfo = new ClientInfo
         {
             City = dto.City,
@@ -61,6 +37,7 @@ public static class RentalMapper
 
         return new Rental
         {
+            BrowserProviderIdentifier = dto.BrowserProviderIdentifier,
             Slug = dto.Slug,
             UserInfo = userInfo,
             Vin = dto.Vin,
@@ -73,7 +50,7 @@ public static class RentalMapper
 
     public static RentalDTO ToDto(this Rental rental)
     {
-        var a = new RentalDTO
+        return new RentalDTO
         {
             RentalId = rental.RentalId,
             Slug = rental.Slug,
@@ -87,6 +64,5 @@ public static class RentalMapper
             Description = rental.Description,
             PhotoUrl = rental.PhotoUrl
         };
-        return a;
     }
 }

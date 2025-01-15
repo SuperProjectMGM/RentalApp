@@ -2,8 +2,9 @@ using wypozyczalnia.Server.Messages;
 using wypozyczalnia.Server.Models;
 namespace wypozyczalnia.Server.DTOs;
 
-public class MessageMgmConfirmed : MessageMgm
+public class Confirmed
 {
+    public string BrowserProviderIdentifier { get; set; } = string.Empty;
     public string Slug { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
     public string Surname { get; set; } = string.Empty;

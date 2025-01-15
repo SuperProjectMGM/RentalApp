@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using wypozyczalnia.Server.BrowserProviders;
 using wypozyczalnia.Server.DTOs;
 using wypozyczalnia.Server.Interfaces;
+using wypozyczalnia.Server.Messages;
 using wypozyczalnia.Server.Models;
 using wypozyczalnia.Server.Services;
 using JsonSerializer = System.Text.Json.JsonSerializer;
@@ -18,7 +19,7 @@ public class RentalRepository : IRentalInterface
         _context = context;
     }
     
-    public async Task StoreRental(MessageMgmConfirmed mess)
+    public async Task StoreRental(Confirmed mess)
     {
         var clientPersonalNumber = mess.PersonalNumber;
         var clientInfo = await _context.ClientInfos.FirstOrDefaultAsync(x => x.PersonalNumber == clientPersonalNumber);
@@ -37,15 +38,14 @@ public class RentalRepository : IRentalInterface
         await _context.SaveChangesAsync();
     }
 
-    // public async Task RentToReturn(MessageMgmConfirmed mess)
-    // {
-    //     var rental = await _context.Rentals.FirstOrDefaultAsync(x => x.Slug == mess.Slug);
-    //     if (rental == null)
-    //         throw new Exception("Client not found in DB");
-    //     // change status
-    //     rental.Status = RentalStatus.WaitingForReturnAcceptance;
-    //     await _context.SaveChangesAsync();
-    // }
+    public async Task RentToReturn(UserReturn mess)
+    {
+        var rental = await _context.Rentals.FirstOrDefaultAsync(x => x.Slug == mess.Slug);
+        if (rental == null)
+            throw new Exception("Client not found in DB");
+        rental.Status = RentalStatus.WaitingForReturnAcceptance;
+        await _context.SaveChangesAsync();
+    }
 
     public async Task<List<Rental>> GetRentalsToReturnAcceptance()
     {
@@ -61,17 +61,31 @@ public class RentalRepository : IRentalInterface
         return ret;
     }
 
-    // public async Task<bool> AcceptReturnOfRental(int rentId)
-    // {
-    //     var rent = await _context.Rentals.FirstOrDefaultAsync(x => x.RentalId == rentId);
-    //     if (rent == null)
-    //         return false;
-    //
-    //     rent.Status = RentalStatus.Returned;
-    //     await _context.SaveChangesAsync();
-    //
-    //     return await SendRentalReturnAcceptedMessage(rent);
-    // }
+    public async Task<bool> AcceptReturnOfRental(int rentId)
+    {
+        var rent = await _context.Rentals.FirstOrDefaultAsync(x => x.RentalId == rentId);
+        if (rent == null)
+            return false;
+
+        var vehicle = await _context.Vehicles.FirstOrDefaultAsync(x => x.Vin == rent.Vin);
+        if (vehicle == null)
+            return false;
+        
+        rent.Status = RentalStatus.Returned;
+        await _context.SaveChangesAsync();
+
+        var provider = BrowserAdapterFactory.CreateBrowser(rent.BrowserProviderIdentifier, _messageService);
+        try
+        {
+            await provider.AcceptReturn(rent, vehicle);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error while accepting return: {ex.Message}");
+        }
+
+        return true;
+    }
     
     public async Task<List<Rental>> GetPendingRentals()
     {

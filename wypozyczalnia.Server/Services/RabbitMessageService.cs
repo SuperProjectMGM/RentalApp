@@ -84,8 +84,7 @@ public class RabbitMessageService
                 throw new Exception("Message corrupted.");
             using var scope = _serviceProvider.CreateScope();
             var rentalInterface = scope.ServiceProvider.GetRequiredService<IMessageHandlerInterface>();
-            MessageMgm mess = JsonSerializer.Deserialize<MessageMgm>(message)!;
-            await rentalInterface.ProcessMessage(mess, message);
+            await rentalInterface.ProcessMessage(message);
         }
         catch (Exception ex)
         {

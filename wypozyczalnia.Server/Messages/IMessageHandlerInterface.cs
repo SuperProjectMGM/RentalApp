@@ -4,5 +4,5 @@ namespace wypozyczalnia.Server.Interfaces;
 
 public interface IMessageHandlerInterface
 {
-    public Task ProcessMessage(MessageMgm decisionMsg, string serializedMsg);
+    public Task ProcessMessage(string serializedMsg);
 }

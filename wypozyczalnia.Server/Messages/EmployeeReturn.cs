@@ -1,6 +1,7 @@
 namespace wypozyczalnia.Server.Messages;
 
-public class MessageMgmCompleted : MessageMgm
+public class EmployeeReturn
 {
     public string Slug { get; set; } = string.Empty;
+    public float PaymentDue { get; set; }
 }

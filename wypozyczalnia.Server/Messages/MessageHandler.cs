@@ -2,6 +2,7 @@ using System.Text.Json;
 using wypozyczalnia.Server.DTOs;
 using wypozyczalnia.Server.Interfaces;
 using wypozyczalnia.Server.Messages;
+
 namespace wypozyczalnia.Server.Repositories;
 
 public class MessageHandler : IMessageHandlerInterface
@@ -14,15 +15,24 @@ public class MessageHandler : IMessageHandlerInterface
         _rentalRepo = rentalRepo;
     }
 
-    public async Task ProcessMessage(MessageMgm decisionMsg, string serializedMsg)
+    public async Task ProcessMessage(string serializedMess)
     {
-        switch (decisionMsg.MessageType)
+        var msgWrap = JsonSerializer.Deserialize<MessageWrapper>(serializedMess);
+        if (msgWrap is null)
+            throw new Exception("Deserialized message corrupted.");
+        switch (msgWrap.Type)
         {
-            case MessageType.UserConfirmedRental:
-                var msg = JsonSerializer.Deserialize<MessageMgmConfirmed>(serializedMsg);
-                if (msg is null)
-                    throw new Exception("Deserialized confirmation message corrupted.");
-                await _rentalRepo.StoreRental(msg);
+            case MessageType.Confirmed:
+                var confirmed = JsonSerializer.Deserialize<Confirmed>(msgWrap.Message);
+                if (confirmed == null)
+                    throw new Exception("Confirmation message corrupted.");
+                await _rentalRepo.StoreRental(confirmed);
+                break;
+            case MessageType.UserReturn:
+                var userReturn = JsonSerializer.Deserialize<UserReturn>(msgWrap.Message);
+                if (userReturn == null)
+                    throw new Exception("Return message corrupted.");
+                await _rentalRepo.RentToReturn(userReturn);
                 break;
             default:
                 throw new KeyNotFoundException("Unknown message type.");

@@ -1,4 +1,5 @@
 C:/Users/Grzesiu/OneDrive/Pulpit/Rentalapp/RentalApp/wypozyczalnia.client/obj/Debug/wypozyczalnia.client.esproj.CoreCompileInputs.cache
-C:\Users\Mike Shamrai\Desktop\Polibuda\Dotnet5sem\RentalApp\wypozyczalnia.client\obj\Debug\wypozyczalnia.client.esproj.CoreCompileInputs.cache
-C:\Users\Mike Shamrai\Desktop\Polibuda\Dotnet5sem\Rental\RentalApp\wypozyczalnia.client\obj\Debug\wypozyczalnia.client.esproj.CoreCompileInputs.cache
-C:\Users\Grzesiu\OneDrive\Pulpit\dotnet\wypozyczalnia\RentalApp\wypozyczalnia.client\obj\Debug\wypozyczalnia.client.esproj.CoreCompileInputs.cache
+C:/Users/Mike Shamrai/Desktop/Polibuda/Dotnet5sem/RentalApp/wypozyczalnia.client/obj/Debug/wypozyczalnia.client.esproj.CoreCompileInputs.cache
+C:/Users/Mike Shamrai/Desktop/Polibuda/Dotnet5sem/Rental/RentalApp/wypozyczalnia.client/obj/Debug/wypozyczalnia.client.esproj.CoreCompileInputs.cache
+C:/Users/Grzesiu/OneDrive/Pulpit/dotnet/wypozyczalnia/RentalApp/wypozyczalnia.client/obj/Debug/wypozyczalnia.client.esproj.CoreCompileInputs.cache
+/Users/mateuszmikiciuk/RiderProjects/dotNET2024z/RentalApp/wypozyczalnia.client/obj/Debug/wypozyczalnia.client.esproj.CoreCompileInputs.cache

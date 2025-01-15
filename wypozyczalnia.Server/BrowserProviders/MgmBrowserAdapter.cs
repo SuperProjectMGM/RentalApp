@@ -18,4 +18,9 @@ public class MgmBrowserAdapter : IBrowserAdapterInterface
     {
         await _adaptee.RentalCompleted(rental);
     }
+
+    public async Task AcceptReturn(Rental rental, Vehicle vehicle)
+    {
+        await _adaptee.AcceptReturn(rental, vehicle);
+    }
 }
