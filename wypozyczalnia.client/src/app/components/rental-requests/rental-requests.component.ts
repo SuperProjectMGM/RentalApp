@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RentalService } from '../../services/rental.service';
-import {Rental} from "../../shared/rental-requests.model";
+import { Rental } from '../../shared/rental-requests.model';
 
 @Component({
   selector: 'app-rental-requests',
@@ -40,6 +40,7 @@ export class RentalRequestsComponent {
         console.error(`Error approving request with ID ${id}:`, error);
       },
     });
+    this.refreshRequests();
   }
 
   // Reject a rental request

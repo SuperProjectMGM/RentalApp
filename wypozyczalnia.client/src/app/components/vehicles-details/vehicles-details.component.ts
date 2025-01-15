@@ -7,6 +7,8 @@ import { CommonModule } from '@angular/common';
 import { VehicleDetailFormComponent } from '../vehicle-detail-form/vehicle-detail-form.component';
 import { RentalRequestsComponent } from '../rental-requests/rental-requests.component';
 import { ReturnRequestsComponent } from '../return-requests/return-requests.component';
+import { MatDialog } from '@angular/material/dialog';
+import { VehicleHistoryModalComponent } from '../vehicle-history-modal/vehicle-history-modal.component';
 
 @Component({
   selector: 'app-vehicles-details',
@@ -18,33 +20,57 @@ import { ReturnRequestsComponent } from '../return-requests/return-requests.comp
     FormsModule,
     VehicleDetailFormComponent,
     RentalRequestsComponent,
-    ReturnRequestsComponent
+    ReturnRequestsComponent,
   ],
 })
 export class VehiclesDetailsComponent implements OnInit {
   searchTerm: string = '';
   filteredList: VehicleDetail[] = [];
+  currentFilter: string = 'all'; // Domyślny filtr ('all' lub 'rented')
 
   constructor(
     public service: VehicleDetailService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
     this.service.refreshList();
     setTimeout(() => {
-      this.filteredList = this.service.list; // Ustaw pełną listę po odświeżeniu
-    }, 100); // Opóźnienie, aby upewnić się, że dane są załadowane
+      this.filteredList = this.service.list;
+      this.filterList();
+    }, 100);
+  }
+
+  showAllCars() {
+    this.currentFilter = 'all';
+    this.filterList();
+  }
+
+  showRentedCars() {
+    this.currentFilter = 'rented';
+    this.filterList();
   }
 
   filterList() {
     const term = this.searchTerm.toLowerCase().trim();
     if (term === '') {
-      this.filteredList = this.service.list;
+      if (this.currentFilter == 'all') {
+        this.filteredList = this.service.list;
+      } else {
+        this.filteredList = this.service.rentlist;
+      }
     } else {
-      this.filteredList = this.service.list.filter((pd) =>
-        pd.vin.toLowerCase().startsWith(term)
-      );
+      if (this.currentFilter == 'all') {
+        this.filteredList = this.service.list.filter((pd) =>
+          pd.vin.toLowerCase().startsWith(term)
+        );
+      } else {
+        console.log('tutaj jestem dawaj wypozyczone: ', this.service.rentlist);
+        this.filteredList = this.service.rentlist.filter((pd) =>
+          pd.vin.toLowerCase().startsWith(term)
+        );
+      }
     }
   }
 
@@ -70,5 +96,12 @@ export class VehiclesDetailsComponent implements OnInit {
 
   onVehicleUpdated() {
     this.filterList();
+  }
+
+  onShowHistory(vin: string): void {
+    this.dialog.open(VehicleHistoryModalComponent, {
+      width: '600px',
+      data: vin,
+    });
   }
 }

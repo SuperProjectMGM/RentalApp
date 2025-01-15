@@ -28,7 +28,6 @@ body {
   padding: 0; /* Usuń domyślne odstępy */
 }
 
-
 .list-container {
   max-height: 700px;
   overflow-y: unset;
@@ -41,9 +40,47 @@ body {
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+  position: relative; /* Dodano, aby umożliwić pozycjonowanie */
+  padding-bottom: 70px; /* Dodatkowa przestrzeń dla przycisku */
 }
 
 .list-group-item:hover {
   transform: scale(1.03);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+button.show-history-btn {
+  position: relative; /* Relative dla poprawy umiejscowienia */
+  bottom: 0; /* Odsunięcie od dolnej krawędzi */
+  background-color: #007bff; /* Kolor przycisku */
+  color: white; /* Kolor tekstu */
+  border: none; /* Usuń obramowanie */
+  border-radius: 12px; /* Zaokrąglone krawędzie */
+  font-size: 0.9rem; /* Rozmiar tekstu */
+  font-weight: bold; /* Pogrubienie tekstu */
+  cursor: pointer; /* Wskaźnik kursora */
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); /* Cień */
+  padding: 10px 20px; /* Większe przyciski dla lepszej widoczności */
+  transition: all 0.3s ease; /* Efekt przejścia */
+}
+
+button.show-history-btn:hover {
+  background-color: #0056b3; /* Ciemniejszy kolor na hover */
+  transform: scale(1.05); /* Powiększenie na hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Mocniejszy cień na hover */
+}
+.delete-icon {
+  font-size: 1.5rem; /* Rozmiar ikony kosza */
+  margin-bottom: 5px; /* Odstęp między ikoną a przyciskiem */
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.delete-icon:hover {
+  color: #ff4d4d; /* Kolor na hover */
+  transform: scale(1.2); /* Powiększenie na hover */
+}
+
+
+.dynamic-dialog {
+  background-color: red !important; /* Jeśli widzisz czerwone tło, `panelClass` działa */
 }

@@ -21,7 +21,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IRentalInterface, RentalRepository>();
 builder.Services.AddScoped<IAuthInterface, AuthRepository>();
 builder.Services.AddScoped<IStorageInterface, AzureStorageRepository>();
-builder.Services.AddScoped<IMessageHandler, MessageHandler>();
+builder.Services.AddScoped<IMessageHandlerInterface, MessageHandler>();
 builder.Services.AddScoped<IVehicleInterface, VehicleRepository>();
 
 builder.Services.AddSingleton<RabbitMessageService>();

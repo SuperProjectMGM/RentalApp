@@ -1,15 +1,18 @@
 using System.Text;
+using System.Text.Json;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using wypozyczalnia.Server.Interfaces;
+using wypozyczalnia.Server.Messages;
+
 namespace wypozyczalnia.Server.Services;
 
 public class RabbitMessageService
 {
-    private readonly string _queueName = "messageBox";
+    private readonly string _queueName = "browserToRental";
 
-    private readonly string _queueName2 = "messageBox2";
+    private readonly string _queueName2 = "rentalToBrowser";
 
     private  IConnection? _connection;
 
@@ -35,9 +38,9 @@ public class RabbitMessageService
                 HostName = _configuration["RABBIT_HOST"]!,
                 Port = 5672,
                 UserName = _configuration["RABBIT_USERNAME"]!,
-                Password = _configuration["RABBIT_PASS"]!
+                Password = _configuration["RABBIT_PASSWORD"]!
             };
-
+            
             _connection = await factory.CreateConnectionAsync();
             _channel = await _connection.CreateChannelAsync();
             _channel2 = await _connection.CreateChannelAsync();
@@ -77,11 +80,11 @@ public class RabbitMessageService
         {
             var body = eventArgs.Body.ToArray();
             var message = Encoding.UTF8.GetString(body);
+            if (message is null)
+                throw new Exception("Message corrupted.");
             using var scope = _serviceProvider.CreateScope();
-            
-            // It is highly probable, that this code makes no sense. But for now I am too lazy to change it.
-            var messageHandler = scope.ServiceProvider.GetRequiredService<IMessageHandler>();
-            await messageHandler.ProcessMessage(message);
+            var rentalInterface = scope.ServiceProvider.GetRequiredService<IMessageHandlerInterface>();
+            await rentalInterface.ProcessMessage(message);
         }
         catch (Exception ex)
         {

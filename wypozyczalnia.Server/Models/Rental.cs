@@ -4,6 +4,7 @@ namespace wypozyczalnia.Server.Models;
 
 public class Rental
 {
+    public string BrowserProviderIdentifier { get; set; } = string.Empty; 
     public int RentalId { get; set; }
     public string Slug { get; set; } = string.Empty;
     public ClientInfo UserInfo { get; set; } = new ClientInfo();

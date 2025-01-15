@@ -58,20 +58,21 @@ export class ReturnRequestsComponent implements OnInit {
     }
   }
 
-
-
-
   confirmApprove(): void {
     if (this.selectedRequest && this.approveData.image) {
-        // Wywołanie approveReturnRequest() z obsługą subskrypcji
-        this.returnService.approveReturnRequest(this.selectedRequest.rentalId, this.approveData.image);
-        console.log(`Approved request for rentalId ${this.selectedRequest.rentalId}`);
-        this.refreshRequests(); // Refresh the requests after successful approval
-        this.closeApproveModal(); // Close the modal after approval
+      this.returnService.approveReturnRequest(
+        this.selectedRequest.rentalId,
+        this.approveData.image
+      );
+      console.log(
+        `Approved request for rentalId ${this.selectedRequest.rentalId}`
+      );
+      this.closeApproveModal();
+      this.refreshRequests();
     } else {
-        console.error('Selected request or photo is missing.');
+      console.error('Selected request or photo is missing.');
     }
-}
+  }
 
   rejectRequest(id: number) {
     this.returnService.rejectReturnRequest(id).subscribe({

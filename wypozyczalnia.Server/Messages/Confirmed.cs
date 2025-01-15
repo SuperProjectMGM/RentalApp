@@ -1,10 +1,10 @@
+using wypozyczalnia.Server.Messages;
 using wypozyczalnia.Server.Models;
 namespace wypozyczalnia.Server.DTOs;
 
-public class RentalMessage
+public class Confirmed
 {
-    public MessageType MessageType { get; set; }
-        
+    public string BrowserProviderIdentifier { get; set; } = string.Empty;
     public string Slug { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
     public string Surname { get; set; } = string.Empty;
@@ -23,10 +23,3 @@ public class RentalMessage
     public string Description { get; set; } = string.Empty;
 }
 
-public enum MessageType
-{
-    RentalMessageConfirmation = 0,
-    RentalMessageCompletion = 1,
-    RentalToReturn = 2,
-    RentalAcceptedToReturn = 3
-}
