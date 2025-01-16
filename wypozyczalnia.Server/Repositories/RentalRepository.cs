@@ -46,6 +46,9 @@ public class RentalRepository : IRentalInterface
         if (rental == null)
             throw new Exception("Client not found in DB");
         rental.Status = RentalStatus.WaitingForReturnAcceptance;
+        rental.ReturnLongtitude = mess.Longtitude;
+        rental.ReturnLatitude = mess.Latitude;
+        rental.ReturnClientDescription = mess.Description;
         await _context.SaveChangesAsync();
     }
 

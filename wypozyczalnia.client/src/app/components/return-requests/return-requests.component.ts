@@ -62,7 +62,8 @@ export class ReturnRequestsComponent implements OnInit {
     if (this.selectedRequest && this.approveData.image) {
       this.returnService.approveReturnRequest(
         this.selectedRequest.rentalId,
-        this.approveData.image
+        this.approveData.image,
+        this.approveData.description
       );
       console.log(
         `Approved request for rentalId ${this.selectedRequest.rentalId}`

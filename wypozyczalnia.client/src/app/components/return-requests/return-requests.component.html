@@ -24,6 +24,16 @@
       <div class="rental-info">
         <i class="fa-solid fa-calendar-check"></i> <strong>Requested To:</strong> {{ request.end | date: 'dd/MM/yyyy' }}
       </div>
+      <div class="rental-info">
+        <i class="fa-solid fa-map-marker-alt"></i> 
+        <strong>Return Location:</strong> 
+        Latitude: {{ request.returnLatitude }}, Longitude: {{ request.returnLongtitude }}
+      </div>
+      <div class="rental-info">
+        <i class="fa-solid fa-comment"></i> 
+        <strong>Client Description:</strong> 
+        {{ request.returnClientDescription || 'No description provided' }}
+      </div>
     </div>
     <hr>
       <!-- Action Buttons -->

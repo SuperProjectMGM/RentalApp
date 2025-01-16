@@ -18,4 +18,7 @@ export interface Rental {
   status: RentalStatus;
   description: string;
   photoUrl:string;
+  returnLatitude:string;
+  returnLongtitude:string;
+  returnClientDescription:string;
 }

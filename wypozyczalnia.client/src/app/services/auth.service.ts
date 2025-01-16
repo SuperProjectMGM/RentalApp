@@ -22,7 +22,9 @@ export class AuthService {
         tap((response) => {
           if (response && response.token) {
             localStorage.setItem('loggedIn', 'true'); // Ustawienie flagi logowania
-            console.log('ustawiono falge');
+
+            localStorage.setItem('token', response.token);
+            console.log(localStorage.getItem('token'));
           }
         })
       );

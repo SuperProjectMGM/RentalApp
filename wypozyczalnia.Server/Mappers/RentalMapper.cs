@@ -16,10 +16,7 @@ public static class RentalMapper
             End = dto.End,
             Status = dto.Status,
             Description = dto.Description,
-            Price = dto.Price,
-            ReturnLatitude = dto.ReturnLatitude,
-            ReturnLongtitude = dto.ReturnLongtitude,
-            ReturnClientDescription = dto.ReturnClientDescription        
+            Price = dto.Price
         };
     }
 

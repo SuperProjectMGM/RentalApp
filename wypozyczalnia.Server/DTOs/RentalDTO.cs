@@ -15,7 +15,7 @@ public class RentalDTO
     public RentalStatus Status { get; set; }
     public string Description { get; set; } = string.Empty;
     public string? PhotoUrl { get; set; } = null; 
-    public float? ReturnLatitude { get; set; } = null;
+    public float? ReturnLatitude { get; set; } = 100;
     public float? ReturnLongtitude { get; set; } = null;
     public string? ReturnClientDescription { get; set; } = null;
 }
