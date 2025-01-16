@@ -10,7 +10,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 
 bootstrapApplication(AppComponent, {
   providers: [
-    provideRouter([]), // Tutaj wpisz swoje trasy
+    provideRouter([]),
     importProvidersFrom(
       HttpClientModule,
       BrowserAnimationsModule,

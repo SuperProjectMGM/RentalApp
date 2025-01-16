@@ -2,8 +2,6 @@ namespace wypozyczalnia.Server.Models;
 
 public class ClientInfo
 {
-    // ?? How does it work, when I create a new object?
-    // Mati: yes
     public int ClientInfoId { get; set; }
     public string Name { get; set; } = string.Empty;
     public string Surname { get; set; } = string.Empty;

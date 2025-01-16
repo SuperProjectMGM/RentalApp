@@ -16,12 +16,10 @@ public class AzureStorageRepository: IStorageInterface
         _connectionString = _configuration["AZURE_CONNECTION_STRING"]!;
     }
 
-    // Should I use await?
     public async Task<Uri> GetUriToStorage(string containerName)
     {
         var blobContainerClient = new BlobContainerClient(_connectionString, containerName);
 
-        // Should I specify here containers name?
         var blobSasBuilder = new BlobSasBuilder(BlobContainerSasPermissions.Read | BlobContainerSasPermissions.Write | BlobContainerSasPermissions.Create
         | BlobContainerSasPermissions.Add, DateTimeOffset.Now.AddMinutes(10));
         blobSasBuilder.Resource = "c";

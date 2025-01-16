@@ -1,4 +1,3 @@
-
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -22,7 +21,6 @@ public class AuthRepository: IAuthInterface
         _userManager = userManager;
         _configuration = configuration;
     }
-    // TODO: Change creating employees, now only identity users are createed
     public async Task<IdentityResult> CreateNewUser(RegisterModel model)
     {
         var user = new IdentityUser 

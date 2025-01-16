@@ -16,7 +16,7 @@ import { Rental } from '../../shared/rental-requests.model';
   styleUrl: './vehicle-history-modal.component.css',
 })
 export class VehicleHistoryModalComponent implements OnInit {
-  rentalHistory: Rental[] = []; // Lista historii wynajmu
+  rentalHistory: Rental[] = [];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public vin: string,
@@ -28,7 +28,6 @@ export class VehicleHistoryModalComponent implements OnInit {
     this.service.getRentalHistory(this.vin).subscribe({
       next: (data) => {
         this.rentalHistory = data;
-        console.log(this.rentalHistory);
       },
       error: (err) => {
         console.error('Failed to load rental history:', err);

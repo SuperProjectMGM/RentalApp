@@ -12,7 +12,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: '**', redirectTo: '/login' }, // Przekierowanie w przypadku nieznanej ścieżki
+  { path: '**', redirectTo: '/login' },
 ];
 
 @NgModule({

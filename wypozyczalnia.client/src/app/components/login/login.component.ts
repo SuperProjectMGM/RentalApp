@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service'; // Zmiana na poprawny import
+import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
 export class LoginComponent {
   email: string = '';
   password: string = '';
-  errorMessage: string = ''; // Zmienna na komunikaty błędów
+  errorMessage: string = '';
   isLoading: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) {}
@@ -23,8 +23,8 @@ export class LoginComponent {
     this.isLoading = true;
     this.authService.login(this.email, this.password).subscribe({
       next: (response) => {
-        localStorage.setItem('loggedIn', 'true'); // Ustaw flagę zalogowania
-        this.router.navigate(['/protected']); // Przekierowanie do chronionej strony
+        localStorage.setItem('loggedIn', 'true');
+        this.router.navigate(['/protected']);
         this.isLoading = false;
       },
       error: (err) => {

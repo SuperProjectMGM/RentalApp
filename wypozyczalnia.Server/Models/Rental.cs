@@ -13,7 +13,6 @@ public class Rental
     public DateTime End { get; set; }
     public RentalStatus Status { get; set; }
     public string Description { get; set; } = string.Empty;
-    // If no employee is added than field is empty
     public string EmployeeId { get; set; } = string.Empty;
     public decimal Price { get; set; }
     public string? PhotoUrl { get; set; } = null;

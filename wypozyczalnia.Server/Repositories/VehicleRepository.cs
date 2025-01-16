@@ -31,13 +31,11 @@ public class VehicleRepository : IVehicleInterface
         if (!await CheckIfVehicleExists(vin))
             return false;
 
-        // I've checked if vehicle exists before, now can Find
         Vehicle? veh = await FindVehicle(vin);
 
         try
         {
-            // Why it works only this way, even method with ref doesn't apply chagnes
-            veh.Brand = vehicle.Brand;
+            veh!.Brand = vehicle.Brand;
             veh.Model = vehicle.Model;
             veh.YearOfProduction = vehicle.YearOfProduction;
             veh.Type = vehicle.Type;
@@ -54,7 +52,6 @@ public class VehicleRepository : IVehicleInterface
         }
         catch
         {
-            // Here must be log
             return false;
         }
     }

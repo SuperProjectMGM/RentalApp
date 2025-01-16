@@ -17,8 +17,8 @@ import { AzureBlobStorageService } from '../../services/azure-blob-storage.servi
 })
 export class VehicleDetailFormComponent {
   @Output() vehicleUpdated = new EventEmitter<void>();
-  selectedPhoto: File | null = null; // Przechowuje wybrane zdjęcie
-  photoPreviewUrl: string | null = null; // For the image preview
+  selectedPhoto: File | null = null;
+  photoPreviewUrl: string | null = null;
 
 
   BaseUrl = environment.apiBaseUrl;
@@ -45,11 +45,9 @@ export class VehicleDetailFormComponent {
   }
 
   private uploadPhotoAndSubmit(form: NgForm, folder: string): void {
-    // Krok 1: Pobierz link do przesyłania zdjęcia
     this.http.get<{ sasUrl: string }>(`${this.BaseUrl}/Storage/vehicles`).subscribe({
       next: (response) => {
         const uploadUrl = response.sasUrl;
-        // Krok 2: Wyślij zdjęcie do Azure Blob Storage
         if (this.selectedPhoto) {
           this.blobService.uploadImage(uploadUrl, folder, this.selectedPhoto, this.selectedPhoto.name, this.service.refreshList)
           this.service.formData.photoUrl = `${uploadUrl.split('?')[0]}/${folder}/${this.selectedPhoto.name}`;
@@ -96,13 +94,12 @@ export class VehicleDetailFormComponent {
   onPhotoSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
-      this.selectedPhoto = input.files[0]; // Store selected photo
+      this.selectedPhoto = input.files[0];
       const reader = new FileReader();
       reader.onload = () => {
-        this.photoPreviewUrl = reader.result as string; // Generate image preview
+        this.photoPreviewUrl = reader.result as string;
       };
       reader.readAsDataURL(this.selectedPhoto);
-      console.log('Selected photo:', this.selectedPhoto);
     }
   }
 }

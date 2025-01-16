@@ -5,19 +5,17 @@ import {environment} from "../../environments/environment";
 import {Rental} from "../shared/rental-requests.model";
 
 @Injectable({
-  providedIn: 'root', // This makes the service available application-wide
+  providedIn: 'root',
 })
 export class RentalService {
-  private readonly apiBaseUrl = environment.apiBaseUrl + "/Rental"; // Replace with your API URL
+  private readonly apiBaseUrl = environment.apiBaseUrl + "/Rental";
 
   constructor(private http: HttpClient) {}
 
-  // Fetch rental requests (GET request)
   getRentalRequests(): Observable<any[]> {
     return this.http.get<Rental[]>(`${this.apiBaseUrl}/pending-rentals`);
   }
 
-  // Approve rental request (PUT request)
   approveRentalRequest(id: string): Observable<void> {
       return this.http.put<void>(
       `${this.apiBaseUrl}/accept-rental/${id}`,
@@ -25,7 +23,6 @@ export class RentalService {
     );
   }
 
-  // Reject rental request (PUT request)
   rejectRentalRequest(id: number): Observable<void> {
     return this.http.put<void>(
       `${this.apiBaseUrl}/rental-requests/${id}/reject`,

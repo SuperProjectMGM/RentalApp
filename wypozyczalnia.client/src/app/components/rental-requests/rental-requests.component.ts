@@ -12,11 +12,10 @@ import { Rental } from '../../shared/rental-requests.model';
   styleUrls: ['./rental-requests.component.scss'],
 })
 export class RentalRequestsComponent {
-  rentalRequests: Rental[] = []; // Store rental requests
+  rentalRequests: Rental[] = [];
 
   constructor(private rentalService: RentalService) {}
 
-  // Fetch rental requests
   refreshRequests() {
     this.rentalService.getRentalRequests().subscribe({
       next: (data) => {
@@ -29,7 +28,6 @@ export class RentalRequestsComponent {
     });
   }
 
-  // Approve a rental request
   approveRequest(id: string) {
     this.rentalService.approveRentalRequest(id).subscribe({
       next: () => {
@@ -43,7 +41,6 @@ export class RentalRequestsComponent {
     this.refreshRequests();
   }
 
-  // Reject a rental request
   rejectRequest(id: number) {
     this.rentalService.rejectRentalRequest(id).subscribe({
       next: () => {

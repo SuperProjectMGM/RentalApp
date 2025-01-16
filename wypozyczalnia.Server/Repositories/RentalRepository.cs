@@ -55,7 +55,6 @@ public class RentalRepository : IRentalInterface
     public async Task<List<Rental>> GetRentalsToReturnAcceptance()
     {
         List<Rental> ret = new List<Rental>();
-        // This include is important, why?
         var tmp = await _context.Rentals.Include(r => r.UserInfo).ToListAsync();
         foreach (var rent in tmp)
         {

@@ -21,7 +21,7 @@ export class AuthService {
       .pipe(
         tap((response) => {
           if (response && response.token) {
-            localStorage.setItem('loggedIn', 'true'); // Ustawienie flagi logowania
+            localStorage.setItem('loggedIn', 'true');
 
             localStorage.setItem('token', response.token);
             console.log(localStorage.getItem('token'));
@@ -35,13 +35,12 @@ export class AuthService {
       .post(`${this.apiUrl}/logout`, {}, { withCredentials: true })
       .pipe(
         tap(() => {
-          localStorage.removeItem('loggedIn'); // Usunięcie flagi logowania
+          localStorage.removeItem('loggedIn');
         })
       );
   }
 
   isAuthenticated(): boolean {
-    // Tu możesz w przyszłości dodać logikę sprawdzającą sesję
     if (localStorage.getItem('loggedIn') == 'true') {
       return true;
     }

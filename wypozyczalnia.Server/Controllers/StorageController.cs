@@ -19,7 +19,6 @@ public class StorageController: ControllerBase
     //[Authorize]
     public async Task<ActionResult<string>> GetSasUriVehicles()
     {
-        // It's hardcoded
         var uri = await _storageRepo.GetUriToStorage("vehicles");
         return Ok(new { sasUrl = uri.ToString() });
     }

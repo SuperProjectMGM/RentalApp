@@ -22,22 +22,18 @@ export class ReturnService {
   }
 
   approveReturnRequest(id: string, photo: File | null, description: string){
-    // Step 1: Get SAS URL
     this.http.get<{ sasUrl: string }>(`${this.apiBaseUrl}/Storage/rentals`).subscribe({
         next: (response) => {
             const uploadUrl = response.sasUrl;
             console.log('SAS URL:', uploadUrl);
 
-            // Step 2: Upload the image
             this.blobService.uploadImage(uploadUrl, 'rentalstmp', photo!, photo!.name, () => {});
-                // Step 3: Approve the return after the image upload completes
                 const url = `${uploadUrl.split('?')[0]}/rentalstmp/${photo!.name}`;
                 console.log('Uploaded file URL:', url);
                 let token = localStorage.getItem('token');
                 console.log(token);
                 if(!token) token = "";
 
-                // Step 4: Make PUT request to approve the rental return
                 return this.http.put<void>(
                     `${this.apiBaseUrl}/Rental/accept-pending-rental-to-return/${id}?photoUrl=${encodeURIComponent(url)}&employeeDescription=${encodeURIComponent(description)}&token=${encodeURIComponent(token)}`,
                     null

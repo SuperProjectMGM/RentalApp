@@ -26,7 +26,7 @@ import { VehicleHistoryModalComponent } from '../vehicle-history-modal/vehicle-h
 export class VehiclesDetailsComponent implements OnInit {
   searchTerm: string = '';
   filteredList: VehicleDetail[] = [];
-  currentFilter: string = 'all'; // Domyślny filtr ('all' lub 'rented')
+  currentFilter: string = 'all';
 
   constructor(
     public service: VehicleDetailService,
@@ -48,6 +48,7 @@ export class VehiclesDetailsComponent implements OnInit {
   }
 
   showRentedCars() {
+    this.service.rentlist = [];
     this.currentFilter = 'rented';
     this.filterList();
   }
@@ -66,7 +67,6 @@ export class VehiclesDetailsComponent implements OnInit {
           pd.vin.toLowerCase().startsWith(term)
         );
       } else {
-        console.log('tutaj jestem dawaj wypozyczone: ', this.service.rentlist);
         this.filteredList = this.service.rentlist.filter((pd) =>
           pd.vin.toLowerCase().startsWith(term)
         );
