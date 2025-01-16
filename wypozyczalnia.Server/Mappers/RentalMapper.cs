@@ -15,7 +15,8 @@ public static class RentalMapper
             Start = dto.Start,
             End = dto.End,
             Status = dto.Status,
-            Description = dto.Description        
+            Description = dto.Description,
+            
         };
     }
 

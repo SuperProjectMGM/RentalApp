@@ -1,6 +1,8 @@
 using System.Text.Json;
+using wypozyczalnia.Server.BrowserProviders;
 using wypozyczalnia.Server.DTOs;
 using wypozyczalnia.Server.Interfaces;
+using wypozyczalnia.Server.Mappers;
 using wypozyczalnia.Server.Messages;
 
 namespace wypozyczalnia.Server.Repositories;
@@ -38,4 +40,17 @@ public class MessageHandler : IMessageHandlerInterface
                 throw new KeyNotFoundException("Unknown message type.");
         }
     }
+
+    public async Task ProcessExternalConfirm(ConfirmedExternal externalMessage)
+    {
+        var confirmed = externalMessage.ExternalToConfirmed();
+        await _rentalRepo.StoreRental(confirmed);
+    }
+
+    public async Task ProcessExternalReturn(UserReturnExternal externalMessage)
+    {
+        var userReturn = externalMessage.ExternalToUserReturn();
+        await _rentalRepo.RentToReturn(userReturn);
+    }
+    
 }

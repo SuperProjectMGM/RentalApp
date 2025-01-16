@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using wypozyczalnia.Server.DTOs;
 using wypozyczalnia.Server.Interfaces;
 using wypozyczalnia.Server.Models;
 
@@ -9,9 +10,11 @@ namespace wypozyczalnia.Server.Controllers;
 public class RentalController : ControllerBase
 {
     private readonly IRentalInterface _rentalRepo;
-    public RentalController(IRentalInterface rentalRepo)
+    private readonly IMessageHandlerInterface _messageHandler;
+    public RentalController(IRentalInterface rentalRepo, IMessageHandlerInterface messageHandler)
     {
         _rentalRepo = rentalRepo;
+        _messageHandler = messageHandler;
     }
 
     [HttpGet("pending-rentals")]
@@ -48,5 +51,35 @@ public class RentalController : ControllerBase
         if (!succeed)
             return BadRequest("Something went wrong in accepting a rental");
         return Ok(new { message = "Rental return accepted." });
+    }
+
+    [HttpPost("external-api-rent-offer")]
+    public async Task<IActionResult> ExternalApiOffer([FromBody] ConfirmedExternal dto)
+    {
+        try
+        {
+            await _messageHandler.ProcessExternalConfirm(dto);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Error while processing external confirmation message: {e.Message}");
+        }
+
+        return Ok();
+    }
+
+    [HttpPost("external-api-rental-return")]
+    public async Task<IActionResult> ExternalApiReturn([FromBody] UserReturnExternal dto)
+    {
+        try
+        {
+            await _messageHandler.ProcessExternalReturn(dto);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Error while processing external return message: {e.Message}");
+        }
+
+        return Ok();
     }
 }
