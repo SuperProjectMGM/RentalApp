@@ -30,15 +30,10 @@ public class MgmBrowser
         await _messageService.SendMessage(jsonWrap);
     }
 
-    public async Task AcceptReturn(Rental rental, Vehicle vehicle)
+    public async Task AcceptReturn(Rental rental)
     {
-        // Calculate due, every started day counts 
-        int days = rental.End.Day - rental.Start.Day + 1;
-        float due = vehicle.Price * days;
-        
         var msg = new EmployeeReturn
         {
-            PaymentDue = due,
             Slug = rental.Slug
         };
         var jsonStr = JsonSerializer.Serialize(msg);

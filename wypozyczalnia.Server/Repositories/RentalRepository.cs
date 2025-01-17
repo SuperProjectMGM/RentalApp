@@ -13,26 +13,37 @@ public class RentalRepository : IRentalInterface
 {
     private readonly RabbitMessageService _messageService;
     private readonly AppDbContext _context;
-    public RentalRepository(AppDbContext context, RabbitMessageService messageService)
+    private readonly HttpClient _httpClient;
+    
+    public RentalRepository(AppDbContext context, RabbitMessageService messageService, HttpClient httpClient)
     {
         _messageService = messageService;
         _context = context;
+        _httpClient = httpClient;
     }
     
     public async Task StoreRental(Confirmed mess)
     {
         var clientPersonalNumber = mess.PersonalNumber;
         var clientInfo = await _context.ClientInfos.FirstOrDefaultAsync(x => x.PersonalNumber == clientPersonalNumber);
+
+        Rental? rental = null;
         
         if (clientInfo != null)
         {
-           var rental = mess.ToRentalClientExists(clientInfo);
+           rental = mess.ToRentalClientExists(clientInfo);
            await _context.Rentals.AddAsync(rental);
         }
         else
         {
-            var rental = mess.ToRental();
+            rental = mess.ToRental();
             await _context.Rentals.AddAsync(rental);
+        }
+        
+        if (rental.BrowserProviderIdentifier == "EKJCO")
+        {
+            var browser = new EjkBrowser(_httpClient);
+            await browser.RentalCompleted(rental);
         }
 
         await _context.SaveChangesAsync();
@@ -43,7 +54,6 @@ public class RentalRepository : IRentalInterface
         var rental = await _context.Rentals.FirstOrDefaultAsync(x => x.Slug == mess.Slug);
         if (rental == null)
             throw new Exception("Client not found in DB");
-        rental.Status = RentalStatus.WaitingForReturnAcceptance;
         await _context.SaveChangesAsync();
     }
 
@@ -74,10 +84,10 @@ public class RentalRepository : IRentalInterface
         rent.Status = RentalStatus.Returned;
         await _context.SaveChangesAsync();
 
-        var provider = BrowserAdapterFactory.CreateBrowser(rent.BrowserProviderIdentifier, _messageService);
+        var provider = BrowserAdapterFactory.CreateBrowser(rent.BrowserProviderIdentifier, _messageService, _httpClient);
         try
         {
-            await provider.AcceptReturn(rent, vehicle);
+            await provider.AcceptReturn(rent);
         }
         catch (Exception ex)
         {
@@ -105,10 +115,11 @@ public class RentalRepository : IRentalInterface
         var rental = await _context.Rentals.FirstOrDefaultAsync(x => x.RentalId == rentalId);
         if (rental is null)
             return false;
-        rental.Status = RentalStatus.Completed;
-        await _context.SaveChangesAsync();
+
+        if (rental.Status == RentalStatus.Completed)
+            return true;
         
-        var browser = BrowserAdapterFactory.CreateBrowser(rental.BrowserProviderIdentifier, _messageService);
+        var browser = BrowserAdapterFactory.CreateBrowser(rental.BrowserProviderIdentifier, _messageService, _httpClient);
         try
         {
             await browser.RentalCompleted(rental);
@@ -117,6 +128,9 @@ public class RentalRepository : IRentalInterface
         {
             throw new Exception($"Rental acceptance failed: {ex.Message}");
         }
+        
+        rental.Status = RentalStatus.Completed;
+        await _context.SaveChangesAsync();
 
         return true;
     }

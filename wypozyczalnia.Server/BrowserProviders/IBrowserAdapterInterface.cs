@@ -6,5 +6,5 @@ public interface IBrowserAdapterInterface
 {
     public Task RentalCompleted(Rental rental);
 
-    public Task AcceptReturn(Rental rental, Vehicle vehicle);
+    public Task AcceptReturn(Rental rental);
 }

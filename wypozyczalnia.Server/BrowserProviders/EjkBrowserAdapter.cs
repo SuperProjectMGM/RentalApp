@@ -1,17 +1,15 @@
-using Microsoft.CodeAnalysis.Elfie.Serialization;
 using wypozyczalnia.Server.Models;
-using wypozyczalnia.Server.Services;
 
 namespace wypozyczalnia.Server.BrowserProviders;
 
-public class MgmBrowserAdapter : IBrowserAdapterInterface
+public class EjkBrowserAdapter : IBrowserAdapterInterface
 {
+    private readonly EjkBrowser _adaptee;
 
-    private readonly MgmBrowser _adaptee;
-    
-    public MgmBrowserAdapter(RabbitMessageService rabbit)
+
+    public EjkBrowserAdapter(HttpClient httpClient)
     {
-        _adaptee = new MgmBrowser(rabbit);
+        _adaptee = new EjkBrowser(httpClient);
     }
     
     public async Task RentalCompleted(Rental rental)

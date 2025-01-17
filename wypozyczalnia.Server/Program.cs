@@ -23,7 +23,7 @@ builder.Services.AddScoped<IAuthInterface, AuthRepository>();
 builder.Services.AddScoped<IStorageInterface, AzureStorageRepository>();
 builder.Services.AddScoped<IMessageHandlerInterface, MessageHandler>();
 builder.Services.AddScoped<IVehicleInterface, VehicleRepository>();
-
+builder.Services.AddHttpClient<IRentalInterface, RentalRepository>();
 builder.Services.AddSingleton<RabbitMessageService>();
 
 
