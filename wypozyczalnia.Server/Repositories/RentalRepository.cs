@@ -54,6 +54,7 @@ public class RentalRepository : IRentalInterface
         var rental = await _context.Rentals.FirstOrDefaultAsync(x => x.Slug == mess.Slug);
         if (rental == null)
             throw new Exception("Client not found in DB");
+        rental.Status = RentalStatus.WaitingForReturnAcceptance;
         await _context.SaveChangesAsync();
     }
 
